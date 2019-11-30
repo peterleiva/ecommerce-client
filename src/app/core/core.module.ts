@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
+import { LayoutModule } from '../layout/layout.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,9 @@ import { CoreComponent } from './core.component';
   ],
   imports: [
     CommonModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    LayoutModule,
+    SharedModule
   ],
   exports: [],
   providers: []

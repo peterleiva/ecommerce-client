@@ -1,0 +1,20 @@
+@import 'main';
+
+#container {
+  @include padding-rhythm(0 1);
+}
+
+fa-icon {
+  cursor: pointer;
+}
+
+.logo fa-icon {
+  color: pick-color(primary);
+}
+
+.icons {
+  fa-icon {
+    @include margin-rhythm(0 1);
+    @include text-component-rhythm(lg);
+  }
+}

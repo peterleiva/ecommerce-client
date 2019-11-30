@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { faLeaf, faSearch, faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  template: `
-    Hello Core Compent.
-    <router-outlet></router-outlet>
-  `
+  templateUrl: './core.component.html',
+  styleUrls: ['./core.component.scss']
 })
-export class CoreComponent {}
+export class CoreComponent {
+  faLeaf = faLeaf;
+  faSearch = faSearch;
+  faConfig = faCog;
+  faCart = faShoppingCart;
+}

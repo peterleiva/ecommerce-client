@@ -1,0 +1,15 @@
+<app-header>
+  <div class="header-item logo text-center">
+    <a href="/"><fa-icon [icon]="faLeaf" size="3x" rotate="45"></fa-icon></a>
+  </div>
+  <div class="header-item icons text-center">
+    <fa-icon [icon]="faSearch"></fa-icon>
+    <fa-icon [icon]="faConfig"></fa-icon>
+    <fa-icon [icon]="faCart"></fa-icon>
+  </div>
+  <app-navbar class="header-item navbar"></app-navbar>
+</app-header>
+<main id="container">
+  <router-outlet></router-outlet>
+</main>
+<!-- <app-footer></app-footer> -->
