@@ -1,0 +1,42 @@
+@import 'main';
+
+:host {
+  background: pick-color(light);
+  display: flex;
+  flex-direction: column;
+
+  // aplica grid a partir desse breakpoint
+  @include breakpoint(breakpoint-name(bulldog)) {
+    display: grid;
+    grid-template-areas: 'logo icons'
+                         'navbar navbar';
+
+  }
+
+  @include breakpoint(breakpoint-name(dobermann)) {
+    grid-template-areas: 'navbar logo icons'
+  }
+
+  ::ng-deep {
+
+    .header-item {
+
+      @include padding-rhythm(1);
+
+      &.navbar {
+        grid-area: navbar;
+      }
+
+      &.logo {
+        grid-area: logo;
+
+      }
+
+      &.icons {
+        grid-area: icons;
+      }
+
+    }
+
+  }
+}
