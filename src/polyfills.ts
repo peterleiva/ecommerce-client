@@ -61,3 +61,9 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+/**
+ * for angular2-jsonapi
+ * @see https://github.com/ghidoz/angular2-jsonapi#Introduction
+ */
+import 'core-js/proposals/reflect-metadata';
