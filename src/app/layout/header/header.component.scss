@@ -8,6 +8,7 @@
   // aplica grid a partir desse breakpoint
   @include breakpoint(breakpoint-name(bulldog)) {
     display: grid;
+    align-items: center;
     grid-template-areas: 'logo icons'
                          'navbar navbar';
 
@@ -21,7 +22,7 @@
 
     .header-item {
 
-      @include padding-rhythm(1);
+      @include padding-rhythm(.5 1);
 
       &.navbar {
         grid-area: navbar;

@@ -7,7 +7,8 @@
     <fa-icon [icon]="faConfig"></fa-icon>
     <fa-icon [icon]="faCart"></fa-icon>
   </div>
-  <app-navbar class="header-item navbar"></app-navbar>
+  <app-navbar class="header-item navbar" [menu]="menu">
+  </app-navbar>
 </app-header>
 <main id="container">
   <router-outlet></router-outlet>

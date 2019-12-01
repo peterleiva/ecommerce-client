@@ -1,2 +1,12 @@
-<fa-icon [icon]="faMenu" size="2x" (click)="toggle()"></fa-icon>
-<!-- barra de navegação -->
+<div class="text-right">
+  <fa-icon [icon]="faMenu" size="2x" (click)="toggle()"></fa-icon>
+</div>
+<nav [appCollapsible]="true">
+  <ul class="list-column" *ngIf="menu">
+    <li *ngFor="let item of menu.items" class="inline-list">
+      <a [routerLink]="item.link" class="list-item-grow">{{ item.title }}</a>
+      <a><fa-icon [icon]="faAdd" *ngIf="item.subItems"></fa-icon></a>
+    </li>
+    <!-- subitems se existir -->
+  </ul>
+</nav>

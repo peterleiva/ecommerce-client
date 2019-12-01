@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './header/header.component';
@@ -10,7 +11,8 @@ import { NavbarComponent } from './header/navbar/navbar.component';
     NavbarComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,

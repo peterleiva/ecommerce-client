@@ -2,19 +2,29 @@
 
 :host {
 
-  @include breakpoint(max-width breakpoint-name(bulldog)) {
+  @include breakpoint(max-width breakpoint-name(dobermann) - 1) {
     background: pick-color(primary);
     color: pick-color(light);
-    text-align: right;
   }
 
   fa-icon {
     cursor: pointer;
 
-
     // esconde menu
-    @include breakpoint(breakpoint-name(bulldog)) {
+    @include breakpoint(breakpoint-name(dobermann)) {
       display: none;
+    }
+  }
+
+  nav ul {
+    > li {
+      @include margin-rhythm(.25 0);
+      color: pick-color(accent);
+      background: pick-color(light);
+
+      a {
+        @include padding-rhythm(.5);
+      }
     }
   }
 }

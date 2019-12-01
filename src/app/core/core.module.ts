@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { CoreRoutingModule } from './core-routing.module';
-import { CoreComponent } from './core.component';
-import { LayoutModule } from '../layout/layout.module';
 import { SharedModule } from '../shared/shared.module';
+import { CoreRoutingModule } from './core-routing.module';
+import { LayoutModule } from '../layout/layout.module';
+import { CoreComponent } from './core.component';
 
 @NgModule({
   declarations: [
     CoreComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     CoreRoutingModule,
     LayoutModule,
-    SharedModule
   ],
   exports: [],
   providers: []
