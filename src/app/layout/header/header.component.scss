@@ -30,11 +30,12 @@
 
       &.logo {
         grid-area: logo;
-
+        @include breakpoint(breakpoint-name(bulldog)) { justify-self: left }
       }
 
       &.icons {
         grid-area: icons;
+        @include breakpoint(breakpoint-name(bulldog)) { justify-self: right }
       }
 
     }

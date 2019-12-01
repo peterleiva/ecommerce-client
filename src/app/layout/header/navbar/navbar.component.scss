@@ -18,7 +18,7 @@
 
   nav ul {
     > li {
-      @include margin-rhythm(.25 0);
+      border-bottom: rem(1) solid dark(light);
       color: pick-color(accent);
       background: pick-color(light);
 

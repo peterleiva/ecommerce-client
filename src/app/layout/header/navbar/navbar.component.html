@@ -4,7 +4,7 @@
 <nav [appCollapsible]="true">
   <ul class="list-column" *ngIf="menu">
     <li *ngFor="let item of menu.items" class="inline-list">
-      <a [routerLink]="item.link" class="list-item-grow">{{ item.title }}</a>
+      <a [routerLink]="item.link" class="list-item-grow">{{ item.title | titlecase }}</a>
       <a><fa-icon [icon]="faAdd" *ngIf="item.subItems"></fa-icon></a>
     </li>
     <!-- subitems se existir -->
