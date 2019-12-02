@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Category } from '../models/category.model';
+import { Product } from '../models/product.model';
 
 const config: DatastoreConfig = {
   baseUrl: 'http://localhost:3000/api',
   models: {
-    categories: Category
+    categories: Category,
+    products: Product
   }
 };
 

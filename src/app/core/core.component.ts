@@ -19,6 +19,6 @@ export class CoreComponent implements OnInit {
   constructor(private navbarService: HeaderNavbarService) { }
 
   ngOnInit() {
-    this.menu = this.navbarService.navbar;
+    this.navbarService.navbarStream.subscribe(navbar => this.menu = navbar);
   }
 }

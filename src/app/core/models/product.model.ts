@@ -14,5 +14,5 @@ export class Product extends JsonApiModel {
 
   @BelongsTo() category: Category;
 
-  @HasMany() tags: Tag[];
+  // @HasMany() tags: Tag[];
 }

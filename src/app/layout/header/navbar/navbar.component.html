@@ -3,9 +3,14 @@
 </div>
 <nav [appCollapsible]="true">
   <ul class="list-column" *ngIf="menu">
-    <li *ngFor="let item of menu.items" class="inline-list">
-      <a [routerLink]="item.link" class="list-item-grow">{{ item.title | titlecase }}</a>
-      <a><fa-icon [icon]="faAdd" *ngIf="item.subItems"></fa-icon></a>
+    <li *ngFor="let item of menu.items">
+      <div class="inline-list">
+        <a [routerLink]="item.link" class="list-item-grow">{{ item.title | titlecase }}</a>
+        <a><fa-icon [icon]="faAdd" *ngIf="item.subItems && item.subItems.length > 0"></fa-icon></a>
+      </div>
+      <div class="list-column">
+        <a [routerLink]="subitem.link" *ngFor="let subitem of item.subItems">{{ subitem.title | titlecase }}</a>
+      </div>
     </li>
     <!-- subitems se existir -->
   </ul>
