@@ -6,7 +6,17 @@ import { CoreComponent } from './core.component';
 const routes: Routes = [
   {
     path: '',
-    component: CoreComponent
+    component: CoreComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('../home/home.module').then(mod => mod.HomeModule),
+      },
+      {
+        path: 'produtos',
+        loadChildren: () => import('../products/products.module').then(mod => mod.ProductsModule)
+      }
+    ]
   }
 ];
 
