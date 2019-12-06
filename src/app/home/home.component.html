@@ -1,0 +1,11 @@
+<section>
+  <h1>Home component top-level</h1>
+
+  <div *ngIf="products$ | async as products; else loading">
+    <app-products-catalog [products]="products"></app-products-catalog>
+  </div>
+</section>
+
+<ng-template #loading>
+  <p> <fa-icon [icon]="faSpinner" [spin]="true"></fa-icon> Produtos estão sendo carregados...</p>
+</ng-template>
