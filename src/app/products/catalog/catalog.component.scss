@@ -1,0 +1,18 @@
+@import 'main';
+
+$gallery-gap: measure-lines-rhythm(1);
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(breakpoint-name(bulldog)) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $gallery-gap;
+  }
+
+  @include breakpoint(breakpoint-name(dobermann)) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

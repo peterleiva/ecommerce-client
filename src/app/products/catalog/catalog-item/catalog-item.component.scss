@@ -1,0 +1,117 @@
+@import 'main';
+
+$border-radius: measure-lines-rhythm(.7);
+$price-color: pick-color(success);
+
+:host {
+
+  .cover img {
+    width: 100%;
+  }
+
+  &.list {
+    display: flex;
+
+    .actions {
+      @include opacity(active);
+    }
+  }
+
+  &.grid {
+    border-radius: $border-radius;
+    position: relative;
+
+    &:hover {
+      // box-shadow: 0 0 rem(17) rem(3) $shadow-color;
+
+      .actions {
+        @include opacity(active);
+        top: 20%;
+        transition: all .8s;
+      }
+    }
+
+    .actions {
+      @include opacity(hidden);
+      @include z;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      text-align: center;
+
+      > button {
+        background: pick-color(light, $opacity: .9);
+        @include padding-rhythm(.5 1);
+        @include margin-rhythm(0 1/10);
+        color: darker(light);
+
+        $opts-btn-radius: rem(10);
+
+        &.action-center {
+          border-radius: 0;
+        }
+
+        &.action-right {
+          border-top-right-radius: $opts-btn-radius;
+          border-bottom-right-radius: $opts-btn-radius;
+        }
+
+        &.action-left {
+          border-top-left-radius: $opts-btn-radius;
+          border-bottom-left-radius: $opts-btn-radius;
+        }
+
+        &:hover {
+          background: pick-color(success);
+          color: pick-color(light, $opacity: light);
+          transition: all .4s;
+
+        }
+      }
+    }
+
+    .cover {
+      position: relative;
+
+      img {
+        border-radius: $border-radius $border-radius 0 0;
+      }
+    }
+
+    .details {
+      @include padding-rhythm(.5 0);
+
+      a:hover, .price {
+        color: $price-color;
+        transition: color .4s;
+      }
+
+      .price {
+        @include margin-rhythm(.5 0);
+      }
+    }
+
+    &:hover {
+      &::after {
+        @include opacity(active);
+        @include translate(0, 0);
+        transition: all .6s;
+      }
+
+      transition: box-shadow 1s;
+    }
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 30%;
+      background: $price-color;
+      height: rem(2);
+      text-align: center;
+      position: absolute;
+      left: 35%;
+      bottom: 0;
+      @include opacity(hidden);
+      @include translate(-100%, 0);
+    }
+  }
+}
