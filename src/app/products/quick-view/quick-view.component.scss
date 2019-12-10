@@ -1,7 +1,6 @@
 @import "main";
 
 :host {
-  background: pick-color(light);
   height: 100%;
   @include padding-rhythm(1);
 

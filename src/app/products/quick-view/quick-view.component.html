@@ -12,6 +12,10 @@
   <h4 class="text-primary">{{ product.price.cents/100 | currency: product.price.currency_iso }}</h4>
   <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum id cum minima iure deleniti modi obcaecati? Consequatur cupiditate labore vitae, magni quasi nulla esse, totam unde at doloribus debitis alias.</p>
   <div class="classification">
-    <b>Categoria: </b><span>{{ product.category.name }}</span>
+    <b>Categoria: </b>
+    <span>
+      <!-- <a href="['/products']"></a> -->
+      {{ product.category.name || 'sem categoria' }}
+    </span>
   </div>
 </section>
