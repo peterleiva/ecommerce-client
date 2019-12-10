@@ -1,8 +1,9 @@
 import { Component, Input, ViewChild, EventEmitter, Output, OnInit } from '@angular/core';
-import { faBars, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar } from './navbar.model';
 import { CollapsibleDirective } from 'src/app/shared/directives/collapsible.directive';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',

@@ -1,29 +1,69 @@
 @import 'main';
 
+$background-color: pick-color(primary);
+$foreground-color: pick-color(light);
+
+// $nav-border-color: dark(light);
+$nav-border-color: $shadow-color;
+$nav-border-space: rem(1);
+$nav-background-color: pick-color(light);
+$nav-foreground-color: pick-color(accent);
+
 :host {
+  position: relative;
 
   @include breakpoint(max-width breakpoint-name(dobermann) - 1) {
-    background: pick-color(primary);
-    color: pick-color(light);
+    background: $background-color;
+    color: $foreground-color;
+  }
+
+  @include breakpoint(breakpoint-name(dobermann)) {
+    display: none;
   }
 
   fa-icon {
     cursor: pointer;
 
     // esconde menu
-    @include breakpoint(breakpoint-name(dobermann)) {
-      display: none;
-    }
   }
 
   nav ul {
     > li {
-      border-bottom: rem(1) solid dark(light);
+      $border-args: rem(1) solid $nav-border-color;
+      border-bottom: $border-args;
+      border-top: $border-args;
       color: pick-color(accent);
       background: pick-color(light);
 
       a {
         @include padding-rhythm(.5);
+      }
+    }
+  }
+
+  nav {
+    position: absolute;
+    transition: all 1s;
+    top: measure-lines-rhythm(2);
+    right: 0;
+    width: 90%;
+    border: 1px solid $nav-border-color;
+    box-shadow: rem(-2) rem(5) rem(5) rem(-4) $shadow-color;
+
+    &.collapsed {
+      @include translate(100%, 0);
+      transition: transform .75s;
+    }
+
+    .navItem {
+      position: relative;
+
+      .subItems {
+        transition: all 1s;
+
+        &.collapsed {
+          @extend .is-removed;
+        }
       }
     }
   }

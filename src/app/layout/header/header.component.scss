@@ -15,7 +15,8 @@
   }
 
   @include breakpoint(breakpoint-name(dobermann)) {
-    grid-template-areas: 'navbar logo icons'
+    grid-template-areas: 'navbar logo icons';
+    @include padding-rhythm(2 0); 
   }
 
   ::ng-deep {

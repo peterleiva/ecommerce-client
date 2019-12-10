@@ -1,17 +1,26 @@
-<div class="text-right">
-  <fa-icon [icon]="faMenu" size="2x" (click)="toggle()"></fa-icon>
+<div>
+  <div class="text-right">
+    <fa-icon [icon]="faMenu" size="2x" (click)="toggle()"></fa-icon>
+  </div>
+  <nav [appCollapsible]="true">
+    <ul class="list-column" *ngIf="menu">
+      <li *ngFor="let navItem of menu.items" class="navItem">
+        <div class="inline-list">
+          <a [routerLink]="navItem.link" class="list-item-grow">
+            {{ navItem.title | titlecase }}
+          </a>
+          <a *ngIf="navItem.subItems && navItem.subItems.length > 0" #collapseButton>
+            <fa-icon [icon]="faAdd"></fa-icon>
+          </a>
+        </div>
+        <ul class="list-column subItems">
+          <li *ngFor="let subItem of navItem.subItems">
+            <a [routerLink]="subItem.link">
+              {{ subItem.title | titlecase }}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 </div>
-<nav [appCollapsible]="true">
-  <ul class="list-column" *ngIf="menu">
-    <li *ngFor="let item of menu.items">
-      <div class="inline-list">
-        <a [routerLink]="item.link" class="list-item-grow">{{ item.title | titlecase }}</a>
-        <a><fa-icon [icon]="faAdd" *ngIf="item.subItems && item.subItems.length > 0"></fa-icon></a>
-      </div>
-      <div class="list-column">
-        <a [routerLink]="subitem.link" *ngFor="let subitem of item.subItems">{{ subitem.title | titlecase }}</a>
-      </div>
-    </li>
-    <!-- subitems se existir -->
-  </ul>
-</nav>
