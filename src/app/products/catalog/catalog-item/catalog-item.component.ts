@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { faExpandArrowsAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import { Product } from 'src/app/core/models/product.model';
-import { faExpandArrowsAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { ProductsQuickViewService } from 'src/app/core/services/products-quick-view.service';
 
 @Component({
   selector: 'app-products-catalog-item',
@@ -13,6 +14,7 @@ export class CatalogItemComponent {
   faExpand = faExpandArrowsAlt;
   faShoppingCart = faShoppingCart;
 
+  constructor(private quickViewService: ProductsQuickViewService) {}
 
   addToCart() {
     console.log('add to shopping cart');
@@ -23,6 +25,6 @@ export class CatalogItemComponent {
   }
 
   openQuickView() {
-    console.log('open quick view');
+    this.quickViewService.open(this.product);
   }
 }

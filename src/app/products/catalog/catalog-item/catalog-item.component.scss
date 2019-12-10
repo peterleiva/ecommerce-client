@@ -18,11 +18,10 @@ $price-color: pick-color(success);
   }
 
   &.grid {
-    border-radius: $border-radius;
     position: relative;
+    @include padding-rhythm(1 0);
 
     &:hover {
-      // box-shadow: 0 0 rem(17) rem(3) $shadow-color;
 
       .actions {
         @include opacity(active);
