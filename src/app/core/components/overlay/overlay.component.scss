@@ -1,0 +1,29 @@
+@import 'main';
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: pick-color(dark, $opacity: light);
+  @include padding-rhythm(2 3);
+  @include z(overlay);
+  animation: .6s fadeIn;
+
+
+  .container {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+      @include margin-rhythm(.5);
+      color: darker(light);
+    }
+  }
+}

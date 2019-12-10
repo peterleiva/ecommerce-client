@@ -1,0 +1,27 @@
+@import "main";
+
+:host {
+  background: pick-color(light);
+  height: 100%;
+  @include padding-rhythm(1);
+
+  @include breakpoint(breakpoint-name(bulldog)) {
+    display: flex;
+  }
+
+  .gallery {
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .information {
+    margin-left: 1.5rem;
+  }
+
+  .description {
+    @include margin-rhythm(1 0);
+  }
+
+}
