@@ -12,6 +12,6 @@
   </div>
   <div class="details">
     <h4 class="title">{{ product.title | titlecase }}</h4>
-    <h3 class="price text-success">{{ product.price.cents/100 | currency: product.price.currency_iso }}</h3>
+    <h3 class="price text-success">{{ product.price.cents/100 | currency : product.price.currency_iso : 'symbol' : '1.2-2' : 'pt'}}</h3>
   </div>
 </a>
