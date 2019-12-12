@@ -51,7 +51,7 @@ export class ProductsService {
    * @todo
    */
   getAll(): Observable<Product[]> {
-    return this.datastore.findAll(Product).pipe(
+    return this.datastore.findAll(Product, {include: ['category']}).pipe(
       map((products: JsonApiQueryData<Product>) => products.getModels())
     );
   }

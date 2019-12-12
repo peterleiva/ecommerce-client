@@ -9,6 +9,8 @@ import { Tag } from './tag.model';
 })
 export class Product extends JsonApiModel {
   @Attribute() title: string;
+  @Attribute({serializedName: 'detail-description'}) detailDescription: string;
+  @Attribute({serializedName: 'brief-description'}) briefDescription: string;
   @Attribute({serializedName: 'net-weight'}) netWeight: string;
   @Attribute() weight: string;
   @Attribute({serializedName: 'price'}) price: object;
