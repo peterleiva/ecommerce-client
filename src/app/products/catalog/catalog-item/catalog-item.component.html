@@ -1,17 +1,17 @@
 <div class="actions">
-  <button class="action-left" (click)="addToCart($event)">
+  <button class="action action-danger" (click)="addToCart($event)">
     <fa-icon [icon]="faShoppingCart" size="2x"></fa-icon>
   </button>
-  <button class="action-right" (click)="openQuickView()">
+  <button class="action action-info" (click)="openQuickView()">
     <fa-icon [icon]="faExpand" size="2x"></fa-icon>
   </button>
 </div>
-<a [routerLink]="['produtos', product.id]">
+<a [routerLink]="['produtos', product.id]" class="product">
   <div class="cover">
     <img alt="Capa do produto" [src]="product.cover">
   </div>
-  <div class="details text-center">
-    <a class="section-subtitle">{{ product.title | titlecase }}</a>
-    <h3 class="price">{{ product.price.cents/100 | currency: product.price.currency_iso }}</h3>
+  <div class="details">
+    <a class="title section-subtitle">{{ product.title | titlecase }}</a>
+    <h3 class="price text-success">{{ product.price.cents/100 | currency: product.price.currency_iso }}</h3>
   </div>
 </a>

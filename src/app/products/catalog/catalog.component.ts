@@ -2,6 +2,11 @@ import { Component, Input } from '@angular/core';
 
 import { Product } from 'src/app/core/models/product.model';
 
+export enum ViewMode {
+  GRID = 'grid',
+  LIST = 'list'
+}
+
 @Component({
   selector: 'app-products-catalog',
   templateUrl: './catalog.component.html',
@@ -9,5 +14,5 @@ import { Product } from 'src/app/core/models/product.model';
 })
 export class CatalogComponent {
   @Input() products: Product[];
-  viewMode: string;
+  @Input() view = ViewMode.LIST;
 }

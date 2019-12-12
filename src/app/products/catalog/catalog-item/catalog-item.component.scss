@@ -2,27 +2,129 @@
 
 $border-radius: measure-lines-rhythm(.7);
 $price-color: pick-color(success);
+$border-grid-radius: rem(7);
+$animation-duration: .4s;
 
 :host {
+  position: relative;
 
   .cover img {
     width: 100%;
   }
 
+  // bottom border when hover
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 30%;
+    background: $price-color;
+    height: rem(2);
+    text-align: center;
+    position: absolute;
+    left: 35%;
+    bottom: 0;
+    @include opacity(hidden);
+    @include translate(-100%, 0);
+  }
+
+  &:hover {
+    &::after {
+      @include opacity(active);
+      @include translate(0, 0);
+      transition: all .6s;
+    }
+
+    transition: box-shadow 1s;
+  }
+
+  .actions {
+
+    .action {
+      color: dark(light);
+      background: pick-color(light);
+
+      &:hover {
+        color: pick-color(light);
+        transition: all $animation-duration;
+
+        @include apply-colors using ($color-name) {
+          &.action-#{$color-name} {
+            background: pick-color($color-name);
+          }
+        }
+      }
+    }
+  }
+
+  .product {
+    > .details {
+      white-space: nowrap;
+
+      > .title {
+        &:hover {
+          color: $price-color;
+          transition: color .4s;
+        }
+      }
+    }
+
+  }
+
   &.list {
+    $border-radius: rem(7);
+
     display: flex;
+    box-shadow: 0 0 rem(8) 0 $shadow-color;
+    border-radius: $border-radius;
+
+    .product {
+      @include padding-rhythm(.5);
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      border-left: rem(1) solid $shadow-color;
+
+      .cover {
+        flex-shrink: 16;
+      }
+
+      .details {
+        @include padding-rhythm(0 1);
+
+        > .price {
+          margin-top: measure-lines-rhythm(1);
+        }
+      }
+    }
 
     .actions {
+      display: flex;
+      flex-direction: column;
       @include opacity(active);
+
+      > .action {
+        flex-grow: 1;
+        @include padding-rhythm(0 .5);
+
+        &:not(:last-child) {
+          border-bottom: rem(1) solid $shadow-color;
+        }
+
+        &:first-child {
+          border-top-left-radius: $border-radius;
+        }
+
+        &:last-child {
+          border-bottom-left-radius: $border-radius;
+        }
+      }
     }
   }
 
   &.grid {
-    position: relative;
     @include padding-rhythm(1 0);
 
     &:hover {
-
       .actions {
         @include opacity(active);
         top: 20%;
@@ -38,79 +140,36 @@ $price-color: pick-color(success);
       width: 100%;
       text-align: center;
 
-      > button {
-        background: pick-color(light, $opacity: .9);
+      > .action {
         @include padding-rhythm(.5 1);
         @include margin-rhythm(0 1/10);
-        color: darker(light);
 
-        $opts-btn-radius: rem(10);
+        $action-radius: rem(10);
 
-        &.action-center {
-          border-radius: 0;
+        &:first-child {
+          border-top-left-radius: $action-radius;
+          border-bottom-left-radius: $action-radius;
         }
 
-        &.action-right {
-          border-top-right-radius: $opts-btn-radius;
-          border-bottom-right-radius: $opts-btn-radius;
+        &:last-child {
+          border-top-right-radius: $action-radius;
+          border-bottom-right-radius: $action-radius;
         }
 
-        &.action-left {
-          border-top-left-radius: $opts-btn-radius;
-          border-bottom-left-radius: $opts-btn-radius;
-        }
-
-        &:hover {
-          background: pick-color(success);
-          color: pick-color(light, $opacity: light);
-          transition: all .4s;
-
-        }
       }
     }
 
     .cover {
       position: relative;
-
-      img {
-        border-radius: $border-radius $border-radius 0 0;
-      }
     }
 
     .details {
       @include padding-rhythm(.5 0);
-
-      a:hover, .price {
-        color: $price-color;
-        transition: color .4s;
-      }
+      text-align: center;
 
       .price {
         @include margin-rhythm(.5 0);
       }
-    }
-
-    &:hover {
-      &::after {
-        @include opacity(active);
-        @include translate(0, 0);
-        transition: all .6s;
-      }
-
-      transition: box-shadow 1s;
-    }
-    &::after {
-      content: "";
-      display: inline-block;
-      width: 30%;
-      background: $price-color;
-      height: rem(2);
-      text-align: center;
-      position: absolute;
-      left: 35%;
-      bottom: 0;
-      @include opacity(hidden);
-      @include translate(-100%, 0);
     }
   }
 }

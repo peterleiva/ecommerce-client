@@ -7,8 +7,10 @@ $gallery-gap: measure-lines-rhythm(1);
   flex-direction: column;
 
   app-products-catalog-item {
+    margin-bottom: measure-lines-rhythm(2);
 
     @include breakpoint(breakpoint-name(bulldog)) {
+      margin-bottom: 0;
       &:not(:nth-child(2n)) {
         border-right: rem(1) solid pick-color(dark, $opacity: divider);
       }
