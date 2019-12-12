@@ -11,7 +11,7 @@
     <img alt="Capa do produto" [src]="product.cover">
   </div>
   <div class="details">
-    <a class="title section-subtitle">{{ product.title | titlecase }}</a>
+    <h4 class="title">{{ product.title | titlecase }}</h4>
     <h3 class="price text-success">{{ product.price.cents/100 | currency: product.price.currency_iso }}</h3>
   </div>
 </a>

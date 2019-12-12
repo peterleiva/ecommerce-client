@@ -8,28 +8,42 @@ $gallery-gap: measure-lines-rhythm(1);
 
   app-products-catalog-item {
     margin-bottom: measure-lines-rhythm(2);
+  }
+
+  > .list {
+    @include breakpoint(breakpoint-name(dobermann)) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: $gallery-gap;
+      margin-bottom: 0;
+    }
+  }
+
+  > .grid {
+    app-products-catalog-item {
+
+      @include breakpoint(breakpoint-name(bulldog)) {
+        margin-bottom: 0;
+        &:not(:nth-child(2n)) {
+          border-right: rem(1) solid pick-color(dark, $opacity: divider);
+        }
+      }
+
+      @include breakpoint(breakpoint-name(dobermann)) {
+        &:not(:nth-child(4n)) {
+          border-right: rem(1) solid pick-color(dark, $opacity: divider);
+        }
+      }
+    }
 
     @include breakpoint(breakpoint-name(bulldog)) {
-      margin-bottom: 0;
-      &:not(:nth-child(2n)) {
-        border-right: rem(1) solid pick-color(dark, $opacity: divider);
-      }
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: $gallery-gap;
     }
 
     @include breakpoint(breakpoint-name(dobermann)) {
-      &:not(:nth-child(4n)) {
-        border-right: rem(1) solid pick-color(dark, $opacity: divider);
-      }
+      grid-template-columns: repeat(4, 1fr);
     }
-  }
-
-  @include breakpoint(breakpoint-name(bulldog)) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: $gallery-gap;
-  }
-
-  @include breakpoint(breakpoint-name(dobermann)) {
-    grid-template-columns: repeat(4, 1fr);
   }
 }

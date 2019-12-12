@@ -14,5 +14,5 @@ export enum ViewMode {
 })
 export class CatalogComponent {
   @Input() products: Product[];
-  @Input() view = ViewMode.LIST;
+  @Input() view = ViewMode.GRID;
 }

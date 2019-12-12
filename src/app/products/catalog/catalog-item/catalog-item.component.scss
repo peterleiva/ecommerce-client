@@ -49,7 +49,7 @@ $animation-duration: .4s;
 
         @include apply-colors using ($color-name) {
           &.action-#{$color-name} {
-            background: pick-color($color-name);
+            background: pick-color($color-name, $opacity: light);
           }
         }
       }
@@ -58,7 +58,6 @@ $animation-duration: .4s;
 
   .product {
     > .details {
-      white-space: nowrap;
 
       > .title {
         &:hover {
@@ -85,7 +84,11 @@ $animation-duration: .4s;
       border-left: rem(1) solid $shadow-color;
 
       .cover {
-        flex-shrink: 16;
+        flex-shrink: 1;
+
+        @include breakpoint(breakpoint-name(bulldog)) {
+          flex-shrink: 16;
+        }
       }
 
       .details {
