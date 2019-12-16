@@ -16,7 +16,7 @@
 
   @include breakpoint(breakpoint-name(dobermann)) {
     grid-template-areas: 'navbar logo icons';
-    @include padding-rhythm(2 0); 
+    @include padding-rhythm(2 0);
   }
 
   ::ng-deep {
@@ -32,6 +32,7 @@
       &.logo {
         grid-area: logo;
         @include breakpoint(breakpoint-name(bulldog)) { justify-self: left }
+        @include breakpoint(breakpoint-name(dobermann)) { justify-self: center }
       }
 
       &.icons {

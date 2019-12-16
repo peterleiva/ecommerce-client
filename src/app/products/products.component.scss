@@ -1,5 +1,9 @@
 @import 'main';
 
-app-page-entries-info, app-products-catalog {
-   @include margin-rhythm(1 0);
+:host {
+  min-height: measure-lines-rhythm(5);
+
+  app-page-entries-info, app-products-catalog {
+    @include margin-rhythm(1 0);
+  }
 }

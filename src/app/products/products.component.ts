@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { JsonApiQueryData } from 'angular2-jsonapi';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { ProductsService } from '../core/services/products.service';
 import { Product } from '../core/models/product.model';
@@ -14,6 +15,7 @@ import Pagination from '../core/models/pagination.model';
 export class ProductsComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
   products$: Observable<JsonApiQueryData<Product>>;
+  faSpinner = faSpinner;
 
   constructor(
     private productsService: ProductsService,
