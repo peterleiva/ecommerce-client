@@ -15,42 +15,8 @@ export class ProductsService {
 
   /**
    *
-   * @todo
-   */
-  // getbyCategory(category: Category): Observable<Product[]> {
-  //   return ;
-  // }
-  //
-  // /**
-  //  *
-  //  * @todo
-  //  */
-  // getFeatured(): Observable<Product[]> {
-  //   return null;
-  //
-  // }
-  //
-  // /**
-  //  * @todo
-  //  */
-  // getRandom(): Observable<Product[]> {
-  //   return null;
-  //
-  // }
-  //
-  // /**
-  //  * @todo
-  //  */
-  // getNewArrivals(): Observable<Product[]> {
-  //   return null;
-  //
-  // }
-
-  /**
-   * @todo
    */
   getAll(pagination = new Pagination()): Observable<JsonApiQueryData<Product>> {
-    console.log(pagination);
     return this.datastore.findAll(Product, {
       include: ['category'],
       page: {

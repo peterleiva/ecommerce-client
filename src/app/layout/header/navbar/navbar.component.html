@@ -1,8 +1,17 @@
-<div>
+<nav class="desktop-version">
+  <ul class="inline-list" *ngIf="menu">
+    <li *ngFor="let item of menu.items">
+      <a [routerLink]="item.link">{{ item.title }}</a>
+    </li>
+  </ul>
+</nav>
+<!-- big  -->
+
+<div class="navbar-mobile">
   <div class="text-right">
     <fa-icon [icon]="faMenu" size="2x" (click)="toggle()"></fa-icon>
   </div>
-  <nav [appCollapsible]="true">
+  <nav [appCollapsible]="true" (click)="toggle()">
     <ul class="list-column" *ngIf="menu">
       <li *ngFor="let navItem of menu.items" class="navItem">
         <div class="inline-list">

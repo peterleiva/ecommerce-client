@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './header/navbar/navbar.component';
+import { HeaderNavbarService } from './services/header-navbar.service';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,9 @@ import { NavbarComponent } from './header/navbar/navbar.component';
   imports: [
     SharedModule,
     RouterModule
+  ],
+  providers: [
+    HeaderNavbarService
   ],
   exports: [
     HeaderComponent,
