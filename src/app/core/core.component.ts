@@ -4,10 +4,10 @@ import { tap } from 'rxjs/operators';
 import { faLeaf, faSearch, faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar } from '../layout/header/navbar/navbar.model';
-import { HeaderNavbarService } from './services/header-navbar.service';
 import { Product } from './models/product.model';
 import { ProductsQuickViewService } from './services/products-quick-view.service';
 import { OverlayComponent } from './components/overlay/overlay.component';
+import { HeaderNavbarService } from '../layout/services/header-navbar.service';
 
 @Component({
   templateUrl: './core.component.html',

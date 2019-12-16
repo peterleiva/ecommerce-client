@@ -1,9 +1,14 @@
-import { Component, Input, ViewChild, EventEmitter, Output, OnInit } from '@angular/core';
-import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  Input,
+  ViewChild,
+  EventEmitter,
+  Output,
+  OnInit } from '@angular/core';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar } from './navbar.model';
 import { CollapsibleDirective } from 'src/app/shared/directives/collapsible.directive';
-import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +21,6 @@ export class NavbarComponent implements OnInit {
   @Output() expanded: EventEmitter<void>;
 
   faMenu = faBars;
-  faAdd = faPlus;
 
   ngOnInit() {
     this.expanded = new EventEmitter();
