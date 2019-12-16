@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { JsonApiQueryData } from 'angular2-jsonapi';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 import { Datastore } from './datastore.service';
-import { Category } from '../models/category.model';
 import { Product } from '../models/product.model';
+import Pagination from '../models/pagination.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,9 +49,14 @@ export class ProductsService {
   /**
    * @todo
    */
-  getAll(): Observable<Product[]> {
-    return this.datastore.findAll(Product, {include: ['category']}).pipe(
-      map((products: JsonApiQueryData<Product>) => products.getModels())
-    );
+  getAll(pagination = new Pagination()): Observable<JsonApiQueryData<Product>> {
+    console.log(pagination);
+    return this.datastore.findAll(Product, {
+      include: ['category'],
+      page: {
+        number: pagination.number,
+        size: pagination.size
+      }
+    });
   }
 }

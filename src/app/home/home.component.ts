@@ -4,6 +4,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { Product } from '../core/models/product.model';
 import { ProductsService } from '../core/services/products.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: './home.component.html'
@@ -15,6 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.products$ = this.productsService.getAll();
+    this.products$ = this.productsService.getAll().pipe(
+      map(product => product.getModels())
+    );
   }
 }

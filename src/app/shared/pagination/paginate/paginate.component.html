@@ -1,0 +1,41 @@
+<nav>
+  <ul class="inline-list pages">
+    <ng-container *ngIf="!isFirst()">
+      <li>
+        <a [routerLink]="['../', first()]">
+          <fa-icon [icon]="faFirst"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['../', prev()]">
+          <fa-icon [icon]="faPrev"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['../', prev()]">{{ prev() }}</a>
+      </li>
+    </ng-container>
+
+    <li class="active">
+      <a [routerLink]="['../', current()]">{{ current() }}</a>
+    </li>
+    <ng-container *ngIf="!isLast()">
+      <li>
+        <a [routerLink]="['../', next()]">{{ next() }}</a>
+      </li>
+      <li>
+        <a [routerLink]="['../', next()]">
+          <fa-icon [icon]="faNext"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['../', last()]">
+          <fa-icon [icon]="faLast"></fa-icon>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</nav>
+
+<!-- mostra apenas "prev" e "next" -->
+<!-- na verdade está mostrando 4 itens mais próximos -->

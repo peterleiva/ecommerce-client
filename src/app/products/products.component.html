@@ -1,1 +1,10 @@
-<h1>products page</h1>
+<div *ngIf="products$ | async as products; else loading">
+  <app-page-entries-info [model]="products.getMeta().meta.pagination"></app-page-entries-info>
+  <app-products-catalog [products]="products.getModels()">
+  </app-products-catalog>
+  <app-paginate [model]="products.getMeta().meta.pagination"></app-paginate>
+</div>
+
+<ng-template #loading>
+  carregando produtos...
+</ng-template>

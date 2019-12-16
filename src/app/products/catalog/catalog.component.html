@@ -1,4 +1,8 @@
 <div [class]="view">
   <app-products-catalog-item *ngFor="let product of products" [product]="product" [class]="view">
   </app-products-catalog-item>
+
+  <ng-container *ngIf="!products || products.length == 0">
+    Nenhum produto a ser mostrado
+  </ng-container>
 </div>

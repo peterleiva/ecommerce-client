@@ -1,0 +1,13 @@
+@import 'main';
+
+.pages {
+  justify-content: center;
+  > li {
+    @include padding-rhythm(.5);
+
+    &.active, &:hover {
+      font-weight: bolder;
+      text-decoration: underline;
+    }
+  }
+}
