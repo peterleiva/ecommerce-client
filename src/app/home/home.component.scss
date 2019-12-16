@@ -1,0 +1,26 @@
+@import 'main';
+
+$border-width: rem(1);
+$border-color: dark(light);
+
+:host {
+
+  .destaques {
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      @include margin-rhythm(1 0);
+
+      > .category {
+        cursor: pointer;
+        border-radius: rem(12);
+        @include padding-rhythm(.5 1);
+        white-space: nowrap;
+        margin-right: measure-lines-rhythm(1);
+        border: $border-width solid $border-color;
+      }
+    }
+  }
+
+}
