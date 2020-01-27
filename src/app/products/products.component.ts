@@ -6,7 +6,6 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { ProductsService } from '../core/services/products.service';
 import { Product } from '../core/models/product.model';
-import Pagination from '../core/models/pagination.model';
 
 @Component({
   templateUrl: './products.component.html',
@@ -24,8 +23,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.paramsSubscription = this.route.params.subscribe(
       (params: Params) => {
-        const pagination = new Pagination(params.page, 8);
-        this.products$ = this.productsService.getAll(pagination);
+        this.products$ = this.productsService.getAll({
+          include: 'category',
+          page: {size: 8, number: params.page}
+        });
       }
     );
   }

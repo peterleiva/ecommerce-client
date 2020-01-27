@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Datastore } from './datastore.service';
 import { Product } from '../models/product.model';
-import Pagination from '../models/pagination.model';
+import { QueryParams } from '../models/query-params.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,9 @@ export class ProductsService {
   constructor(private datastore: Datastore) { }
 
   /**
-   *
+   * Returns all filtered products defined by its optional query params
    */
-  getAll(pagination = new Pagination()): Observable<JsonApiQueryData<Product>> {
-    return this.datastore.findAll(Product, {
-      include: ['category'],
-      page: {
-        number: pagination.number,
-        size: pagination.size
-      }
-    });
+  getAll(params?: QueryParams): Observable<JsonApiQueryData<Product>> {
+    return this.datastore.findAll(Product, params);
   }
 }
