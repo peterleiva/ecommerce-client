@@ -15,4 +15,13 @@ export enum ViewMode {
 export class CatalogComponent {
   @Input() products: Product[];
   @Input() view = ViewMode.GRID;
+  overlay = {
+    closed: true,
+    product: null
+  };
+
+  openQuickView(product: Product) {
+    this.overlay.closed = false;
+    this.overlay.product = product;
+  }
 }

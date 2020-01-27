@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { faExpandArrowsAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import { Product } from 'src/app/core/models/product.model';
-import { ProductsQuickViewService } from 'src/app/core/services/products-quick-view.service';
 
 @Component({
   selector: 'app-products-catalog-item',
@@ -11,10 +10,9 @@ import { ProductsQuickViewService } from 'src/app/core/services/products-quick-v
 })
 export class CatalogItemComponent {
   @Input() product: Product;
+  @Output() expand = new EventEmitter<Product>();
   faExpand = faExpandArrowsAlt;
   faShoppingCart = faShoppingCart;
-
-  constructor(private quickViewService: ProductsQuickViewService) {}
 
   addToCart() {
     console.log('add to shopping cart');
@@ -25,6 +23,6 @@ export class CatalogItemComponent {
   }
 
   openQuickView() {
-    this.quickViewService.open(this.product);
+    this.expand.emit(this.product);
   }
 }

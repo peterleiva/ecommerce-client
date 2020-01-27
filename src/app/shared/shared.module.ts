@@ -7,12 +7,14 @@ import { CollapsibleDirective } from './directives/collapsible.directive';
 import { PageEntriesInfoComponent } from './pagination/page-entries-info/page-entries-info.component';
 import { PaginateComponent } from './pagination/paginate/paginate.component';
 import { RouterModule } from '@angular/router';
+import { OverlayComponent } from './overlay/overlay.component';
 
 @NgModule({
   declarations: [
     CollapsibleDirective,
     PaginateComponent,
-    PageEntriesInfoComponent
+    PageEntriesInfoComponent,
+    OverlayComponent
   ],
   imports: [
     RouterModule,
@@ -25,7 +27,8 @@ import { RouterModule } from '@angular/router';
     CollapsibleDirective,
     JsonApiModule,
     PaginateComponent,
-    PageEntriesInfoComponent
+    PageEntriesInfoComponent,
+    OverlayComponent
   ]
 })
 export class SharedModule { }

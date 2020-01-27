@@ -14,8 +14,3 @@
   <router-outlet></router-outlet>
 </main>
 <!-- <app-footer></app-footer> -->
-<app-overlay [closed]="true">
-  <ng-container *ngIf="productQuickView$ | async as product">
-    <app-products-quick-view [product]="product"></app-products-quick-view>
-  </ng-container>
-</app-overlay>

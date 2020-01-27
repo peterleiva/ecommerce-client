@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Input } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, EventEmitter, Output } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,7 +8,13 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class OverlayComponent {
   @Input() @HostBinding('class.is-removed') closed: boolean;
+  @Output('close') close$: EventEmitter<void>;
+
   faClose = faTimes;
+
+  constructor() {
+    this.close$ = new EventEmitter();
+  }
 
   open() {
     this.closed = false;
@@ -16,5 +22,6 @@ export class OverlayComponent {
 
   @HostListener('click') close() {
     this.closed = true;
+    this.close$.emit();
   }
 }

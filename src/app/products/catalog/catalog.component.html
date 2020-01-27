@@ -1,8 +1,19 @@
 <div [class]="view">
-  <app-products-catalog-item *ngFor="let product of products" [product]="product" [class]="view">
+  <app-products-catalog-item
+    *ngFor="let product of products"
+    [product]="product"
+    [class]="view"
+    (expand)="this.openQuickView($event)">
   </app-products-catalog-item>
 
   <ng-container *ngIf="!products || products.length == 0">
     Nenhum produto a ser mostrado
   </ng-container>
 </div>
+
+<app-overlay [closed]="this.overlay.closed" (close)="this.overlay.closed = true">
+  <app-products-quick-view
+    *ngIf="this.overlay.product"
+    [product]="this.overlay.product">
+  </app-products-quick-view>
+</app-overlay>

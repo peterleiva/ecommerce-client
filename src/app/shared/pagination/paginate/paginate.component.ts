@@ -1,5 +1,9 @@
 import { Input, Component } from '@angular/core';
-import { faChevronRight, faForward, faBackward, faChevronLeft, faAngleDoubleRight, faAngleDoubleLeft, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
+  faAngleLeft,
+  faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-paginate',
