@@ -1,37 +1,69 @@
-import { PaginationMetaModel } from './meta-data.model';
+export abstract class PageData {
+  number: number;
+  size: number;
+  entries: number;
+  totalPages: number;
+  totalEntries: number;
 
-export default class Pagination extends PaginationMetaModel {
+  abstract get prev(): number;
+  abstract get next(): number;
+  abstract get first(): number;
+  abstract get last(): number;
+  abstract hasNext(): boolean;
+  abstract hasPrev(): boolean;
+  abstract isFirst(): boolean;
+  abstract isLast(): boolean;
+  abstract get initialEntry(): number;
+  abstract get lastEntry(): number;
+}
 
-  constructor(public number = 1, public size = 8) {
-    super();
+export interface Paginator {
+  paginate: Pagination;
+}
+
+export default class Pagination extends PageData {
+
+  get prev(): number {
+    return this.hasPrev() ? this.number - 1 : 0;
   }
 
-  hasPrev(): boolean {
-    return !this.isFirst();
+  get next(): number {
+    return this.hasNext() ? this.number + 1 : 0;
+  }
+
+  get first(): number {
+    return 1;
+  }
+
+  get last(): number {
+    return this.totalPages
   }
 
   hasNext(): boolean {
-    // verificar se só tem uma página talvez
-    return !this.isLast();
+    return this.number >= this.first && this.number < this.last;
+  }
+
+  hasPrev(): boolean {
+    return this.number > this.first && this.number <= this.last;
   }
 
   isFirst(): boolean {
-    return this.number === 1;
+    return this.number === this.first;
   }
 
   isLast(): boolean {
-    return this.number === this.totalPages;
+    return this.number === this.last;
   }
 
-  prev(): number {
-    return (this.number - 1) >= 1 ? this.number - 1 : 0;
+  get initialEntry(): number {
+    return (this.number - 1) * this.size + 1
   }
 
-  initialPageResult(): number {
-    return 0;
+  get lastEntry(): number {
+    return this.initialEntry + this.entries - 1;
   }
 
-  finalPageResult(): number {
-    return 0;
+  isOutOfRange(): boolean {
+    return this.number < this.first || this.number > this.last;
   }
 }

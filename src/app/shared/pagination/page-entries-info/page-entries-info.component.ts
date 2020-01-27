@@ -1,22 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { JsonApiQueryData } from 'angular2-jsonapi';
+import Pagination, { Paginator } from 'src/app/core/models/pagination.model';
 
 @Component({
   selector: 'app-page-entries-info',
   templateUrl: './page-entries-info.component.html'
 })
-export class PageEntriesInfoComponent implements OnInit {
-  @Input() model: any;
-  pageInfo;
+export class PageEntriesInfoComponent implements Paginator {
+  @Input() model: JsonApiQueryData<any>;
 
-  ngOnInit() {
-    this.pageInfo = this.model;
-  }
-
-  get initialEntry() {
-    return (this.pageInfo.number - 1) * this.pageInfo.size + 1;
-  }
-
-  get finalEntry() {
-    return this.initialEntry + this.pageInfo.entries - 1;
+  get paginate(): Pagination {
+    return this.model.getMeta().meta.paginate;
   }
 }

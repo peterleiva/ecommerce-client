@@ -2,10 +2,12 @@ import { JsonApiModel, JsonApiModelConfig, Attribute, BelongsTo, HasMany } from 
 
 import { Category } from './category.model';
 import { Tag } from './tag.model';
+import MetaDataModel from './meta-data.model';
 
 
 @JsonApiModelConfig({
-  type: 'products'
+  type: 'products',
+  meta: MetaDataModel
 })
 export class Product extends JsonApiModel {
   @Attribute() title: string;

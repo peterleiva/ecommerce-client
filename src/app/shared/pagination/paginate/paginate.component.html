@@ -1,41 +1,38 @@
-<nav>
+<nav *ngIf="!paginate.isOutOfRange()">
   <ul class="inline-list pages">
-    <ng-container *ngIf="!isFirst()">
+    <ng-container *ngIf="!paginate.isFirst()">
       <li>
-        <a [routerLink]="['../', first()]">
+        <a [routerLink]="['../', paginate.first]">
           <fa-icon [icon]="faFirst"></fa-icon>
         </a>
       </li>
       <li>
-        <a [routerLink]="['../', prev()]">
+        <a [routerLink]="['../', paginate.prev]">
           <fa-icon [icon]="faPrev"></fa-icon>
         </a>
       </li>
       <li>
-        <a [routerLink]="['../', prev()]">{{ prev() }}</a>
+        <a [routerLink]="['../', paginate.prev]">{{ paginate.prev }}</a>
       </li>
     </ng-container>
 
     <li class="active">
-      <a [routerLink]="['../', current()]">{{ current() }}</a>
+      <a [routerLink]="['../', paginate.number]">{{ paginate.number }}</a>
     </li>
-    <ng-container *ngIf="!isLast()">
+    <ng-container *ngIf="!paginate.isLast()">
       <li>
-        <a [routerLink]="['../', next()]">{{ next() }}</a>
+        <a [routerLink]="['../', paginate.next]">{{ paginate.next }}</a>
       </li>
       <li>
-        <a [routerLink]="['../', next()]">
+        <a [routerLink]="['../', paginate.next]">
           <fa-icon [icon]="faNext"></fa-icon>
         </a>
       </li>
       <li>
-        <a [routerLink]="['../', last()]">
+        <a [routerLink]="['../', paginate.last]">
           <fa-icon [icon]="faLast"></fa-icon>
         </a>
       </li>
     </ng-container>
   </ul>
 </nav>
-
-<!-- mostra apenas "prev" e "next" -->
-<!-- na verdade está mostrando 4 itens mais próximos -->
