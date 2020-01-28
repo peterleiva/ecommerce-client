@@ -11,17 +11,25 @@
   @include z(overlay);
   animation: .6s fadeIn;
 
+  @include breakpoint(max-width breakpoint-name(bulldog)) {
+    @include padding-rhythm(0);
+
+    .container {
+      height: 100%;
+    }
+  }
+
   .close {
     position: absolute;
-    top: measure-lines-rhythm(2.5);
-    right: measure-lines-rhythm(3.5);
+    top: measure-lines-rhythm(.5);
+    right: measure-lines-rhythm(.5);
     cursor: pointer;
     @include margin-rhythm(.5);
     color: darker(light);
   }
-  
+
   .container {
-    height: 100%;
+    position: relative;
     background: pick-color(light);
     overflow-y: scroll;
   }

@@ -13,7 +13,7 @@ $gallery-gap: measure-lines-rhythm(1);
   > .list {
     @include breakpoint(breakpoint-name(dobermann)) {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       grid-gap: $gallery-gap;
       margin-bottom: 0;
     }
