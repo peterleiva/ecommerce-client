@@ -8,13 +8,15 @@ import { PageEntriesInfoComponent } from './pagination/page-entries-info/page-en
 import { PaginateComponent } from './pagination/paginate/paginate.component';
 import { RouterModule } from '@angular/router';
 import { OverlayComponent } from './overlay/overlay.component';
+import { IconComponent } from './icon/icon.component';
 
 @NgModule({
   declarations: [
     CollapsibleDirective,
     PaginateComponent,
     PageEntriesInfoComponent,
-    OverlayComponent
+    OverlayComponent,
+    IconComponent
   ],
   imports: [
     RouterModule,
