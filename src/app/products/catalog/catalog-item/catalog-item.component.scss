@@ -47,9 +47,9 @@ $animation-duration: .4s;
         color: pick-color(light);
         transition: all $animation-duration;
 
-        @include apply-colors using ($color-name) {
-          &.action-#{$color-name} {
-            background: pick-color($color-name, $opacity: light);
+        @include apply-colors using ($color) {
+          &.action-#{$color} {
+            background: pick-color($color, $opacity: light);
           }
         }
       }
