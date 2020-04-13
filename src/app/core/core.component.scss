@@ -15,6 +15,6 @@ fa-icon {
 .icons {
   fa-icon {
     @include margin-rhythm(0 1);
-    @include text-component-rhythm(lg);
+    @include type-scale(lg);
   }
 }

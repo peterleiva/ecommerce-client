@@ -24,13 +24,13 @@ $animation-duration: .4s;
     left: 35%;
     bottom: 0;
     @include opacity(hidden);
-    @include translate(-100%, 0);
+    transform: translateX(-100%);
   }
 
   &:hover {
     &::after {
       @include opacity(active);
-      @include translate(0, 0);
+      transform: translate(0, 0);
       transition: all .6s;
     }
 
@@ -40,11 +40,11 @@ $animation-duration: .4s;
   .actions {
 
     .action {
-      color: dark(light);
-      background: pick-color(light);
+      color: gray(light);
+      background: gray(light);
 
       &:hover {
-        color: pick-color(light);
+        color: gray(light);
         transition: all $animation-duration;
 
         @include apply-colors using ($color) {
@@ -86,7 +86,7 @@ $animation-duration: .4s;
       .cover {
         flex-shrink: 1;
 
-        @include breakpoint(breakpoint-name(bulldog)) {
+        @include breakpoint(get-breakpoint(bulldog)) {
           flex-shrink: 16;
         }
       }

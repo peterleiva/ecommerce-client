@@ -6,12 +6,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: pick-color(dark, $opacity: light);
+  background: gray(dark, $opacity: light);
   @include padding-rhythm(2 3);
   @include z(overlay);
   animation: .6s fadeIn;
 
-  @include breakpoint(max-width breakpoint-name(bulldog)) {
+  @include breakpoint(max-width get-breakpoint(bulldog)) {
     @include padding-rhythm(0);
 
     .container {
@@ -25,12 +25,12 @@
     right: measure-lines-rhythm(.5);
     cursor: pointer;
     @include margin-rhythm(.5);
-    color: darker(light);
+    color: gray(gray-4);
   }
 
   .container {
     position: relative;
-    background: pick-color(light);
+    background: gray(light);
     overflow-y: scroll;
   }
 }

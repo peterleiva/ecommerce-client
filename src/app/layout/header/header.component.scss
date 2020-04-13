@@ -1,12 +1,12 @@
 @import 'main';
 
 :host {
-  background: pick-color(light);
+  background: gray(light);
   display: flex;
   flex-direction: column;
 
   // aplica grid a partir desse breakpoint
-  @include breakpoint(breakpoint-name(bulldog)) {
+  @include breakpoint(get-breakpoint(bulldog)) {
     display: grid;
     align-items: center;
     grid-template-areas: 'logo icons'
@@ -14,7 +14,7 @@
 
   }
 
-  @include breakpoint(breakpoint-name(dobermann)) {
+  @include breakpoint(get-breakpoint(dobermann)) {
     grid-template-areas: 'navbar logo icons';
     @include padding-rhythm(2 0);
   }
@@ -31,13 +31,13 @@
 
       &.logo {
         grid-area: logo;
-        @include breakpoint(breakpoint-name(bulldog)) { justify-self: left }
-        @include breakpoint(breakpoint-name(dobermann)) { justify-self: center }
+        @include breakpoint(get-breakpoint(bulldog)) { justify-self: left }
+        @include breakpoint(get-breakpoint(dobermann)) { justify-self: center }
       }
 
       &.icons {
         grid-area: icons;
-        @include breakpoint(breakpoint-name(bulldog)) { justify-self: right }
+        @include breakpoint(get-breakpoint(bulldog)) { justify-self: right }
       }
 
     }

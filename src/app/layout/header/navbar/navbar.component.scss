@@ -1,12 +1,12 @@
 @import 'main';
 
 $background-color: pick-color(primary);
-$foreground-color: pick-color(light);
+$foreground-color: gray(light);
 
 $nav-border-color: $shadow-color;
 $nav-border-space: rem(1);
-$nav-background-color: pick-color(light);
-$nav-foreground-color: pick-color(dark);
+$nav-background-color: gray(light);
+$nav-foreground-color: gray(dark);
 
 :host {
   position: relative;
@@ -19,12 +19,12 @@ $nav-foreground-color: pick-color(dark);
     }
   }
 
-  @include breakpoint(max-width breakpoint-name(dobermann) - 1) {
+  @include breakpoint(max-width get-breakpoint(dobermann) - 1) {
     background: $background-color;
     color: $foreground-color;
   }
 
-  @include breakpoint(breakpoint-name(dobermann)) {
+  @include breakpoint(get-breakpoint(dobermann)) {
     .navbar-mobile {
       display: none;
     }
@@ -64,7 +64,7 @@ $nav-foreground-color: pick-color(dark);
     }
 
     &.collapsed {
-      @include translate(100%, 0);
+      transform: translateX(100%);
       transition: transform .75s;
     }
 
