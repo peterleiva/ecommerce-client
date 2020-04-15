@@ -50,7 +50,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -129,6 +128,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "natural-ecommerce-store"
+    }
+  },
+  "defaultProject": "natural-ecommerce-store",
+  "cli": {
+    "analytics": "29bbb4d6-8f64-4690-82f5-95f0759b65ed"
+  }
 }

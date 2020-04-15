@@ -17,7 +17,7 @@ import { CollapsibleDirective } from 'src/app/shared/directives/collapsible.dire
 })
 export class NavbarComponent implements OnInit {
   @Input() menu: Navbar;
-  @ViewChild(CollapsibleDirective, {static: false}) collapsible: CollapsibleDirective;
+  @ViewChild(CollapsibleDirective) collapsible: CollapsibleDirective;
   @Output() expanded: EventEmitter<void>;
 
   faMenu = faBars;
