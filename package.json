@@ -1,5 +1,5 @@
 {
-  "name": "natural-ecommerce-store",
+  "name": "natural-product-commerce",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -23,12 +23,13 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "angular2-jsonapi": "^8.2.1",
-    "rxjs": "~6.4.0",
+    "gsap": "^3.2.6",
+    "rxjs": "~6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.14",
+    "@angular-devkit/build-angular": "^0.901.1",
     "@angular/cli": "~8.3.14",
     "@angular/compiler-cli": "~8.2.11",
     "@angular/language-service": "~8.2.11",
