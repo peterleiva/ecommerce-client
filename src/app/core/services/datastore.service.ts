@@ -2,12 +2,13 @@ import { JsonApiDatastore, JsonApiDatastoreConfig, DatastoreConfig } from 'angul
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
 import { Product } from '../models/product.model';
 import { Tag } from '../models/tag.model';
 
 const config: DatastoreConfig = {
-  baseUrl: 'http://localhost:3000/api',
+  baseUrl: environment.api,
   models: {
     categories: Category,
     products: Product,
