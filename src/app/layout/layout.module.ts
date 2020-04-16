@@ -30,7 +30,7 @@ import { SidenavItemComponent } from './sidenav-drawer/sidenav/sidenav-item/side
   ],
   exports: [
     HeaderComponent,
-    NavbarComponent
+    SidenavDrawerComponent
   ]
 })
 export class LayoutModule { }
