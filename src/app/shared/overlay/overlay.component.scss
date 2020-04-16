@@ -1,4 +1,5 @@
-@import 'main';
+@use '~breakpoint-sass/stylesheets/breakpoint' as *;
+@use 'utilities' as utils;
 
 :host {
   position: fixed;
@@ -6,13 +7,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: gray(dark, $opacity: light);
-  @include padding-rhythm(2 3);
-  @include z(overlay);
+  background: utils.gray(dark, $opacity: light);
+  @include utils.padding-rhythm(2 3);
+  @include utils.z(overlay);
   animation: .6s fadeIn;
 
-  @include breakpoint(max-width get-breakpoint(bulldog)) {
-    @include padding-rhythm(0);
+  @include breakpoint(max-width utils.breakpoints(bulldog)) {
+    @include utils.padding-rhythm(0);
 
     .container {
       height: 100%;
@@ -21,16 +22,16 @@
 
   .close {
     position: absolute;
-    top: measure-lines-rhythm(.5);
-    right: measure-lines-rhythm(.5);
+    top: utils.measure-lines-rhythm(.5);
+    right: utils.measure-lines-rhythm(.5);
     cursor: pointer;
-    @include margin-rhythm(.5);
-    color: gray(gray-4);
+    @include utils.margin-rhythm(.5);
+    color: utils.gray(gray-4);
   }
 
   .container {
     position: relative;
-    background: gray(light);
+    background: utils.gray(light);
     overflow-y: scroll;
   }
 }

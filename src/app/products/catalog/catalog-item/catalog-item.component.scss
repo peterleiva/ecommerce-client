@@ -1,8 +1,9 @@
-@import 'main';
+@use '~breakpoint-sass/stylesheets/breakpoint' as *;
+@use 'utilities' as utils;
 
-$border-radius: measure-lines-rhythm(.7);
-$price-color: pick-color(success);
-$border-grid-radius: rem(7);
+$border-radius: utils.measure-lines-rhythm(.7);
+$price-color: utils.pick-color(success);
+$border-grid-radius: utils.rem(7);
 $animation-duration: .4s;
 
 :host {
@@ -18,18 +19,18 @@ $animation-duration: .4s;
     display: inline-block;
     width: 30%;
     background: $price-color;
-    height: rem(2);
+    height: utils.rem(2);
     text-align: center;
     position: absolute;
     left: 35%;
     bottom: 0;
-    @include opacity(hidden);
+    @include utils.opacity(hidden);
     transform: translateX(-100%);
   }
 
   &:hover {
     &::after {
-      @include opacity(active);
+      @include utils.opacity(active);
       transform: translate(0, 0);
       transition: all .6s;
     }
@@ -40,16 +41,16 @@ $animation-duration: .4s;
   .actions {
 
     .action {
-      color: gray(light);
-      background: gray(light);
+      color: utils.gray(light);
+      background: utils.gray(light);
 
       &:hover {
-        color: gray(light);
+        color: utils.gray(light);
         transition: all $animation-duration;
 
-        @include apply-colors using ($color) {
+        @include utils.apply-colors using ($color) {
           &.action-#{$color} {
-            background: pick-color($color, $opacity: light);
+            background: utils.pick-color($color, $opacity: light);
           }
         }
       }
@@ -70,32 +71,32 @@ $animation-duration: .4s;
   }
 
   &.list {
-    $border-radius: rem(7);
+    $border-radius: utils.rem(7);
 
     display: flex;
-    box-shadow: 0 0 rem(8) 0 $shadow-color;
+    box-shadow: 0 0 utils.rem(8) 0 utils.$shadow;
     border-radius: $border-radius;
 
     .product {
-      @include padding-rhythm(.5);
+      @include utils.padding-rhythm(.5);
       display: flex;
       flex-direction: row-reverse;
       align-items: center;
-      border-left: rem(1) solid $shadow-color;
+      border-left: utils.rem(1) solid utils.$shadow;
 
       .cover {
         flex-shrink: 1;
 
-        @include breakpoint(get-breakpoint(bulldog)) {
+        @include breakpoint(utils.breakpoints(bulldog)) {
           flex-shrink: 16;
         }
       }
 
       .details {
-        @include padding-rhythm(0 1);
+        @include utils.padding-rhythm(0 1);
 
         > .price {
-          margin-top: measure-lines-rhythm(1);
+          margin-top: utils.measure-lines-rhythm(1);
         }
       }
     }
@@ -103,14 +104,14 @@ $animation-duration: .4s;
     .actions {
       display: flex;
       flex-direction: column;
-      @include opacity(active);
+      @include utils.opacity(active);
 
       > .action {
         flex-grow: 1;
-        @include padding-rhythm(0 .5);
+        @include utils.padding-rhythm(0 .5);
 
         &:not(:last-child) {
-          border-bottom: rem(1) solid $shadow-color;
+          border-bottom: utils.rem(1) solid utils.$shadow;
         }
 
         &:first-child {
@@ -125,29 +126,29 @@ $animation-duration: .4s;
   }
 
   &.grid {
-    @include padding-rhythm(1 0);
+    @include utils.padding-rhythm(1 0);
 
     &:hover {
       .actions {
-        @include opacity(active);
+        @include utils.opacity(active);
         top: 20%;
         transition: all .8s;
       }
     }
 
     .actions {
-      @include opacity(hidden);
-      @include z;
+      @include utils.opacity(hidden);
+      @include utils.z;
       position: absolute;
       top: 0;
       width: 100%;
       text-align: center;
 
       > .action {
-        @include padding-rhythm(.5 1);
-        @include margin-rhythm(0 1/10);
+        @include utils.padding-rhythm(.5 1);
+        @include utils.margin-rhythm(0 1/10);
 
-        $action-radius: rem(10);
+        $action-radius: utils.rem(10);
 
         &:first-child {
           border-top-left-radius: $action-radius;
@@ -167,11 +168,11 @@ $animation-duration: .4s;
     }
 
     .details {
-      @include padding-rhythm(.5 0);
+      @include utils.padding-rhythm(.5 0);
       text-align: center;
 
       .price {
-        @include margin-rhythm(.5 0);
+        @include utils.margin-rhythm(.5 0);
       }
     }
   }

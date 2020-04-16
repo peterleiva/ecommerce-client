@@ -1,12 +1,14 @@
-@import 'main';
+@use '~breakpoint-sass/stylesheets/breakpoint' as *;
+@use 'utilities' as utils;
+@use 'base/states';
 
-$background-color: pick-color(primary);
-$foreground-color: gray(light);
+$background-color: utils.pick-color(primary);
+$foreground-color: utils.gray(light);
 
-$nav-border-color: $shadow-color;
-$nav-border-space: rem(1);
-$nav-background-color: gray(light);
-$nav-foreground-color: gray(dark);
+$nav-border-color: utils.$shadow;
+$nav-border-space: utils.rem(1);
+$nav-background-color: utils.gray(light);
+$nav-foreground-color: utils.gray(dark);
 
 :host {
   position: relative;
@@ -19,12 +21,12 @@ $nav-foreground-color: gray(dark);
     }
   }
 
-  @include breakpoint(max-width get-breakpoint(dobermann) - 1) {
+  @include breakpoint(max-width utils.breakpoints(dobermann) - 1) {
     background: $background-color;
     color: $foreground-color;
   }
 
-  @include breakpoint(get-breakpoint(dobermann)) {
+  @include breakpoint(utils.breakpoints(dobermann)) {
     .navbar-mobile {
       display: none;
     }
@@ -40,25 +42,25 @@ $nav-foreground-color: gray(dark);
   }
 
   nav {
-    @include z;
+    @include utils.z;
     position: absolute;
     transition: all 1s;
-    top: measure-lines-rhythm(2);
+    top: utils.measure-lines-rhythm(2);
     right: 0;
     width: 90%;
     border: 1px solid $nav-border-color;
-    box-shadow: rem(-2) rem(5) rem(5) rem(-4) $shadow-color;
+    box-shadow: utils.rem(-2) utils.rem(5) utils.rem(5) utils.rem(-4) utils.$shadow;
 
     ul {
       > li {
-        $border-args: rem(1) solid $nav-border-color;
+        $border-args: utils.rem(1) solid $nav-border-color;
         border-bottom: $border-args;
         border-top: $border-args;
         color: $nav-foreground-color;
         background: $nav-background-color;
 
         a {
-          @include padding-rhythm(.5);
+          @include utils.padding-rhythm(.5);
         }
       }
     }

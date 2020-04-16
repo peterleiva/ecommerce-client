@@ -1,10 +1,12 @@
-@import "main";
+@use '~breakpoint-sass/stylesheets/breakpoint' as *;
+@use 'utilities' as utils;
+
 
 :host {
   height: 100%;
-  @include padding-rhythm(1);
+  @include utils.padding-rhythm(1);
 
-  @include breakpoint(get-breakpoint(bulldog)) {
+  @include breakpoint(utils.breakpoints(bulldog)) {
     display: flex;
   }
 
@@ -20,7 +22,7 @@
   }
 
   .description {
-    @include margin-rhythm(1 0);
+    @include utils.margin-rhythm(1 0);
   }
 
 }

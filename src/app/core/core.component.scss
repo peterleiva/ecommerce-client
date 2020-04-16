@@ -1,20 +1,19 @@
-@import 'main';
+:host {
+  height: 100vh;
+  position: relative;
+  width: 100vw;
+}
+
+#container, #sidenav-drawer {
+  height: 100vh;
+  position: absolute;
+  width: 100vw;
+}
 
 #container {
-  @include padding-rhythm(0 1);
+  background: red;
 }
 
-fa-icon {
-  cursor: pointer;
-}
-
-.logo fa-icon {
-  color: pick-color(primary);
-}
-
-.icons {
-  fa-icon {
-    @include margin-rhythm(0 1);
-    @include type-scale(lg);
-  }
+#sidenav-drawer {
+  background: blue;
 }

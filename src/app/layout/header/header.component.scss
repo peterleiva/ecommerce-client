@@ -1,12 +1,13 @@
-@import 'main';
+@use '~breakpoint-sass/stylesheets/breakpoint' as *;
+@use 'utilities' as utils;
 
 :host {
-  background: gray(light);
+  background: utils.gray(light);
   display: flex;
   flex-direction: column;
 
   // aplica grid a partir desse breakpoint
-  @include breakpoint(get-breakpoint(bulldog)) {
+  @include breakpoint(utils.breakpoints(bulldog)) {
     display: grid;
     align-items: center;
     grid-template-areas: 'logo icons'
@@ -14,16 +15,16 @@
 
   }
 
-  @include breakpoint(get-breakpoint(dobermann)) {
+  @include breakpoint(utils.breakpoints(dobermann)) {
     grid-template-areas: 'navbar logo icons';
-    @include padding-rhythm(2 0);
+    @include utils.padding-rhythm(2 0);
   }
 
   ::ng-deep {
 
     .header-item {
 
-      @include padding-rhythm(.5 1);
+      @include utils.padding-rhythm(.5 1);
 
       &.navbar {
         grid-area: navbar;
@@ -31,13 +32,13 @@
 
       &.logo {
         grid-area: logo;
-        @include breakpoint(get-breakpoint(bulldog)) { justify-self: left }
-        @include breakpoint(get-breakpoint(dobermann)) { justify-self: center }
+        @include breakpoint(utils.breakpoints(bulldog)) { justify-self: left }
+        @include breakpoint(utils.breakpoints(dobermann)) { justify-self: center }
       }
 
       &.icons {
         grid-area: icons;
-        @include breakpoint(get-breakpoint(bulldog)) { justify-self: right }
+        @include breakpoint(utils.breakpoints(bulldog)) { justify-self: right }
       }
 
     }
