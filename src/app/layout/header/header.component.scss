@@ -2,7 +2,7 @@
 @use 'utilities' as utils;
 
 :host {
-  background: utils.gray(light);
+  background: utils.color-gray(light);
   display: flex;
   flex-direction: column;
 
@@ -17,14 +17,14 @@
 
   @include breakpoint(utils.breakpoints(dobermann)) {
     grid-template-areas: 'navbar logo icons';
-    @include utils.padding-rhythm(2 0);
+    @include utils.rhythm-padding(2 0);
   }
 
   ::ng-deep {
 
     .header-item {
 
-      @include utils.padding-rhythm(.5 1);
+      @include utils.rhythm-padding(.5 1);
 
       &.navbar {
         grid-area: navbar;

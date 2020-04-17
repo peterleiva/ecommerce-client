@@ -1,9 +1,9 @@
 @use 'utilities' as utils;
 
 :host {
-  min-height: utils.measure-lines-rhythm(5);
+  min-height: utils.rhythm-baseline-scale(5);
 
   app-page-entries-info, app-products-catalog {
-    @include utils.margin-rhythm(1 0);
+    @include utils.rhythm-margin(1 0);
   }
 }

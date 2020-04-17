@@ -4,7 +4,7 @@
 
 :host {
   height: 100%;
-  @include utils.padding-rhythm(1);
+  @include utils.rhythm-padding(1);
 
   @include breakpoint(utils.breakpoints(bulldog)) {
     display: flex;
@@ -22,7 +22,7 @@
   }
 
   .description {
-    @include utils.margin-rhythm(1 0);
+    @include utils.rhythm-margin(1 0);
   }
 
 }

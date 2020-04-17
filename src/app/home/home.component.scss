@@ -1,7 +1,7 @@
 @use 'utilities' as utils;
 
 $border-width: utils.rem(1);
-$border-color: utils.gray(gray-5);
+$border-color: utils.color-gray(gray-5);
 
 :host {
 
@@ -10,14 +10,14 @@ $border-color: utils.gray(gray-5);
     .categories {
       display: flex;
       flex-wrap: wrap;
-      @include utils.margin-rhythm(1 0);
+      @include utils.rhythm-margin(1 0);
 
       > .category {
         cursor: pointer;
         border-radius: rem(12);
-        @include utils.padding-rhythm(.5 1);
+        @include utils.rhythm-padding(.5 1);
         white-space: nowrap;
-        margin-right: utils.measure-lines-rhythm(1);
+        margin-right: utils.rhythm-baseline-scale(1);
         border: $border-width solid $border-color;
       }
     }

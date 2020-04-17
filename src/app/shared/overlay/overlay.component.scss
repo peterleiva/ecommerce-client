@@ -7,13 +7,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: utils.gray(dark, $opacity: light);
-  @include utils.padding-rhythm(2 3);
+  background: utils.color-gray(dark, $opacity: light);
+  @include utils.rhythm-padding(2 3);
   @include utils.z(overlay);
   animation: .6s fadeIn;
 
   @include breakpoint(max-width utils.breakpoints(bulldog)) {
-    @include utils.padding-rhythm(0);
+    @include utils.rhythm-padding(0);
 
     .container {
       height: 100%;
@@ -22,16 +22,16 @@
 
   .close {
     position: absolute;
-    top: utils.measure-lines-rhythm(.5);
-    right: utils.measure-lines-rhythm(.5);
+    top: utils.rhythm-baseline-scale(.5);
+    right: utils.rhythm-baseline-scale(.5);
     cursor: pointer;
-    @include utils.margin-rhythm(.5);
-    color: utils.gray(gray-4);
+    @include utils.rhythm-margin(.5);
+    color: utils.color-gray(gray-4);
   }
 
   .container {
     position: relative;
-    background: utils.gray(light);
+    background: utils.color-gray(light);
     overflow-y: scroll;
   }
 }

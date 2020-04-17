@@ -1,9 +1,9 @@
-@use 'utilities';
+@use 'utilities' as *;
 
 .pages {
   justify-content: center;
   > li {
-    @include utilities.padding-rhythm(.5);
+    @include rhythm-padding(.5);
 
     &.active, &:hover {
       font-weight: bolder;

@@ -2,13 +2,13 @@
 @use 'utilities' as utils;
 @use 'base/states';
 
-$background-color: utils.pick-color(primary);
-$foreground-color: utils.gray(light);
+$background-color: utils.color-pick(primary);
+$foreground-color: utils.color-gray(light);
 
-$nav-border-color: utils.$shadow;
+$nav-border-color: utils.$color-shadow;
 $nav-border-space: utils.rem(1);
-$nav-background-color: utils.gray(light);
-$nav-foreground-color: utils.gray(dark);
+$nav-background-color: utils.color-gray(light);
+$nav-foreground-color: utils.color-gray(dark);
 
 :host {
   position: relative;
@@ -45,11 +45,11 @@ $nav-foreground-color: utils.gray(dark);
     @include utils.z;
     position: absolute;
     transition: all 1s;
-    top: utils.measure-lines-rhythm(2);
+    top: utils.rhythm-baseline-scale(2);
     right: 0;
     width: 90%;
     border: 1px solid $nav-border-color;
-    box-shadow: utils.rem(-2) utils.rem(5) utils.rem(5) utils.rem(-4) utils.$shadow;
+    box-shadow: utils.rem(-2) utils.rem(5) utils.rem(5) utils.rem(-4) utils.$color-shadow;
 
     ul {
       > li {
@@ -60,7 +60,7 @@ $nav-foreground-color: utils.gray(dark);
         background: $nav-background-color;
 
         a {
-          @include utils.padding-rhythm(.5);
+          @include utils.rhythm-padding(.5);
         }
       }
     }
