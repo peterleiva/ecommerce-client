@@ -3,6 +3,7 @@
 @use 'sass:map';
 
 $app-background: color-pick('background-1');
+$sidenav-background: color-gradient('background-1');
 $replicas-count: 2;
 
 // app replica as a css shadow
@@ -24,7 +25,6 @@ $app-shadow: (
 );
 
 $app-border-radius: rem(10);
-$sidenav-background: color-variant('primary-1', 'dark');
 
 // creates replicas and shadow
 @function shadow-replicas($count: $replicas-count) {
