@@ -1,6 +1,7 @@
-<app-sidenav-drawer id="sidenav-drawer"></app-sidenav-drawer>
+<app-sidenav-drawer id="sidenav" #sidenav></app-sidenav-drawer>
 
-<div id="container">
+<div id="app" [class]="{open: openDrawer}" (click)="openDrawer && closeDrawer()" #app>
+  <div class="touchable"></div>
   <app-header></app-header>
   <main>
     <router-outlet></router-outlet>

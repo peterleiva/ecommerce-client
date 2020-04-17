@@ -1,19 +1,96 @@
+@use 'utilities' as *;
+@use 'sass:list';
+@use 'sass:map';
+
+$app-background: color-pick('background-1');
+$replicas-count: 2;
+
+// app replica as a css shadow
+$app-replica: (
+  x: rem(-30),
+  y: 0,
+  blur: 0,
+  radius: rem(-15),
+  color: $app-background
+);
+
+// regular app shadow
+$app-shadow: (
+  x: rem(-4),
+  y: rem(2),
+  blur: rem(7),
+  radius: rem(-2),
+  color: color-gray('gray-2')
+);
+
+$app-border-radius: rem(10);
+$sidenav-background: color-variant('primary-1', 'dark');
+
+// creates replicas and shadow
+@function shadow-replicas($count: $replicas-count) {
+  $replicas: ();
+
+  @for $i from 0 through $count {
+    $replica-shadow: ();
+
+    // multiplfy each replica by current iterator
+    $replica: ();
+    @each $key, $value in $app-replica {
+      @if $key != 'color' {
+        $value: $value * $i;
+      }
+
+      $replica: map.merge($replica, ($key: $value));
+    }
+
+    $replica-shadow: map.get($replica, 'x') + map.get($app-shadow, 'x')
+                     map.get($app-shadow, 'y')
+                     map.get($app-shadow, 'blur')
+                     map.get($replica, 'radius')
+                     map.get($app-shadow, 'color');
+
+    $replica: list.join(map.values($replica), (), space);
+
+    $replicas: list.join($replicas, ($replica, $replica-shadow));
+  }
+
+  @return $replicas;
+}
+
 :host {
-  height: 100vh;
   position: relative;
-  width: 100vw;
+  @include full-content;
 }
 
-#container, #sidenav-drawer {
-  height: 100vh;
+#app, #sidenav {
   position: absolute;
-  width: 100vw;
+  @include full-content;
 }
 
-#container {
-  background: red;
+#app {
+  background: $app-background;
+
+  .touchable {
+    position: absolute;
+    height: 100vh;
+    width: $touchable-area;
+  }
+
+  &.open {
+    border-radius: $app-border-radius;
+    box-shadow: shadow-replicas();
+
+    .touchable {
+      width: 100vw;
+      border-radius: $app-border-radius 0 0 $app-border-radius;
+    }
+
+    app-header {
+      border-radius: $app-border-radius $app-border-radius 0 0;
+    }
+  }
 }
 
-#sidenav-drawer {
-  background: blue;
+#sidenav {
+  background: $sidenav-background;
 }
