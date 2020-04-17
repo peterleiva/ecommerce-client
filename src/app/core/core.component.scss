@@ -74,6 +74,13 @@ $sidenav-background: color-variant('primary-1', 'dark');
     position: absolute;
     height: 100vh;
     width: $touchable-area;
+    @include z(drawer);
+  }
+
+  main {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100vh;
   }
 
   &.open {
