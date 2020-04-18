@@ -1,0 +1,11 @@
+@use 'utilities' as *;
+
+svg {
+  width: rem($touchable-area);
+}
+
+line {
+  stroke: color-gray(gray-2);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
