@@ -1,7 +1,8 @@
-<app-sidenav-drawer id="sidenav" #sidenav></app-sidenav-drawer>
+<app-sidenav-drawer id="sidenav"></app-sidenav-drawer>
 
-<div id="app" [class]="{open: openDrawer}" (click)="openDrawer && closeDrawer()" #app>
-  <app-hamburguer-button [open]="openDrawer" class="header-item"></app-hamburguer-button>
+<div id="app" [class]="{open: drawer}" (click)="drawer && closeDrawer()" #app>
+  <app-hamburguer-button [(open)]="drawer" (onOpen)="openDrawer()">
+  </app-hamburguer-button>
   <div class="touchable"></div>
   <main>
     <router-outlet></router-outlet>

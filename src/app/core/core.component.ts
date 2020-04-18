@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
+
+// FIXME: Mudar posição de snap. Em telas pequenas jogar forte para um lado e ficar preso
 
 gsap.registerPlugin(Draggable);
 
@@ -9,13 +11,11 @@ gsap.registerPlugin(Draggable);
   styleUrls: ['./core.component.scss']
 })
 export class CoreComponent implements AfterViewInit {
-  // FIXME: Mudar posição de snap. Em telas pequenas jogar forte para um lado e ficar preso
   static SIDEBAR_SNAP_AXIS = 280;
   static DRAG_ANIMATION_DURATION = .3;
 
-  @ViewChild('sidenav') _sidenav: ElementRef;
   @ViewChild('app') _app: ElementRef<HTMLDivElement>;
-  openDrawer = false;
+  drawer = false;
 
   ngAfterViewInit() {
     Draggable.create(this.app, {
@@ -29,12 +29,13 @@ export class CoreComponent implements AfterViewInit {
   }
 
   private onDragStart(): void {
+    gsap.set(this.app, { className: '+=open' });
+
     TweenLite.to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
       rotation: 1,
       scale: .84,
       transformOrigin: 'left',
-      ease: Back.easeOut,
-      onComplete: () => this.openDrawer = true
+      ease: Back.easeOut
     });
   }
 
@@ -45,29 +46,32 @@ export class CoreComponent implements AfterViewInit {
     if (closeDistance < Math.min(third, CoreComponent.SIDEBAR_SNAP_AXIS)) {
       this.closeDrawer();
     } else {
-      TweenLite
-        .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
-          x: CoreComponent.SIDEBAR_SNAP_AXIS,
-          rotation: 0,
-          ease: Back.easeOut
-        });
+      this.openDrawer();
     }
+  }
+
+  openDrawer() {
+    TweenLite
+      .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
+        x: CoreComponent.SIDEBAR_SNAP_AXIS,
+        rotation: 0,
+        scale: .84,
+        ease: Back.easeOut,
+        onComplete: () => this.drawer = true
+      });
   }
 
   closeDrawer() {
-    if (this.openDrawer) {
-      TweenLite.to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
-        rotation: 0,
-        scale: 1,
-        x: 0,
-        ease: Bounce.easeOut,
-        onComplete: () => this.openDrawer = false
-      });
+    if (this.drawer) {
+      TweenLite
+        .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
+          x: 0,
+          rotation: 0,
+          scale: 1,
+          ease: Bounce.easeOut,
+          onComplete: () => this.drawer = false
+        });
     }
-  }
-
-  get sidenav() {
-    return this._sidenav.nativeElement;
   }
 
   get app(): HTMLDivElement {
