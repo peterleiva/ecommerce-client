@@ -1,8 +1,18 @@
-import { Component, OnInit, Input, Output, ViewChild, ElementRef, OnDestroy, AfterViewInit, EventEmitter } from '@angular/core';
-import { gsap, TweenLite, TimelineLite, Bounce, TimelineMax } from 'gsap';
+import {
+  Component,
+  Input,
+  Output,
+  ViewChild,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  OnChanges,
+  OnDestroy
+} from '@angular/core';
+import { gsap, TweenLite, Bounce } from 'gsap';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-import { Subject, Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { partition } from 'rxjs/operators';
+import { Subject, Subscription, pipe } from 'rxjs';
+import { partition, tap } from 'rxjs/operators';
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -11,74 +21,80 @@ gsap.registerPlugin(MotionPathPlugin);
   templateUrl: './hamburguer-button.component.html',
   styleUrls: ['./hamburguer-button.component.scss']
 })
-export class HamburguerButtonComponent {
-  static TRANSITION_DURATION = .3;
+export class HamburguerButtonComponent implements OnInit, OnChanges, OnDestroy {
+  static TRANSITION_DURATION = .25;
 
-  @Input() open: boolean = false;
-  open$: Observable<boolean>;
-  close$: Observable<boolean>;
-  toggle$: BehaviorSubject<boolean>;
-  openSubscriptions: Subscription;
-  closeSubscriptions: Subscription;
-
-  timeline: TimelineLite;
-
+  // TODO: animação hover
   @ViewChild('icon') _icon: ElementRef<SVGElement>;
 
+  @Input() open: boolean = false;
+  @Output() onOpen = new EventEmitter<void>();
+  open$: Subject<boolean>;
+  openSubscription: Subscription;
+  closeSubscription: Subscription;
+
   ngOnInit() {
-    this.toggle$ = new BehaviorSubject<boolean>(this.open);
-    const [open$, close$] = this.toggle$.pipe(partition(open => open));
+    this.open$ = new Subject();
 
-    console.log('call')
+    const [open$, close$] = pipe(
+      partition((open: boolean) => open)
+    )(this.open$);
 
-    this.open$ = open$;
-    this.close$ = close$;
+    this.openSubscription = open$.pipe(tap(_ => this.onOpen.emit()))
+                                 .subscribe(this.openAnimation);
 
-    this.openSubscriptions = this.open$.subscribe(this._open);
-    this.closeSubscriptions = this.close$.subscribe(this._close);
+    this.closeSubscription = close$.subscribe(this.closeAnimation);
+
+    this.open$.next(this.open);
+  }
+
+  ngOnChanges() {
+    this.open$?.next(this.open);
   }
 
   get icon(): SVGElement {
     return this._icon.nativeElement;
   }
 
-  private _open() {
-    console.log('open');
-    // open animation
-    TweenLite.to('.icon line', HamburguerButtonComponent.TRANSITION_DURATION, {
-      attr: {
-        x1: 10,
-        y1: 20,
-        x2: 90,
-        y2: 80
-      }
-    });
-
+  /**
+   * Uses gsap to animation to cross state, two line crossed
+   *
+   */
+  private openAnimation(): void {
     TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 60,
         y1: 42,
         x2: 90,
         y2: 20
-      }
+      },
+      ease: Bounce.easeOut
     });
 
-    // const timeline = new TimelineLite({paused: true});
-    // timeline.to('#top-line', .2, {x: -30})
-    //   .to('.icon line', .2, {y: 50, ease: Bounce.easeOut})
-    //   .add('merge-lines');
-    // this.timeline = timeline;
+    TweenLite.to('.icon line', HamburguerButtonComponent.TRANSITION_DURATION, {
+      attr: {
+        x1: 10,
+        y1: 20,
+        x2: 90,
+        y2: 80
+      },
+      ease: Bounce.easeOut
+    });
   }
 
-  private _close() {
-    console.log('close');
+  /**
+   * Uses gsap to animation to its regular shape, default one
+   *
+   */
+  private closeAnimation(): void {
     TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 40,
         y1: 25,
         x2: 90,
         y2: 25
-      }
+      },
+      ease: Bounce.easeOut
     });
 
     TweenLite.to('.icon line', HamburguerButtonComponent.TRANSITION_DURATION, {
@@ -87,25 +103,21 @@ export class HamburguerButtonComponent {
         y1: 50,
         x2: 90,
         y2: 50
-      }
+      },
+      ease: Bounce.easeOut
     });
-
-    // this.timeline = new TimelineMax();
-    //
-    // this.timeline.to('#top-line', .2, {scaleX: 1.4});
   }
 
-  toggle() {
+  /**
+   * Toggle the open state and emits the new open state
+   */
+  toggle(): void {
     this.open = !this.open;
-    this.toggle$.next(this.open);
-  }
-
-  onMouseEnter() {
-    console.log(this.timeline);
+    this.open$.next(this.open);
   }
 
   ngOnDestroy() {
-    this.openSubscriptions.unsubscribe();
-    this.closeSubscriptions.unsubscribe();
+    this.openSubscription.unsubscribe();
+    this.closeSubscription.unsubscribe();
   }
 }
