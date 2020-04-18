@@ -1,11 +1,14 @@
 @use 'utilities' as *;
 
+$stroke-width: 5;
+
 svg {
   width: rem($touchable-area);
+  cursor: pointer;
 }
 
 line {
   stroke: color-gray(gray-2);
-  stroke-width: 4;
+  stroke-width: $stroke-width;
   stroke-linecap: round;
 }

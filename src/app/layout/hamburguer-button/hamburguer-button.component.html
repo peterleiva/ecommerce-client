@@ -1,13 +1,13 @@
-<svg viewBox="0 0 100 100">
+<svg viewBox="0 0 100 100" (click)="toggle()" (mouseenter) ="onMouseEnter()" #icon>
   <defs>
-    <line x1="40" y1="25" x2="90" y2="25"  id="half-line"/>
+    <line x1="40" y1="25" x2="90" y2="25"  id="top-line"/>
   </defs>
 
   <g class="icon">
     <line x1="10" y1="50" x2="90" y2="50"/>
     <g class="icon-line">
-      <use xlink:href="#half-line"/>
-      <use xlink:href="#half-line" transform="rotate(180 65 25) translate(30 -50)"/>
+      <use xlink:href="#top-line"/>
+      <use xlink:href="#top-line" transform="rotate(180 65 25) translate(30 -50)"/>
     </g>
   </g>
 </svg>
