@@ -1,47 +1,22 @@
-@use '~breakpoint-sass/stylesheets/breakpoint' as *;
-@use 'utilities' as utils;
-
 :host {
-  background: utils.color-gray(light);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 
-  // aplica grid a partir desse breakpoint
-  @include breakpoint(utils.breakpoints(bulldog)) {
-    display: grid;
+  > .header-list-items {
+    display: flex;
     align-items: center;
-    grid-template-areas: 'logo icons'
-                         'navbar navbar';
+    flex: 1;
 
-  }
-
-  @include breakpoint(utils.breakpoints(dobermann)) {
-    grid-template-areas: 'navbar logo icons';
-    @include utils.rhythm-padding(2 0);
-  }
-
-  ::ng-deep {
-
-    .header-item {
-
-      @include utils.rhythm-padding(.5 1);
-
-      &.navbar {
-        grid-area: navbar;
-      }
-
-      &.logo {
-        grid-area: logo;
-        @include breakpoint(utils.breakpoints(bulldog)) { justify-self: left }
-        @include breakpoint(utils.breakpoints(dobermann)) { justify-self: center }
-      }
-
-      &.icons {
-        grid-area: icons;
-        @include breakpoint(utils.breakpoints(bulldog)) { justify-self: right }
-      }
-
+    &.left {
+      justify-content: flex-start;
     }
 
+    &.center {
+      justify-content: space-evenly;
+    }
+
+    &.right {
+      justify-content: flex-end;
+    }
   }
 }
