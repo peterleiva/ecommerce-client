@@ -10,7 +10,7 @@ gsap.registerPlugin(Draggable);
 })
 export class CoreComponent implements AfterViewInit {
   // FIXME: Mudar posição de snap. Em telas pequenas jogar forte para um lado e ficar preso
-  static SIDEBAR_SNAP_AXIS = 250;
+  static SIDEBAR_SNAP_AXIS = 280;
   static DRAG_ANIMATION_DURATION = .3;
 
   @ViewChild('sidenav') _sidenav: ElementRef;
@@ -31,7 +31,7 @@ export class CoreComponent implements AfterViewInit {
   private onDragStart(): void {
     TweenLite.to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
       rotation: 1,
-      scale: .8,
+      scale: .84,
       transformOrigin: 'left',
       ease: Back.easeOut,
       onComplete: () => this.openDrawer = true
@@ -40,13 +40,16 @@ export class CoreComponent implements AfterViewInit {
 
   private onDragEnd(): void {
     const closeDistance = this.app.getBoundingClientRect().left;
+    const third = this.app.offsetWidth * .3;
 
-    if (closeDistance < CoreComponent.SIDEBAR_SNAP_AXIS) {
+    if (closeDistance < Math.min(third, CoreComponent.SIDEBAR_SNAP_AXIS)) {
       this.closeDrawer();
     } else {
       TweenLite
         .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
-          x: CoreComponent.SIDEBAR_SNAP_AXIS
+          x: CoreComponent.SIDEBAR_SNAP_AXIS,
+          rotation: 0,
+          ease: Back.easeOut
         });
     }
   }
