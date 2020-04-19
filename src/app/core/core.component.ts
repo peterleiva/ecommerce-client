@@ -61,17 +61,16 @@ export class CoreComponent implements AfterViewInit {
       });
   }
 
+  // FIXME: quando drawer = false no inicio, change detection nunca roda pois this.drawer = false e {class: drawer} não identifica
   closeDrawer() {
-    if (this.drawer) {
-      TweenLite
-        .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
-          x: 0,
-          rotation: 0,
-          scale: 1,
-          ease: Bounce.easeOut,
-          onComplete: () => this.drawer = false
-        });
-    }
+    TweenLite
+      .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
+        x: 0,
+        rotation: 0,
+        scale: 1,
+        ease: Bounce.easeOut,
+        onComplete: () => this.drawer = false
+      });
   }
 
   get app(): HTMLDivElement {
