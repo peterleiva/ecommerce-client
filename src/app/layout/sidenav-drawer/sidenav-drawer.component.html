@@ -1,1 +1,18 @@
-<p>sidenav-drawer works!</p>
+<section class="drawer">
+  <ng-container *ngIf="departments$ | async as departments; else loading">
+    <app-sidenav [departments]="departments"></app-sidenav>
+  </ng-container>
+</section>
+
+<ng-template #loading>
+  <section class="loading-departments">
+    <h1 class="heading-4 text-bold">DEPARTAMENTOS</h1>
+    <ul>
+      <li class="loading"></li>
+      <li class="loading"></li>
+      <li class="loading"></li>
+      <li class="loading"></li>
+      <li class="loading"></li>
+    </ul>
+  </section>
+</ng-template>

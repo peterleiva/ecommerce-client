@@ -1,0 +1,19 @@
+@use 'utilities' as *;
+
+.loading-departments {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    @include rhythm-margin-side('bottom', 1);
+  }
+
+  .loading {
+    flex: 1;
+    background: color-variant('primary-1', 'dark');
+    min-height: rem($clickable-area);
+    border-radius: $border-radius;
+    @include opacity(.5);
+    @include rhythm-margin-side('bottom', 1);
+  }
+}

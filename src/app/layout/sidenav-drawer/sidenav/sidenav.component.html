@@ -1,1 +1,11 @@
-<p>sidenav works!</p>
+<section>
+  <h1 class="heading-4 text-bold">
+    {{ superdepartment?.name || 'Departamentos' }}
+  </h1>
+  <ul>
+    <li *ngFor="let department of departments">
+      <app-sidenav-item [title]="department.name | titlecase" link="#">
+      </app-sidenav-item>
+    </li>
+  </ul>
+</section>

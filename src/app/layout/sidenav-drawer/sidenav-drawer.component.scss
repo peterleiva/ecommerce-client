@@ -1,0 +1,6 @@
+@use 'utilities' as *;
+
+.drawer {
+  @include rhythm-padding(1);
+  width: 20vw;
+}
