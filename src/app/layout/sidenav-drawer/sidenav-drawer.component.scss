@@ -2,5 +2,5 @@
 
 .sidenav {
   @include rhythm-padding(1);
-  width: rem(280px);
+  width: rem(breakpoints('chihuahua') - $touchable-area);
 }
