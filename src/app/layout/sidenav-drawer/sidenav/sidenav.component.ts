@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Department } from 'src/app/core/models/department.model';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+
 import { Category } from 'src/app/core/models/category.model';
+import { Department } from 'src/app/core/models/department.model';
+
 
 @Component({
   selector: 'app-sidenav',
@@ -10,6 +13,7 @@ import { Category } from 'src/app/core/models/category.model';
 export class SidenavComponent implements OnInit {
   @Input() superdepartment: Department | Category;
   @Input() departments: Department[];
+  backButton = faChevronLeft;
 
   constructor() { }
 
