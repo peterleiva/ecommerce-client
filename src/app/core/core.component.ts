@@ -15,12 +15,17 @@ export class CoreComponent implements AfterViewInit {
   static DRAG_ANIMATION_DURATION = .3;
 
   @ViewChild('app') _app: ElementRef<HTMLDivElement>;
+  @ViewChild('drawerTrigger') _drawerTrigger: ElementRef<HTMLDivElement>;
   drawer = false;
+
+  get drawerTrigger() {
+    return this._drawerTrigger.nativeElement;
+  }
 
   ngAfterViewInit() {
     Draggable.create(this.app, {
       edgeResistance: 0,
-      trigger: '.touchable',
+      trigger: this.drawerTrigger,
       type: 'x',
       inertia: true,
       onDragStart: () => this.onDragStart(),
@@ -29,13 +34,12 @@ export class CoreComponent implements AfterViewInit {
   }
 
   private onDragStart(): void {
-    gsap.set(this.app, { className: '+=open' });
-
     TweenLite.to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
       rotation: 1,
       scale: .84,
       transformOrigin: 'left',
-      ease: Back.easeOut
+      ease: Back.easeOut,
+      onComplete: () => this.drawer = true
     });
   }
 
@@ -61,7 +65,6 @@ export class CoreComponent implements AfterViewInit {
       });
   }
 
-  // FIXME: quando drawer = false no inicio, change detection nunca roda pois this.drawer = false e {class: drawer} não identifica
   closeDrawer() {
     TweenLite
       .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
