@@ -11,12 +11,13 @@ gsap.registerPlugin(Draggable);
   styleUrls: ['./core.component.scss']
 })
 export class CoreComponent implements AfterViewInit {
-  static SIDEBAR_SNAP_AXIS = 280;
+  static SIDEBAR_SNAP_AXIS = 300;
   static DRAG_ANIMATION_DURATION = .3;
 
   @ViewChild('app') _app: ElementRef<HTMLDivElement>;
   @ViewChild('drawerTrigger') _drawerTrigger: ElementRef<HTMLDivElement>;
   drawer = false;
+  opening = false;
 
   get drawerTrigger() {
     return this._drawerTrigger.nativeElement;
@@ -34,20 +35,23 @@ export class CoreComponent implements AfterViewInit {
   }
 
   private onDragStart(): void {
+    this.opening = true;
+
     TweenLite.to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
       rotation: 1,
       scale: .84,
       transformOrigin: 'left',
-      ease: Back.easeOut,
-      onComplete: () => this.drawer = true
+      ease: Back.easeOut
     });
   }
 
   private onDragEnd(): void {
-    const closeDistance = this.app.getBoundingClientRect().left;
-    const third = this.app.offsetWidth * .3;
+    this.opening = false;
 
-    if (closeDistance < Math.min(third, CoreComponent.SIDEBAR_SNAP_AXIS)) {
+    const closeDistance = this.app.getBoundingClientRect().left;
+    // const third = this.app.offsetWidth * .3;
+
+    if (closeDistance < CoreComponent.SIDEBAR_SNAP_AXIS) {
       this.closeDrawer();
     } else {
       this.openDrawer();
@@ -55,24 +59,24 @@ export class CoreComponent implements AfterViewInit {
   }
 
   openDrawer() {
+    this.drawer = true;
     TweenLite
       .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
         x: CoreComponent.SIDEBAR_SNAP_AXIS,
         rotation: 0,
         scale: .84,
-        ease: Back.easeOut,
-        onComplete: () => this.drawer = true
+        ease: Back.easeOut
       });
   }
 
   closeDrawer() {
+    this.drawer = false;
     TweenLite
       .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
         x: 0,
         rotation: 0,
         scale: 1,
-        ease: Bounce.easeOut,
-        onComplete: () => this.drawer = false
+        ease: Bounce.easeOut
       });
   }
 

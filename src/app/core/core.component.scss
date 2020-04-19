@@ -69,6 +69,7 @@ $app-border-radius: rem(10);
 
 #app {
   background: $app-background;
+  @include full-content;
 
   .touchable {
     position: absolute;
@@ -83,9 +84,15 @@ $app-border-radius: rem(10);
     height: 100vh;
   }
 
-  &.open {
+  &.opening, &.open {
     border-radius: $app-border-radius;
     box-shadow: shadow-replicas();
+  }
+
+  &.open {
+
+    transform: translateX(40vw);
+    transform-origin: left;
 
     .touchable {
       width: 100vw;

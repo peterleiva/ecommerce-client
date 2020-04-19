@@ -3,6 +3,7 @@
 h1 {
   color: color-variant('accent-1', 'darker');
   @include rhythm-margin-side('bottom', 1);
+  text-transform: uppercase;
 }
 
 li {

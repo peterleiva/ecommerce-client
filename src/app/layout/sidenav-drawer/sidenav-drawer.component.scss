@@ -1,6 +1,6 @@
 @use 'utilities' as *;
 
-.drawer {
+.sidenav {
   @include rhythm-padding(1);
-  width: 20vw;
+  width: rem(280px);
 }

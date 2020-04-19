@@ -1,8 +1,8 @@
-<section class="drawer">
+<aside class="sidenav">
   <ng-container *ngIf="departments$ | async as departments; else loading">
     <app-sidenav [departments]="departments"></app-sidenav>
   </ng-container>
-</section>
+</aside>
 
 <ng-template #loading>
   <section class="loading-departments">

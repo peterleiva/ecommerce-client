@@ -21,19 +21,31 @@ gsap.registerPlugin(MotionPathPlugin);
   templateUrl: './hamburguer-button.component.html',
   styleUrls: ['./hamburguer-button.component.scss']
 })
-export class HamburguerButtonComponent implements OnInit, OnChanges, OnDestroy {
+export class HamburguerButtonComponent implements OnDestroy {
   static TRANSITION_DURATION = .25;
 
   // TODO: animação hover
-  @ViewChild('icon') _icon: ElementRef<SVGElement>;
+  // @ViewChild('cuttedLine') _cuttedLine: ElementRef<SVGLineElement>;
 
-  @Input() open: boolean = false;
+  _open: boolean = false;
   @Output() onOpen = new EventEmitter<void>();
+  @Output() onClose = new EventEmitter<void>();
   open$: Subject<boolean>;
   openSubscription: Subscription;
   closeSubscription: Subscription;
 
-  ngOnInit() {
+  @Input('open') set open(state: boolean) {
+    this._open = state;
+
+    if (this.open$)
+      this.open$.next(state);
+  }
+
+  get open() {
+    return this._open;
+  }
+  
+  ngAfterViewInit() {
     this.open$ = new Subject();
 
     const [open$, close$] = pipe(
@@ -43,17 +55,11 @@ export class HamburguerButtonComponent implements OnInit, OnChanges, OnDestroy {
     this.openSubscription = open$.pipe(tap(_ => this.onOpen.emit()))
                                  .subscribe(this.openAnimation);
 
-    this.closeSubscription = close$.subscribe(this.closeAnimation);
+    this.closeSubscription = close$.pipe(tap(_ => this.onClose.emit()))
+                                   .subscribe(this.closeAnimation);
 
-    this.open$.next(this.open);
-  }
-
-  ngOnChanges() {
-    this.open$?.next(this.open);
-  }
-
-  get icon(): SVGElement {
-    return this._icon.nativeElement;
+    if (this.open)
+      this.open$.next(this.open);
   }
 
   /**
@@ -61,6 +67,7 @@ export class HamburguerButtonComponent implements OnInit, OnChanges, OnDestroy {
    *
    */
   private openAnimation(): void {
+    // console.log(this.cuttedLine);
     TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 60,
@@ -71,7 +78,7 @@ export class HamburguerButtonComponent implements OnInit, OnChanges, OnDestroy {
       ease: Bounce.easeOut
     });
 
-    TweenLite.to('.icon line', HamburguerButtonComponent.TRANSITION_DURATION, {
+    TweenLite.to('.container line', HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 10,
         y1: 20,
@@ -97,7 +104,7 @@ export class HamburguerButtonComponent implements OnInit, OnChanges, OnDestroy {
       ease: Bounce.easeOut
     });
 
-    TweenLite.to('.icon line', HamburguerButtonComponent.TRANSITION_DURATION, {
+    TweenLite.to('.container line', HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 10,
         y1: 50,
