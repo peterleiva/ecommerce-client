@@ -6,13 +6,15 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
 import { Product } from '../models/product.model';
 import { Tag } from '../models/tag.model';
+import { Department } from '../models/department.model';
 
 const config: DatastoreConfig = {
   baseUrl: environment.api,
   models: {
     categories: Category,
     products: Product,
-    tags: Tag
+    tags: Tag,
+    departments: Department
   }
 };
 
