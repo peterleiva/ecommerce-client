@@ -1,8 +1,11 @@
 <app-sidenav-drawer id="sidenav"></app-sidenav-drawer>
 
-<div id="app" [ngClass]="{open: drawer, opening: opening}" #app>
+<div id="app" [ngClass]="{open: drawer, opening: opening}" (click)="drawer && closeDrawer()" #app>
   <app-header>
-    <app-hamburguer-button [open]="drawer" (onOpen)="openDrawer()" (onClose)="closeDrawer()"
+    <app-hamburguer-button [open]="drawer"
+                           (onOpen)="openDrawer()"
+                           (onClose)="closeDrawer()"
+                           (click)="$event.stopPropagation()"
                            position="left" appHeaderItem>
     </app-hamburguer-button>
   </app-header>
