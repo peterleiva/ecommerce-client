@@ -1,9 +1,13 @@
 @use 'utilities' as *;
+@use 'components/icon' as *;
 
 $stroke-width: 5;
 
+:host {
+  @extend .icon;
+}
+
 svg {
-  width: rem($touchable-area);
   cursor: pointer;
 }
 

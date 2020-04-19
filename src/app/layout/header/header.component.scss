@@ -1,6 +1,9 @@
+@use 'utilities' as *;
+
 :host {
   display: flex;
   justify-content: space-between;
+  @include rhythm-padding(.5);
 
   > .header-list-items {
     display: flex;
