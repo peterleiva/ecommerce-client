@@ -9,6 +9,9 @@ import { PaginateComponent } from './pagination/paginate/paginate.component';
 import { RouterModule } from '@angular/router';
 import { OverlayComponent } from './overlay/overlay.component';
 import { IconComponent } from './icon/icon.component';
+import { TabSectionDirective } from './tab/tab-section/tab-section.directive';
+import { TabContainerComponent } from './tab/tab-container/tab-container.component';
+import { TabTriggerDirective } from './tab/tab-trigger.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { IconComponent } from './icon/icon.component';
     PaginateComponent,
     PageEntriesInfoComponent,
     OverlayComponent,
-    IconComponent
+    IconComponent,
+    TabSectionDirective,
+    TabContainerComponent,
+    TabTriggerDirective
   ],
   imports: [
     RouterModule,
@@ -30,7 +36,10 @@ import { IconComponent } from './icon/icon.component';
     JsonApiModule,
     PaginateComponent,
     PageEntriesInfoComponent,
-    OverlayComponent
+    OverlayComponent,
+    TabSectionDirective,
+    TabContainerComponent,
+    TabTriggerDirective
   ]
 })
 export class SharedModule { }
