@@ -1,18 +1,5 @@
 @use 'utilities' as *;
 
-h1 {
-  color: color-variant('accent-1', 'darker');
-  @include rhythm-margin-side('bottom', 1);
-  text-transform: uppercase;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  > .back-button {
-    @include rhythm-margin-side('right', .5);
-  }
-}
-
 li {
   @include rhythm-margin-side('bottom', 1);
 }

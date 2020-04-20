@@ -1,6 +1,24 @@
 @use 'utilities' as *;
 
+h1 {
+  color: color-variant('accent-1', 'darker');
+  @include rhythm-margin-side('bottom', 1);
+
+   .back-button {
+    @include rhythm-margin-side('right', 1);
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .sidenav {
   @include rhythm-padding(1);
   width: rem(breakpoints('chihuahua') - $touchable-area);
+
+  .subcategories app-sidenav:not(.active) {
+    display: none;
+  }
 }

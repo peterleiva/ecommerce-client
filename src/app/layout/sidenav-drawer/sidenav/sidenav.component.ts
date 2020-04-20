@@ -1,22 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
-import { Category } from 'src/app/core/models/category.model';
+import Classifier from 'src/app/core/models/classifier.interface';
 import { Department } from 'src/app/core/models/department.model';
-
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
-  @Input() superdepartment: Department | Category;
-  @Input() departments: Department[];
-  backButton = faChevronLeft;
+export class SidenavComponent {
+  @Input() superdepartment: Classifier;
+  @Input() departments: Classifier[];
+  @Output() open = new EventEmitter<Classifier>();
 
-  constructor() { }
-
-  ngOnInit() {
+  onOpen(department: Classifier) {
+    if (department.subclassifier?.length > 0) {
+      this.open.emit(department);
+    }
   }
 }

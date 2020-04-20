@@ -3,6 +3,7 @@ import { TweenLite, Power1 } from 'gsap';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JsonApiQueryData } from 'angular2-jsonapi';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { Department } from 'src/app/core/models/department.model';
 import { Datastore } from 'src/app/core/services/datastore.service';
@@ -17,13 +18,16 @@ import { Datastore } from 'src/app/core/services/datastore.service';
 })
 export class SidenavDrawerComponent implements OnInit {
   departments$: Observable<Department[]>;
+  department: Department;
+  superdepartment: Department;
+  backButton = faChevronLeft;
 
   constructor(private datastore: Datastore) { }
 
   ngOnInit() {
     this.departments$ = this.datastore
       .findAll(Department, {
-        include: 'categories.subcategories**'
+        include: 'categories.**'
       })
       .pipe(
         map((departments: JsonApiQueryData<Department>) =>

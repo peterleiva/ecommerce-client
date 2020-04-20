@@ -1,6 +1,19 @@
 <aside class="sidenav">
   <ng-container *ngIf="departments$ | async as departments; else loading">
-    <app-sidenav [departments]="departments"></app-sidenav>
+    <h1 class="heading-5 text-bold">
+      <a href="javascript:void(0)" (click)="department = department?.supercategory">
+
+        <fa-icon [icon]="backButton" class="back-button text-sm"
+                 *ngIf="department">
+        </fa-icon>
+      {{ department?.name || 'Departamentos' | uppercase }}
+
+      </a>
+    </h1>
+
+    <app-sidenav [departments]="department?.subcategories || departments"
+                 (open)="this.department = $event">
+    </app-sidenav>
   </ng-container>
 </aside>
 

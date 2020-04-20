@@ -1,12 +1,8 @@
 <section>
-  <h1 class="heading-4 text-bold">
-    <fa-icon [icon]="backButton" class="back-button text-sm" *ngIf="superdepartment">
-    </fa-icon>
-    {{ superdepartment?.name || 'Departamentos' }}
-  </h1>
   <ul>
     <li *ngFor="let department of departments">
-      <app-sidenav-item [title]="department.name | titlecase" link="#">
+      <app-sidenav-item [department]="department"
+                        (click)="onOpen(department)">
       </app-sidenav-item>
     </li>
   </ul>
