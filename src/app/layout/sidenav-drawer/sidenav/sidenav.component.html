@@ -1,8 +1,8 @@
 <section>
   <ul>
-    <li *ngFor="let department of departments">
-      <app-sidenav-item [department]="department"
-                        (click)="onOpen(department)">
+    <li *ngFor="let category of categories">
+      <app-sidenav-item [category]="category"
+                        (click)="onOpen(category)">
       </app-sidenav-item>
     </li>
   </ul>

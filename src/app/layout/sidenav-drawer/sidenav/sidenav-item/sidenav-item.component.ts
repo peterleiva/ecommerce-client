@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-import { Department } from 'src/app/core/models/department.model';
+import { Category } from 'src/app/core/models/category.model';
 
 @Component({
   selector: 'app-sidenav-item',
@@ -11,7 +11,7 @@ import { Department } from 'src/app/core/models/department.model';
 export class SidenavItemComponent implements OnInit {
   @Input() title: String;
   @Input() link: String;
-  @Input() department: Department;
+  @Input() category: Category;
   faChevronRight = faChevronRight;
 
   constructor() { }

@@ -14,10 +14,6 @@ import Classifier from './classifier.interface';
 export class Category extends JsonApiModel implements Classifier {
   @Attribute() name: string;
   @HasMany() products: Product[];
-  @HasMany() subcategories: Category[];
   @BelongsTo() supercategory: Category;
-
-  get subclassifier(): Category[] {
-    return this.subcategories;
-  }
+  @HasMany() subcategories: Category[];
 }

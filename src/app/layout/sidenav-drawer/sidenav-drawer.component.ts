@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { JsonApiQueryData } from 'angular2-jsonapi';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import { Department } from 'src/app/core/models/department.model';
 import { Datastore } from 'src/app/core/services/datastore.service';
+import { Category } from 'src/app/core/models/category.model';
 
 @Component({
   selector: 'app-sidenav-drawer',
@@ -17,21 +17,20 @@ import { Datastore } from 'src/app/core/services/datastore.service';
   ]
 })
 export class SidenavDrawerComponent implements OnInit {
-  departments$: Observable<Department[]>;
-  department: Department;
-  superdepartment: Department;
+  categories$: Observable<Category[]>;
+  selectedCategory: Category;
   backButton = faChevronLeft;
 
   constructor(private datastore: Datastore) { }
 
   ngOnInit() {
-    this.departments$ = this.datastore
-      .findAll(Department, {
+    this.categories$ = this.datastore
+      .findAll(Category, {
         include: 'categories.**'
       })
       .pipe(
-        map((departments: JsonApiQueryData<Department>) =>
-          departments.getModels()
+        map((categories: JsonApiQueryData<Category>) =>
+          categories.getModels()
         )
       );
   }

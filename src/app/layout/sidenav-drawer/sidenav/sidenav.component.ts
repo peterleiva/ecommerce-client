@@ -1,7 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-
-import Classifier from 'src/app/core/models/classifier.interface';
-import { Department } from 'src/app/core/models/department.model';
+import { Category } from 'src/app/core/models/category.model';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,13 +7,12 @@ import { Department } from 'src/app/core/models/department.model';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent {
-  @Input() superdepartment: Classifier;
-  @Input() departments: Classifier[];
-  @Output() open = new EventEmitter<Classifier>();
+  @Input() categories: Category[];
+  @Output() open = new EventEmitter<Category>();
 
-  onOpen(department: Classifier) {
-    if (department.subclassifier?.length > 0) {
-      this.open.emit(department);
+  onOpen(category: Category) {
+    if (category.subcategories?.length > 0) {
+      this.open.emit(category);
     }
   }
 }
