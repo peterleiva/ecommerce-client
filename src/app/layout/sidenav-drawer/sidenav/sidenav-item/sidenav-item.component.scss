@@ -3,6 +3,11 @@
 .sidenav-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   color: color-gray(light);
+
+  fa-icon {
+    @include rhythm-margin-side('left', .5);
+  }
 }

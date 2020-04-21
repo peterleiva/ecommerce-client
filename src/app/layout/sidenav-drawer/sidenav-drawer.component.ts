@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TweenLite, Power1 } from 'gsap';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { JsonApiQueryData } from 'angular2-jsonapi';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -26,12 +26,13 @@ export class SidenavDrawerComponent implements OnInit {
   ngOnInit() {
     this.categories$ = this.datastore
       .findAll(Category, {
-        include: 'categories.**'
+        include: 'subcategories.**'
       })
       .pipe(
         map((categories: JsonApiQueryData<Category>) =>
           categories.getModels()
-        )
+        ),
+        tap(categories => console.log(categories))
       );
   }
 

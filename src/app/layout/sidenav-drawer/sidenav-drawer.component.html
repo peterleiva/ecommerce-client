@@ -11,8 +11,8 @@
       </a>
     </h1>
 
-    <app-sidenav [categories]="category?.subcategories || categories"
-                 (open)="this.category = $event">
+    <app-sidenav [categories]="selectedCategory?.subcategories || categories"
+                 (open)="this.selectedCategory = $event">
     </app-sidenav>
   </ng-container>
 </aside>
