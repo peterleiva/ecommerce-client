@@ -1,24 +1,38 @@
 @use 'utilities' as *;
 
-h1 {
-  color: color-variant('accent-1', 'darker');
-  @include rhythm-margin-side('bottom', 1);
-
-   .back-button {
-    @include rhythm-margin-side('right', 1);
-  }
-
-  a {
-    display: flex;
-    align-items: center;
-  }
-}
-
 .sidenav {
   @include rhythm-padding(1);
   width: rem(breakpoints('chihuahua') - $touchable-area);
 
+  h1 {
+    color: color-variant('accent-1', 'darker');
+
+     .back-button {
+      @include rhythm-margin-side('right', 1);
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
+
   .subcategories app-sidenav:not(.active) {
     display: none;
+  }
+
+  .container {
+    position: relative;
+    @include rhythm-margin(2.5 0 .5 0);
+
+    > app-sidenav {
+      position: absolute;
+      left: 0;
+
+      &.sidenav-previous {
+        transform: translateX(-100%);
+        @include opacity(hidden);
+      }
+    }
   }
 }

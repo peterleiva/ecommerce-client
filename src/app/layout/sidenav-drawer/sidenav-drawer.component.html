@@ -1,19 +1,26 @@
 <aside class="sidenav">
   <ng-container *ngIf="categories$ | async as categories; else loading">
     <h1 class="heading-5 text-bold">
-      <a href="javascript:void(0)" (click)="selectedCategory = selectedCategory?.supercategory">
+      <a href="javascript:void(0)" (click)="goBackward()">
 
         <fa-icon [icon]="backButton" class="back-button text-sm"
-                 *ngIf="selectedCategory">
+                 *ngIf="current">
         </fa-icon>
-      {{ selectedCategory?.name || 'Departamentos' | uppercase }}
+      {{ current?.name || 'Departamentos' | uppercase }}
 
       </a>
     </h1>
 
-    <app-sidenav [categories]="selectedCategory?.subcategories || categories"
-                 (open)="this.selectedCategory = $event">
-    </app-sidenav>
+    <div class="container">
+      <app-sidenav [categories]="current?.subcategories || categories"
+                   (open)="goForward($event)" #currentSideNav>
+      </app-sidenav>
+      <app-sidenav [categories]="supercategory?.subcategories || categories"
+                   class="sidenav-previous" #previousSideNav>
+      </app-sidenav>
+
+    </div>
+
   </ng-container>
 </aside>
 
