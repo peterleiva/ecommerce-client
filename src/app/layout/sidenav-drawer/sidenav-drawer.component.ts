@@ -95,7 +95,7 @@ export class SidenavDrawerComponent implements OnInit {
         rotateX: 90,
         transformOrigin: 'center bottom',
         transformPerspective: 1500,
-transformStyle: 'perserve-3d'
+        transformStyle: 'perserve-3d'
       })
       .add('previous')
 
@@ -109,9 +109,10 @@ transformStyle: 'perserve-3d'
    * Select the previous category as the current (go to parent)
    */
   goBackward(): void {
+
     this.current = this.supercategory;
+    this.goForwardTimeline?.reverse();
     this.supercategory = this.current?.supercategory;
 
-    this.goForwardTimeline?.reverse();
   }
 }

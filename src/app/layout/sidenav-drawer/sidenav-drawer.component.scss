@@ -1,6 +1,7 @@
 @use 'utilities' as *;
 
 .sidenav {
+  position: relative;
   @include rhythm-padding(1);
   width: rem(breakpoints('chihuahua') - $touchable-area);
 
@@ -22,8 +23,9 @@
   }
 
   .container {
-    position: relative;
-    @include rhythm-margin(2.5 0 .5 0);
+    position: absolute;
+    top: rhythm-baseline-scale(4);
+    width: 100%;
 
     > app-sidenav {
       position: absolute;
