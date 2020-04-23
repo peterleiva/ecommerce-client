@@ -1,7 +1,7 @@
 <aside class="sidenav">
   <ng-container *ngIf="categories$ | async as categories; else loading">
     <h1 class="heading-5 text-bold">
-      <a href="javascript:void(0)" (click)="goBackward()">
+      <a href="javascript:void(0)" (click)="current = current?.supercategory">
 
         <fa-icon [icon]="backButton" class="back-button text-sm"
                  *ngIf="current">
@@ -12,13 +12,9 @@
     </h1>
 
     <div class="container">
-      <app-sidenav [categories]="current?.subcategories || categories"
-                   (open)="goForward($event)" #currentSideNav>
+      <app-sidenav [categories]="categories"
+                   (open)="current = $event">
       </app-sidenav>
-      <app-sidenav [categories]="supercategory?.subcategories || categories"
-                   class="sidenav-previous" #previousSideNav>
-      </app-sidenav>
-
     </div>
 
   </ng-container>

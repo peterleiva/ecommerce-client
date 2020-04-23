@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TweenLite, Power1 } from 'gsap';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { gsap, TimelineMax } from 'gsap';
+import { TimelineMax } from 'gsap';
 import { JsonApiQueryData } from 'angular2-jsonapi';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -18,15 +18,10 @@ import { Category } from 'src/app/core/models/category.model';
   ]
 })
 export class SidenavDrawerComponent implements OnInit {
-  @ViewChild('currentSideNav', {read: ElementRef}) _currentSideNav: ElementRef<HTMLElement>;
-  @ViewChild('previousSideNav', {read: ElementRef}) _previousSideNav: ElementRef<HTMLElement>;
-
   categories$: Observable<Category[]>;
+  backButton = faChevronLeft;
   current: Category;
   supercategory: Category;
-  backButton = faChevronLeft;
-
-  goForwardTimeline: TimelineMax;
 
   constructor(private datastore: Datastore) { }
 
@@ -57,62 +52,19 @@ export class SidenavDrawerComponent implements OnInit {
     });
   }
 
-  get currentSideNav(): HTMLElement {
-    return this._currentSideNav.nativeElement;
-  }
-
-  get previousSideNav(): HTMLElement {
-    return this._previousSideNav.nativeElement;
-  }
-
   /**
    * Select a subcategory as the current
    */
   goForward(subcategory: Category): void {
-    console.log('forward');
-
     this.current = subcategory;
     this.supercategory = this.current?.supercategory;
-    console.log('antes previous', this.previousSideNav);
-
-    this.goForwardTimeline = new TimelineMax();
-
-    this.goForwardTimeline
-      .set(this.currentSideNav, {opacity: 0, x: '-100%'})
-
-      .fromTo(this.previousSideNav, 0, {
-        opacity: 0,
-        x: '-100%'
-      }, {
-        opacity: 0,
-        x: 0
-      })
-      .fromTo(this.previousSideNav, .5, {
-        opacity: 1,
-        rotateX: 0,
-      },{
-        opacity: 0,
-        rotateX: 90,
-        transformOrigin: 'center bottom',
-        transformPerspective: 1500,
-        transformStyle: 'perserve-3d'
-      })
-      .add('previous')
-
-      .to(this.currentSideNav, .5, {
-        x: 0,
-        opacity: 1
-      }, 'previous-=.2');
   }
 
   /**
    * Select the previous category as the current (go to parent)
    */
   goBackward(): void {
-
     this.current = this.supercategory;
-    this.goForwardTimeline?.reverse();
     this.supercategory = this.current?.supercategory;
-
   }
 }
