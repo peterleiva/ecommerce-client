@@ -6,8 +6,8 @@ import {
   ElementRef,
   QueryList,
   ViewChildren,
-  ViewChild,
-  ChangeDetectorRef} from '@angular/core'
+  ViewChild
+} from '@angular/core'
 import { TimelineMax } from 'gsap'
 
 import { Category } from 'src/app/core/models/category.model'
@@ -28,9 +28,6 @@ export class SidenavComponent {
   selected: Category
   timeline: TimelineMax
 
-  constructor(private changeDetector: ChangeDetectorRef) {
-  }
-
   ngAfterViewInit() {
     this._items.changes.subscribe(_ => this.openAnimation())
   }
@@ -41,31 +38,34 @@ export class SidenavComponent {
   open(category: Category) {
     if (category.subcategories?.length > 0) {
 
-      // animate stuffs
-      const tl = new TimelineMax()
-
-      tl.set(this.nav, {
-        transformOrigin: 'center bottom',
-        perspective: 5000,
-        transformStyle: 'preserve-3d'
-      })
-
-      tl.add('close')
-      tl.to(this.nav, .2, {
-        rotateX: 90,
-
-        onComplete: () => {
+      this.closeAnimation()
+        .then(() => {
           this.selected = category
           this.categories = category.subcategories
 
           this.onOpen.emit(category)
-          this.changeDetector.detectChanges()
-        }
-      })
-
-
-      this.timeline = tl
+        })
     }
+  }
+
+  /**
+   * Close animation is wrapped around a promise to change detector catch it
+   *
+   */
+  private closeAnimation(): Promise<TimelineMax> {
+    this.timeline = new TimelineMax()
+
+    this.timeline
+      .set(this.nav, {
+        transformOrigin: 'center bottom',
+        perspective: 5000,
+        transformStyle: 'preserve-3d'
+      })
+      .add('close')
+
+      .to(this.nav, .2, { rotateX: 90 })
+
+    return this.timeline.then()
   }
 
   private openAnimation() {
