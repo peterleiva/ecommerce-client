@@ -31,6 +31,8 @@
     > app-sidenav {
       position: absolute;
       left: 0;
+      max-height: 70vh;
+      overflow-y: scroll;
 
       &.sidenav-previous {
         transform: translateX(-100%);
