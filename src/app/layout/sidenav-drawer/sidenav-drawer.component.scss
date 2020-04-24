@@ -3,7 +3,7 @@
 .sidenav {
   position: relative;
   @include rhythm-padding(1 0);
-  width: rem(breakpoints('chihuahua') - $touchable-area);
+  width: rem(breakpoints('chihuahua') - $touchable-area*2); // $touchable-area * some app shadow
 
   h1 {
     @include rhythm-margin(0 1);

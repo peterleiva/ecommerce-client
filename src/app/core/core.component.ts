@@ -11,7 +11,7 @@ gsap.registerPlugin(Draggable);
   styleUrls: ['./core.component.scss']
 })
 export class CoreComponent implements AfterViewInit {
-  static SIDEBAR_SNAP_AXIS = 300;
+  static SIDEBAR_SNAP_AXIS = 278;
   static DRAG_ANIMATION_DURATION = .3;
 
   @ViewChild('app') _app: ElementRef<HTMLDivElement>;
@@ -49,7 +49,6 @@ export class CoreComponent implements AfterViewInit {
     this.opening = false;
 
     const closeDistance = this.app.getBoundingClientRect().left;
-    // const third = this.app.offsetWidth * .3;
 
     if (closeDistance < CoreComponent.SIDEBAR_SNAP_AXIS) {
       this.closeDrawer();
