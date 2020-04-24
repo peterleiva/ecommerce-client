@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { TweenLite, Power1 } from 'gsap';
+import { Component, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { TimelineMax } from 'gsap';
-import { JsonApiQueryData } from 'angular2-jsonapi';
+import { TweenLite, Power1 } from 'gsap';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import { Datastore } from 'src/app/core/services/datastore.service';
+import { CategoryNavigatorService } from './category-navigator.service';
 import { Category } from 'src/app/core/models/category.model';
 
 @Component({
@@ -15,26 +12,24 @@ import { Category } from 'src/app/core/models/category.model';
   styleUrls: [
     './sidenav-drawer.component.scss',
     './sidenav/sidenav-loading.component.scss'
-  ]
+  ],
+  providers: [CategoryNavigatorService]
 })
-export class SidenavDrawerComponent implements OnInit {
-  categories$: Observable<Category[]>;
+export class SidenavDrawerComponent implements AfterViewInit {
   backButton = faChevronLeft;
-  current: Category;
-  supercategory: Category;
 
-  constructor(private datastore: Datastore) { }
+  constructor(private navigatorService: CategoryNavigatorService) { }
 
-  ngOnInit() {
-    this.categories$ = this.datastore
-      .findAll(Category, {
-        include: 'subcategories.**'
-      })
-      .pipe(
-        map((categories: JsonApiQueryData<Category>) =>
-          categories.getModels()
-        )
-      );
+  get categories$(): Observable<Category[]> {
+    return this.navigatorService.categories$
+  }
+
+  get navigate$(): Observable<Category> {
+    return this.navigatorService.navigate$
+  }
+
+  close(): void {
+    this.navigatorService.close()
   }
 
   ngAfterViewInit() {
@@ -50,21 +45,5 @@ export class SidenavDrawerComponent implements OnInit {
         from: 'random'
       }
     });
-  }
-
-  /**
-   * Select a subcategory as the current
-   */
-  goForward(subcategory: Category): void {
-    this.current = subcategory;
-    this.supercategory = this.current?.supercategory;
-  }
-
-  /**
-   * Select the previous category as the current (go to parent)
-   */
-  goBackward(): void {
-    this.current = this.supercategory;
-    this.supercategory = this.current?.supercategory;
   }
 }

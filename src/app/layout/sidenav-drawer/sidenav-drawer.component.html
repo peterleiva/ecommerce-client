@@ -1,19 +1,19 @@
 <aside class="sidenav">
   <ng-container *ngIf="categories$ | async as categories; else loading">
     <h1 class="heading-5 text-bold">
-      <a href="javascript:void(0)" (click)="current = current?.supercategory">
+      <a href="javascript:void(0)" (click)="close()">
 
-        <fa-icon [icon]="backButton" class="back-button text-sm"
-                 *ngIf="current">
-        </fa-icon>
-      {{ current?.name || 'Departamentos' }}
+        <ng-container *ngIf="navigate$ | async as category; else title">
+          <fa-icon [icon]="backButton" class="back-button text-sm">
+          </fa-icon>
+          {{ category.name }}
+        </ng-container>
 
       </a>
     </h1>
 
     <div class="container">
-      <app-sidenav [categories]="categories"
-                   (open)="current = $event">
+      <app-sidenav [categories]="categories">
       </app-sidenav>
     </div>
 
@@ -31,4 +31,8 @@
       <li class="loading"></li>
     </ul>
   </section>
+</ng-template>
+
+<ng-template #title>
+  Departamentos
 </ng-template>

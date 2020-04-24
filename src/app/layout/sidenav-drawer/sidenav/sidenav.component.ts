@@ -1,35 +1,42 @@
 import {
   Component,
   Input,
-  EventEmitter,
-  Output,
   ElementRef,
   QueryList,
   ViewChildren,
-  ViewChild
+  ViewChild,
+  AfterViewInit
 } from '@angular/core'
 import { TimelineMax } from 'gsap'
 
 import { Category } from 'src/app/core/models/category.model'
+import { CategoryNavigatorService } from '../category-navigator.service'
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent {
+export class SidenavComponent implements AfterViewInit {
   @Input() categories: Category[]
-  @Output('open') onOpen = new EventEmitter<Category>()
-  @ViewChildren('items')
-  private _items: QueryList<ElementRef<HTMLElement>>
-  @ViewChild('nav')
-  private _nav: ElementRef<HTMLElement>
+  @ViewChildren('items') private _items: QueryList<ElementRef<HTMLElement>>
+  @ViewChild('nav') private _nav: ElementRef<HTMLElement>
 
-  selected: Category
   timeline: TimelineMax
+
+  constructor(private categoryService: CategoryNavigatorService) { }
 
   ngAfterViewInit() {
     this._items.changes.subscribe(_ => this.openAnimation())
+  }
+
+
+  get nav(): HTMLElement {
+    return this._nav.nativeElement
+  }
+
+  get items(): HTMLElement[] {
+    return this._items.toArray().map(item => item.nativeElement)
   }
 
   /**
@@ -39,12 +46,7 @@ export class SidenavComponent {
     if (category.subcategories?.length > 0) {
 
       this.closeAnimation()
-        .then(() => {
-          this.selected = category
-          this.categories = category.subcategories
-
-          this.onOpen.emit(category)
-        })
+        .then(_ => this.categoryService.open(category))
     }
   }
 
@@ -78,13 +80,5 @@ export class SidenavComponent {
         opacity: 1,
         stagger: { amount: .25 }
       })
-  }
-
-  get nav(): HTMLElement {
-    return this._nav.nativeElement
-  }
-
-  get items(): HTMLElement[] {
-    return this._items.toArray().map(item => item.nativeElement)
   }
 }
