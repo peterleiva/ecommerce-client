@@ -2,10 +2,11 @@
 
 .sidenav {
   position: relative;
-  @include rhythm-padding(1);
+  @include rhythm-padding(1 0);
   width: rem(breakpoints('chihuahua') - $touchable-area);
 
   h1 {
+    @include rhythm-margin(0 1);
     color: color-variant('accent-1', 'darker');
 
      .back-button {
