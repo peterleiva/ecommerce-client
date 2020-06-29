@@ -100,6 +100,9 @@
             "styles": [
               "src/stylesheets/main.scss"
             ],
+            "stylePreprocessorOptions":{
+              "includePaths": ["src/stylesheets"]
+            },
             "scripts": []
           }
         },
