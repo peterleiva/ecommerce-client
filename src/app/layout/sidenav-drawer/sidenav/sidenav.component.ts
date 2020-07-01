@@ -39,6 +39,7 @@ export class SidenavComponent implements AfterViewInit {
     return this._items.toArray().map(item => item.nativeElement)
   }
 
+
   /**
    * Side navigation only open a subcategory exists
    */
@@ -54,7 +55,7 @@ export class SidenavComponent implements AfterViewInit {
    * Close animation is wrapped around a promise to change detector catch it
    *
    */
-  private closeAnimation(): Promise<TimelineMax> {
+  private async closeAnimation(): Promise<TimelineMax> {
     this.timeline = new TimelineMax()
 
     this.timeline
