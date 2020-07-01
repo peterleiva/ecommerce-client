@@ -18,9 +18,9 @@ import { CategoryNavigatorService } from '../category-navigator.service'
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements AfterViewInit {
-  @Input() categories: Category[]
-  @ViewChildren('items') private _items: QueryList<ElementRef<HTMLElement>>
-  @ViewChild('nav') private _nav: ElementRef<HTMLElement>
+  @Input() categories: Category[];
+  @ViewChildren('items') private _items: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('nav') private _nav: ElementRef<HTMLElement>;
 
   timeline: TimelineMax
 
@@ -39,21 +39,18 @@ export class SidenavComponent implements AfterViewInit {
     return this._items.toArray().map(item => item.nativeElement)
   }
 
-
   /**
-   * Side navigation only open a subcategory exists
+   * Open side navigation when subcategory exists
    */
-  open(category: Category) {
+  async open(category: Category) {
     if (category.subcategories?.length > 0) {
-
-      this.closeAnimation()
-        .then(_ => this.categoryService.open(category))
+      await this.closeAnimation();
+      this.categoryService.open(category);
     }
   }
 
   /**
    * Close animation is wrapped around a promise to change detector catch it
-   *
    */
   private async closeAnimation(): Promise<TimelineMax> {
     this.timeline = new TimelineMax()
