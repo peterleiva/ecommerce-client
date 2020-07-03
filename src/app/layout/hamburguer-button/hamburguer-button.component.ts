@@ -2,11 +2,7 @@ import {
   Component,
   Input,
   Output,
-  ViewChild,
-  ElementRef,
   EventEmitter,
-  OnInit,
-  OnChanges,
   OnDestroy
 } from '@angular/core';
 import { gsap, TweenLite, Bounce } from 'gsap';
@@ -24,15 +20,16 @@ gsap.registerPlugin(MotionPathPlugin);
 export class HamburguerButtonComponent implements OnDestroy {
   static TRANSITION_DURATION = .25;
 
-  // TODO: animação hover
-  // @ViewChild('cuttedLine') _cuttedLine: ElementRef<SVGLineElement>;
+  // TODO: Animar hover para os diferentes estados
+  // TODO: Desacoplar as animações para abstrações próprias  
 
   _open: boolean = false;
   @Output() onOpen = new EventEmitter<void>();
   @Output() onClose = new EventEmitter<void>();
-  open$: Subject<boolean>;
-  openSubscription: Subscription;
-  closeSubscription: Subscription;
+
+  private open$: Subject<boolean>;
+  private openSubscription: Subscription;
+  private closeSubscription: Subscription;
 
   @Input('open') set open(state: boolean) {
     this._open = state;
@@ -45,13 +42,16 @@ export class HamburguerButtonComponent implements OnDestroy {
     return this._open;
   }
   
+  /**
+   * Divide the open/close events into two stream to animate when changed
+   */
   ngAfterViewInit() {
     this.open$ = new Subject();
 
     const [open$, close$] = pipe(
       partition((open: boolean) => open)
     )(this.open$);
-
+    
     this.openSubscription = open$.pipe(tap(_ => this.onOpen.emit()))
                                  .subscribe(this.openAnimation);
 
@@ -63,11 +63,9 @@ export class HamburguerButtonComponent implements OnDestroy {
   }
 
   /**
-   * Uses gsap to animation to cross state, two line crossed
-   *
+   * Animate to two line crossed using absolute position - open state
    */
   private openAnimation(): void {
-    // console.log(this.cuttedLine);
     TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 60,
@@ -78,20 +76,21 @@ export class HamburguerButtonComponent implements OnDestroy {
       ease: Bounce.easeOut
     });
 
-    TweenLite.to('.container line', HamburguerButtonComponent.TRANSITION_DURATION, {
-      attr: {
-        x1: 10,
-        y1: 20,
-        x2: 90,
-        y2: 80
-      },
+    TweenLite.to('.container line',
+      HamburguerButtonComponent.TRANSITION_DURATION, {
+        attr: {
+          x1: 10,
+          y1: 20,
+          x2: 90,
+          y2: 80
+        },
       ease: Bounce.easeOut
     });
   }
 
   /**
-   * Uses gsap to animation to its regular shape, default one
-   *
+   * Animate to three stacked line using absolute position - close (default)
+   *  state
    */
   private closeAnimation(): void {
     TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
@@ -104,25 +103,29 @@ export class HamburguerButtonComponent implements OnDestroy {
       ease: Bounce.easeOut
     });
 
-    TweenLite.to('.container line', HamburguerButtonComponent.TRANSITION_DURATION, {
-      attr: {
-        x1: 10,
-        y1: 50,
-        x2: 90,
-        y2: 50
-      },
+    TweenLite.to('.container line',
+      HamburguerButtonComponent.TRANSITION_DURATION, {
+        attr: {
+          x1: 10,
+          y1: 50,
+          x2: 90,
+          y2: 50
+        },
       ease: Bounce.easeOut
     });
   }
 
   /**
-   * Toggle the open state and emits the new open state
+   * Toggle the current state and emits the new open/close state
    */
   toggle(): void {
     this.open = !this.open;
     this.open$.next(this.open);
   }
 
+  /**
+   * Unsubscribe to all subscription made in ngOnViewInit
+   */
   ngOnDestroy() {
     this.openSubscription.unsubscribe();
     this.closeSubscription.unsubscribe();

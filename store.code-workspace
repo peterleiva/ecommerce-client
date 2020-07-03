@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "src/app"
+		},
+		{
+			"path": "src/stylesheets"
+		}
+	],
+	"settings": {
+		"editor.fontSize": 14
+	}
+}
