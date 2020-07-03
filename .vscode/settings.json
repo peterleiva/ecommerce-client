@@ -1,4 +1,5 @@
 {
     "editor.fontSize": 14,
-    "editor.fontFamily": "B612 Mono, Andale Mono, Menlo, Cultive Mono, Inconsolata"
+    "editor.fontFamily": "B612 Mono, Andale Mono, Menlo, Cultive Mono, Inconsolata",
+    "editor.tabSize": 2
 }
