@@ -21,15 +21,13 @@ export class SidenavComponent implements AfterViewInit {
   @Input() categories: Category[];
   @ViewChildren('items') private _items: QueryList<ElementRef<HTMLElement>>;
   @ViewChild('nav') private _nav: ElementRef<HTMLElement>;
-
-  timeline: TimelineMax
+  private timeline: TimelineMax;
 
   constructor(private categoryService: CategoryNavigatorService) { }
 
   ngAfterViewInit() {
     this._items.changes.subscribe(_ => this.openAnimation())
   }
-
 
   get nav(): HTMLElement {
     return this._nav.nativeElement
@@ -62,7 +60,6 @@ export class SidenavComponent implements AfterViewInit {
         transformStyle: 'preserve-3d'
       })
       .add('close')
-
       .to(this.nav, .2, { rotateX: 90 })
 
     return this.timeline.then()
