@@ -12,7 +12,7 @@ import { IconComponent } from './icon/icon.component';
 import { TabSectionDirective } from './tab/tab-section/tab-section.directive';
 import { TabContainerComponent } from './tab/tab-container/tab-container.component';
 import { TabTriggerDirective } from './tab/tab-trigger.directive';
-import { TogglableDirective } from './directives/togglable.directive';
+import { TogglableModule } from './togglable/togglable.module';
 
 @NgModule({
   declarations: [
@@ -24,12 +24,12 @@ import { TogglableDirective } from './directives/togglable.directive';
     TabSectionDirective,
     TabContainerComponent,
     TabTriggerDirective,
-    TogglableDirective
   ],
   imports: [
     RouterModule,
     FontAwesomeModule,
-    CommonModule
+    CommonModule,
+    TogglableModule
   ],
   exports: [
     CommonModule,
@@ -42,7 +42,7 @@ import { TogglableDirective } from './directives/togglable.directive';
     TabSectionDirective,
     TabContainerComponent,
     TabTriggerDirective,
-    TogglableDirective
+    TogglableModule
   ]
 })
 export class SharedModule { }

@@ -1,8 +1,5 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
   OnDestroy,
   ViewChild,
   ElementRef,
@@ -10,13 +7,12 @@ import {
   HostListener } from '@angular/core';
 import { gsap, TweenLite, Bounce } from 'gsap';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-import { Subject, Subscription, pipe } from 'rxjs';
-import { partition, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import HoverEffect from './hover-effect/hover-effect.abstract';
 import CrossLineEffect from './hover-effect/cross-line-effect';
 import StackLineEffect from './hover-effect/stack-line-effect';
-import { TogglableDirective } from 'src/app/shared/directives/togglable.directive';
+import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -25,7 +21,7 @@ gsap.registerPlugin(MotionPathPlugin);
   templateUrl: './hamburguer-button.component.html',
   styleUrls: ['./hamburguer-button.component.scss']
 })
-export class HamburguerButtonComponent extends TogglableDirective
+export class HamburguerButtonComponent extends ToggleButtonDirective
   implements AfterViewInit, OnDestroy {
 
   static TRANSITION_DURATION = .25;
@@ -33,64 +29,65 @@ export class HamburguerButtonComponent extends TogglableDirective
   // TODO: Animar hover para os diferentes estados
   // TODO: Desacoplar as animações para abstrações próprias
 
-  _open: boolean = false;
-  @Output('onOpen') onOpen = new EventEmitter<void>();
-  @Output('onClose') onClose = new EventEmitter<void>();
   @ViewChild('icon') private _icon: ElementRef<SVGElement>;
+  @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
+  @ViewChild('midLine') private _middleLine: ElementRef<SVGLineElement>;
+  private hoverAnimate: HoverEffect;
+  private toggleSubscription: Subscription;
 
-  private openSubscription: Subscription;
-  private closeSubscription: Subscription;
-  hoverAnimate: HoverEffect;
-
-  get icon(): SVGElement {
+  private get icon(): SVGElement {
     return this._icon.nativeElement;
   }
 
+  private get topLine(): SVGLineElement {
+    return this._topLine.nativeElement;
+  }
+
+  private get middleLine(): SVGLineElement {
+    return this._middleLine.nativeElement;
+  }
+
   /**
-   * Divide the open/close events into two stream to animate when changed
+   * Define the open/close algorithm to the button according to current
+   *  togglable state
    */
   ngAfterViewInit() {
     this.hoverAnimate = new StackLineEffect(this.icon);
 
-    const [open$, close$] = pipe(
-      partition((open: boolean) => open)
-    )(this.change$);
-
-    this.openSubscription = open$.pipe(
-      tap(_ => this.onOpen.emit()),
-      tap(_ => this.hoverAnimate = new CrossLineEffect(this.icon))
-    )
-    .subscribe(this.openAnimation);
-
-    this.closeSubscription = close$.pipe(
-      tap(_ => this.onClose.emit()),
-      tap(_ => this.hoverAnimate = new StackLineEffect(this.icon))
-    )
-    .subscribe(this.closeAnimation);
-
-    if (this.open) {
-      this.change$.next(this.open);
-    }
+    this.toggleSubscription = this.toggleChange.subscribe(
+       async () => {
+         this.checked ? this.open() : this.close();
+       }
+    );
   }
 
-  @HostListener('mouseenter') hover() {
-    console.log('mouse enter');
-
-    this.hoverAnimate.hover();
+  @HostListener('mouseover') hover() {
+    console.log('mouse over');
+    // this.hoverAnimate.hover();
   }
 
   @HostListener('mouseleave') hoverOut() {
     console.log('mouse leave');
-    this.hoverAnimate.hoverOut();
+    // this.hoverAnimate.hoverOut();
+  }
+
+  open() {
+    this.checked = true;
+    this.hoverAnimate = new CrossLineEffect(this.icon);
+    this.openAnimation();
+  }
+
+  close() {
+    this.checked = false;
+    this.hoverAnimate = new StackLineEffect(this.icon);
+    this.closeAnimation();
   }
 
   /**
    * Animate to two line crossed using absolute position - open state
    */
   private openAnimation(): void {
-    console.log('open animation');
-    
-    TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
+    TweenLite.to(this.topLine, HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 60,
         y1: 42,
@@ -100,7 +97,8 @@ export class HamburguerButtonComponent extends TogglableDirective
       ease: Bounce.easeOut
     });
 
-    TweenLite.to('.container line', .35, {
+    TweenLite.to(this.middleLine,
+      HamburguerButtonComponent.TRANSITION_DURATION, {
         attr: {
           x1: 10,
           y1: 20,
@@ -116,8 +114,7 @@ export class HamburguerButtonComponent extends TogglableDirective
    *  state
    */
   private closeAnimation(): void {
-    console.log('close animation');
-    TweenLite.to('#top-line', HamburguerButtonComponent.TRANSITION_DURATION, {
+    TweenLite.to(this.topLine, HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 40,
         y1: 25,
@@ -127,7 +124,7 @@ export class HamburguerButtonComponent extends TogglableDirective
       ease: Bounce.easeOut
     });
 
-    TweenLite.to('.container line',
+    TweenLite.to(this.middleLine,
       HamburguerButtonComponent.TRANSITION_DURATION, {
         attr: {
           x1: 10,
@@ -139,19 +136,7 @@ export class HamburguerButtonComponent extends TogglableDirective
     });
   }
 
-  /**
-   * Toggle the current state and emits the new open/close state
-   */
-  toggle(): void {
-    this.open = !this.open;
-    this.change$.next(this.open);
-  }
-
-  /**
-   * Unsubscribe to all subscription made in ngOnViewInit
-   */
-  ngOnDestroy() {
-    this.openSubscription.unsubscribe();
-    this.closeSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.toggleSubscription.unsubscribe();
   }
 }

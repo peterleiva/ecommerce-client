@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
+import { HamburguerButtonComponent } from '../layout/hamburguer-button/hamburguer-button.component';
 
 // FIXME: Mudar posição de snap. Em telas pequenas jogar forte para um lado e ficar preso
 
@@ -14,6 +15,7 @@ export class CoreComponent implements AfterViewInit {
   static SIDEBAR_SNAP_AXIS = 278;
   static DRAG_ANIMATION_DURATION = .3;
 
+  @ViewChild(HamburguerButtonComponent) button: HamburguerButtonComponent;
   @ViewChild('app') _app: ElementRef<HTMLDivElement>;
   @ViewChild('drawerTrigger') _drawerTrigger: ElementRef<HTMLDivElement>;
   drawer = false;
@@ -47,7 +49,6 @@ export class CoreComponent implements AfterViewInit {
 
   private onDragEnd(): void {
     this.opening = false;
-
     const closeDistance = this.app.getBoundingClientRect().left;
 
     if (closeDistance < CoreComponent.SIDEBAR_SNAP_AXIS) {
@@ -58,6 +59,7 @@ export class CoreComponent implements AfterViewInit {
   }
 
   openDrawer() {
+    this.button.open();
     this.drawer = true;
     TweenLite
       .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
@@ -69,6 +71,7 @@ export class CoreComponent implements AfterViewInit {
   }
 
   closeDrawer() {
+    this.button.close();
     this.drawer = false;
     TweenLite
       .to(this.app, CoreComponent.DRAG_ANIMATION_DURATION, {
@@ -77,6 +80,10 @@ export class CoreComponent implements AfterViewInit {
         scale: 1,
         ease: Bounce.easeOut
       });
+  }
+
+  toggleDrawer(button: HamburguerButtonComponent) {
+    button.checked ? this.openDrawer() : this.closeDrawer();
   }
 
   get app(): HTMLDivElement {

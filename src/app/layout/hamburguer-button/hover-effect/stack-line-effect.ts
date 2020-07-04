@@ -21,7 +21,8 @@ export default class StackLineEffect extends HoverEffect {
       .add('topline')
 
       .to(this.middleLine, .2, { y: -25 }, 'begin')
-      .to(this.container, .1, { y: 25 }, 'topline')
-      .play();
+      .to(this.container, .1, { y: 25 }, 'topline');
+
+    this.timeline.play();
   }
 }

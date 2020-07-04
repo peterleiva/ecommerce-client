@@ -15,7 +15,7 @@ export default abstract class HoverEffect {
 
   abstract hover();
 
-  hoverOut() {
-    this.timeline.reverse();
+  async hoverOut(): Promise<TimelineLite> {
+    return this.timeline.reverse();
   }
 }
