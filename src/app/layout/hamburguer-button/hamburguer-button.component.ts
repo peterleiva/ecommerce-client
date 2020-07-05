@@ -3,18 +3,11 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
-  AfterViewInit,
-  HostListener } from '@angular/core';
-import { gsap, TweenLite, Bounce } from 'gsap';
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+  AfterViewInit } from '@angular/core';
+import { TweenLite, Bounce } from 'gsap';
 import { Subscription } from 'rxjs';
 
-import HoverEffect from './hover-effect/hover-effect.abstract';
-import CrossLineEffect from './hover-effect/cross-line-effect';
-import StackLineEffect from './hover-effect/stack-line-effect';
 import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
-
-gsap.registerPlugin(MotionPathPlugin);
 
 @Component({
   selector: 'app-hamburguer-button',
@@ -27,12 +20,10 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
   static TRANSITION_DURATION = .25;
 
   // TODO: Animar hover para os diferentes estados
-  // TODO: Desacoplar as animações para abstrações próprias
 
   @ViewChild('icon') private _icon: ElementRef<SVGElement>;
   @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
   @ViewChild('midLine') private _middleLine: ElementRef<SVGLineElement>;
-  private hoverAnimate: HoverEffect;
   private toggleSubscription: Subscription;
 
   private get icon(): SVGElement {
@@ -52,8 +43,6 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
    *  togglable state
    */
   ngAfterViewInit() {
-    this.hoverAnimate = new StackLineEffect(this.icon);
-
     this.toggleSubscription = this.toggleChange.subscribe(
        async () => {
          this.checked ? this.open() : this.close();
@@ -61,25 +50,13 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
     );
   }
 
-  @HostListener('mouseover') hover() {
-    console.log('mouse over');
-    // this.hoverAnimate.hover();
-  }
-
-  @HostListener('mouseleave') hoverOut() {
-    console.log('mouse leave');
-    // this.hoverAnimate.hoverOut();
-  }
-
   open() {
     this.checked = true;
-    this.hoverAnimate = new CrossLineEffect(this.icon);
     this.openAnimation();
   }
 
   close() {
     this.checked = false;
-    this.hoverAnimate = new StackLineEffect(this.icon);
     this.closeAnimation();
   }
 

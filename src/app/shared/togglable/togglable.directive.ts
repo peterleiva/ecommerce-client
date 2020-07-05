@@ -4,11 +4,10 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import { Togglable } from './togglable.interface';
 
-export abstract class TogglableDirective implements OnInit, Togglable {
+export abstract class TogglableDirective implements OnInit {
   @Input() checked: boolean;
-  @Output() toggleChange: EventEmitter<Togglable> = new EventEmitter();
+  @Output() toggleChange: EventEmitter<TogglableDirective> = new EventEmitter();
 
   ngOnInit() {
     this.toggleChange.emit(this);

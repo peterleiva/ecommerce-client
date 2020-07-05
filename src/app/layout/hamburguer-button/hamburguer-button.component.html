@@ -1,9 +1,9 @@
-<svg viewBox="0 0 100 100" #icon>
+<svg viewBox="0 0 100 100" (mouseover)="$event.stopPropagation()" [ngClass]="{close: checked, hamburguer: !checked}" #icon>
   <defs>
     <line x1="40" y1="25" x2="90" y2="25"  id="top-line" #cuttedLine/>
   </defs>
 
-  <g class="container">
+  <g class="container" (mouseover)="$event.stopPropagation()">
     <line x1="10" y1="50" x2="90" y2="50" #midLine/>
 
     <use xlink:href="#top-line"/>

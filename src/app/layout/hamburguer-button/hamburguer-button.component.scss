@@ -2,17 +2,51 @@
 @use 'components/icon' as *;
 
 $stroke-width: 5;
+$color: color-gray(gray-2);
 
 :host {
-  @extend .icon;
-}
+  @include icon;
 
-svg {
-  cursor: pointer;
+  svg {
+    transition: all 150ms;
+
+    @media (hover: hover) {
+      &.hamburguer {
+        &:hover {
+          line#top-line {
+            transform: translateX(-30px) translateY(25px);
+            transition: 150ms;
+          }
+    
+          .container  {
+            transform: translateY(25px);
+            transition: 200ms;
+    
+            line {
+              transform: translateY(-25px);
+              transition: 100ms 150ms;
+            }
+          }
+    
+        }
+      }
+
+      &.close {
+        &:hover {
+          transition: all 150ms;
+          transform: rotate(.5turn);
+  
+          line#top-line {
+            stroke: color-pick('danger');
+          }
+        }
+      }
+    }
+  }
 }
 
 line {
-  stroke: color-gray(gray-2);
+  stroke: $color;
   stroke-width: $stroke-width;
   stroke-linecap: round;
 }
