@@ -5,9 +5,9 @@ import {
   OnInit
 } from '@angular/core';
 
-export abstract class TogglableDirective implements OnInit {
+export abstract class Togglable implements OnInit {
   @Input() checked: boolean;
-  @Output() toggleChange: EventEmitter<TogglableDirective> = new EventEmitter();
+  @Output() toggleChange: EventEmitter<Togglable> = new EventEmitter();
 
   ngOnInit() {
     this.toggleChange.emit(this);

@@ -2,10 +2,10 @@
 
 <div id="app" [ngClass]="{open: drawer, opening: opening}" (click)="drawer && closeDrawer()" #app>
   <app-header>
-    <app-hamburguer-button (toggleChange)="toggleDrawer($event)" 
+    <store-hamburguer-button (toggleChange)="toggleDrawer($event)" 
                            (click)="$event.stopPropagation()"
                            position="left" appHeaderItem>
-    </app-hamburguer-button>
+    </store-hamburguer-button>
   </app-header>
 
   <div class="touchable" #drawerTrigger></div>

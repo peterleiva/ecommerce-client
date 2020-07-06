@@ -12,17 +12,22 @@ gsap.registerPlugin(Draggable);
   styleUrls: ['./core.component.scss']
 })
 export class CoreComponent implements AfterViewInit {
-  static SIDEBAR_SNAP_AXIS = 278;
   static DRAG_ANIMATION_DURATION = .3;
-
-  @ViewChild(HamburguerButtonComponent) button: HamburguerButtonComponent;
-  @ViewChild('app') _app: ElementRef<HTMLDivElement>;
-  @ViewChild('drawerTrigger') _drawerTrigger: ElementRef<HTMLDivElement>;
+  static SIDEBAR_SNAP_AXIS = 278;
   drawer = false;
   opening = false;
+  @ViewChild(HamburguerButtonComponent) button: HamburguerButtonComponent;
 
-  get drawerTrigger() {
+  @ViewChild('app') private _app: ElementRef<HTMLDivElement>;
+  @ViewChild('drawerTrigger')
+  private _drawerTrigger: ElementRef<HTMLDivElement>;
+
+  private get drawerTrigger() {
     return this._drawerTrigger.nativeElement;
+  }
+
+  private get app(): HTMLDivElement {
+    return this._app.nativeElement;
   }
 
   ngAfterViewInit() {
@@ -84,9 +89,5 @@ export class CoreComponent implements AfterViewInit {
 
   toggleDrawer(button: HamburguerButtonComponent) {
     button.checked ? this.openDrawer() : this.closeDrawer();
-  }
-
-  get app(): HTMLDivElement {
-    return this._app.nativeElement;
   }
 }

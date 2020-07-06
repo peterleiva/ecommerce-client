@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
 
 @Component({
-  selector: 'app-hamburguer-button',
+  selector: 'store-hamburguer-button',
   templateUrl: './hamburguer-button.component.html',
   styleUrls: ['./hamburguer-button.component.scss']
 })
@@ -19,16 +19,9 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
 
   static TRANSITION_DURATION = .25;
 
-  // TODO: Animar hover para os diferentes estados
-
-  @ViewChild('icon') private _icon: ElementRef<SVGElement>;
-  @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
   @ViewChild('midLine') private _middleLine: ElementRef<SVGLineElement>;
   private toggleSubscription: Subscription;
-
-  private get icon(): SVGElement {
-    return this._icon.nativeElement;
-  }
+  @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
 
   private get topLine(): SVGLineElement {
     return this._topLine.nativeElement;
