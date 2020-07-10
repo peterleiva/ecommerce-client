@@ -5,7 +5,7 @@ $stroke-width: 5;
 $color: color-gray(gray-2);
 
 :host {
-  @include icon;
+  @include icon($touchable-area);
 
   svg {
     transition: all 150ms;
