@@ -58,59 +58,31 @@ $app-border-radius: rem(10);
 }
 
 :host {
-  @include full-content;
-  position: relative;
-
-  #app {
-    @include full-content;
+  .trigger {
+    @include z(drawer);
     position: absolute;
-    background: $app-background;
-  }
-  
-  #sidenav {
-    @include full-content;
-    position: absolute;
-    background: $sidenav-background;
-  }
-
-  main {
-    overflow-x: hidden;
-    overflow-y: scroll;
     height: 100vh;
+    width: $touchable-area;
+    left: 0;
+    top: 0;
   }
+
+  &.opening, &.open {
+    border-radius: $app-border-radius;
+    box-shadow: shadow-replicas();
+  }
+
+  &.open {
+    transform: translateX(40vw);
+    transform-origin: left;
+
+    .trigger {
+      border-radius: $app-border-radius 0 0 $app-border-radius;
+    }
+
+    app-header {
+      border-radius: $app-border-radius $app-border-radius 0 0;
+    }
+  }
+
 }
-
-// #app {
-//   background: $app-background;
-
-//   .touchable {
-//     position: absolute;
-//     height: 100vh;
-//     width: $touchable-area;
-//     @include z(drawer);
-//   }
-
-//   main {
-//     overflow-x: hidden;
-//     overflow-y: scroll;
-//     height: 100vh;
-//   }
-
-//   &.opening, &.open {
-//     border-radius: $app-border-radius;
-//     box-shadow: shadow-replicas();
-//   }
-
-//   &.open {
-//     transform: translateX(40vw);
-//     transform-origin: left;
-
-//     .touchable {
-//       border-radius: $app-border-radius 0 0 $app-border-radius;
-//     }
-
-//     app-header {
-//       border-radius: $app-border-radius $app-border-radius 0 0;
-//     }
-//   }
-// }

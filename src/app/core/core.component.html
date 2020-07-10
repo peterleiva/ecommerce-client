@@ -1,15 +1,13 @@
-<app-sidenav-drawer id="sidenav"></app-sidenav-drawer>
+<app-sidenav-drawer id="sidenav">
+</app-sidenav-drawer>
 
-<div id="app" [ngClass]="{open: drawer, opening: opening}" (click)="drawer && closeDrawer()" #app>
+<store-app-container id="app" (open)="testando()">
   <app-header>
-    <store-hamburguer-button (toggleChange)="toggleDrawer($event)" 
-                           (click)="$event.stopPropagation()"
-                           position="left" appHeaderItem>
+    <store-hamburguer-button position="left" appHeaderItem>
     </store-hamburguer-button>
   </app-header>
-
-  <div class="touchable" #drawerTrigger></div>
+  
   <main>
     <router-outlet></router-outlet>
   </main>
-</div>
+</store-app-container>

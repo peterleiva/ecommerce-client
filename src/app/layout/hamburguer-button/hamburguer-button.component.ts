@@ -44,12 +44,12 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
   }
 
   open() {
-    this.checked = true;
+    super.open();
     this.openAnimation();
   }
 
   close() {
-    this.checked = false;
+    super.close();
     this.closeAnimation();
   }
 
