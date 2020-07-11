@@ -1,57 +1,54 @@
-import { Injectable } from '@angular/core'
-import { Subject, Observable, ReplaySubject } from 'rxjs'
-import { map, tap, distinctUntilChanged } from 'rxjs/operators'
-import { JsonApiQueryData } from 'angular2-jsonapi'
+import { Injectable } from '@angular/core';
+import { Subject, Observable, ReplaySubject } from 'rxjs';
+import { map, tap, distinctUntilChanged } from 'rxjs/operators';
+import { JsonApiQueryData } from 'angular2-jsonapi';
 
-import { Category } from 'src/app/core/models/category.model'
-import { Datastore } from 'src/app/core/services/datastore.service'
+import { Category } from 'src/app/core/models/category.model';
+import { Datastore } from 'src/app/core/services/datastore.service';
+import { CategoryService } from 'src/app/core/services/category.service';
 
+// TODO make private properties
 @Injectable()
 export class CategoryNavigatorService {
-  _navigate$: Subject<Category>
-  _categories$: ReplaySubject<Category[]>
+  _navigate$: Subject<Category>;
+  _categories$: ReplaySubject<Category[]>;
 
-  _categoryNavigate: Category
-  _roots: Category[]
+  _categoryNavigate: Category;
+  _roots: Category[];
 
-  constructor(datastore: Datastore) {
-    this._navigate$ = new Subject()
+  constructor(private categoryService: CategoryService) {
+    this._navigate$ = new Subject();
     this._categories$ = new ReplaySubject(1);
 
-    datastore
-      .findAll(Category, {
-        include: 'subcategories.**'
-      })
+    this.categoryService
+      .getAll({ include: 'subcategories.**' })
       .pipe(
-        map((categories: JsonApiQueryData<Category>) =>
-          categories.getModels()
-        ),
-        tap(categories => this._roots = categories)
+        tap((categories: Category[]) => this._roots = categories)
       )
-      .subscribe(categories => this._categories$.next(categories))
+      .subscribe(_ => this._categories$.next(this.categories));
 
-      this._navigate$.subscribe(_ => this._categories$.next(this.categories))
+    this._navigate$.subscribe(_ => this._categories$.next(this.categories));
   }
 
   get categories(): Category[] {
-    return this._categoryNavigate?.subcategories || this._roots
+    return this._categoryNavigate?.subcategories || this._roots;
   }
 
   get categories$(): Observable<Category[]> {
-    return this._categories$.pipe(distinctUntilChanged())
+    return this._categories$.pipe(distinctUntilChanged());
   }
 
   get navigate$(): Observable<Category> {
-    return this._navigate$
+    return this._navigate$;
   }
 
   open(category: Category) {
-    this._categoryNavigate = category
-    this._navigate$.next(this._categoryNavigate)
+    this._categoryNavigate = category;
+    this._navigate$.next(this._categoryNavigate);
   }
 
   close() {
-    this._categoryNavigate = this._categoryNavigate?.supercategory
-    this._navigate$.next(this._categoryNavigate)
+    this._categoryNavigate = this._categoryNavigate?.supercategory;
+    this._navigate$.next(this._categoryNavigate);
   }
 }

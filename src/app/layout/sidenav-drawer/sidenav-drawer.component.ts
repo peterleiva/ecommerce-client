@@ -21,15 +21,15 @@ export class SidenavDrawerComponent implements AfterViewInit {
   constructor(private navigatorService: CategoryNavigatorService) { }
 
   get categories$(): Observable<Category[]> {
-    return this.navigatorService.categories$
+    return this.navigatorService.categories$;
   }
 
   get navigate$(): Observable<Category> {
-    return this.navigatorService.navigate$
+    return this.navigatorService.navigate$;
   }
 
   close(): void {
-    this.navigatorService.close()
+    this.navigatorService.close();
   }
 
   ngAfterViewInit() {

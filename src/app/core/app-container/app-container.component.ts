@@ -34,12 +34,12 @@ export class AppContainerComponent
 
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;
-  @Output('open') open$ = new EventEmitter<void>();
+  @Output('open') open$ = new EventEmitter();
   @ContentChild(HamburguerButtonComponent) button: HamburguerButtonComponent;
   @ViewChild('trigger') _trigger: ElementRef<HTMLDivElement>;
   private buttonSubscription: Subscription;
 
-  constructor(private container: ViewContainerRef, private zone: NgZone) { }
+  constructor(private container: ElementRef, private zone: NgZone) { }
 
   @Input() set open(value: boolean) {
     this.zone.run(async () => {
@@ -69,7 +69,7 @@ export class AppContainerComponent
   }
 
   private get app(): HTMLDivElement {
-    return this.container.element.nativeElement;
+    return this.container.nativeElement;
   }
 
   ngAfterViewInit() {

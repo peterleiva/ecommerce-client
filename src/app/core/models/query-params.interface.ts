@@ -9,7 +9,7 @@ export interface PageParams {
 }
 
 export interface FilterParams {
-  [search: string]: string
+  [search: string]: string;
 }
 
 export interface QueryParams {
