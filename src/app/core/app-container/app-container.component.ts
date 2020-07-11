@@ -10,7 +10,8 @@ import { Component,
   OnDestroy,
   HostListener,
   Output,
-  EventEmitter} from '@angular/core';
+  EventEmitter,
+  NgZone} from '@angular/core';
 import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
 import { Subscription } from 'rxjs';
@@ -38,10 +39,10 @@ export class AppContainerComponent
   @ViewChild('trigger') _trigger: ElementRef<HTMLDivElement>;
   private buttonSubscription: Subscription;
 
-  constructor(private container: ViewContainerRef) { }
+  constructor(private container: ViewContainerRef, private zone: NgZone) { }
 
   @Input() set open(value: boolean) {
-    (async () => {
+    this.zone.run(async () => {
       if (value) {
         this._open = value;
         this.opening = true;
@@ -52,7 +53,7 @@ export class AppContainerComponent
         await this.closeDrawer();
         this._open = value;
       }
-    })();
+    });
   }
 
   ngAfterContentInit(): void {

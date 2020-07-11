@@ -4,9 +4,4 @@ import { Component } from '@angular/core';
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.scss']
 })
-export class CoreComponent {
-  testando() {
-    console.log('testando show');
-    
-  }
-}
+export class CoreComponent { }
