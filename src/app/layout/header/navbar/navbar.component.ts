@@ -11,7 +11,7 @@ import { Navbar } from './navbar.model';
 import { CollapsibleDirective } from 'src/app/shared/directives/collapsible.directive';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'store-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })

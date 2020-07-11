@@ -26,7 +26,7 @@ export class CategoryService {
   }
 
   /**
-   * @todo
+   * TODO implementar
    */
   getAllWithProducts(): void {
     throw new Error ('Must be implemented');

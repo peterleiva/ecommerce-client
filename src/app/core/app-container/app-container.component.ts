@@ -32,12 +32,13 @@ export class AppContainerComponent
   static DRAG_ANIMATION_DURATION = .3;
   static SIDEBAR_SNAP_AXIS = 278;
 
+  @ContentChild(HamburguerButtonComponent)
+  private button: HamburguerButtonComponent;
+  private buttonSubscription: Subscription;
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;
   @Output('open') open$ = new EventEmitter();
-  @ContentChild(HamburguerButtonComponent) button: HamburguerButtonComponent;
-  @ViewChild('trigger') _trigger: ElementRef<HTMLDivElement>;
-  private buttonSubscription: Subscription;
+  @ViewChild('trigger') private _trigger: ElementRef<HTMLDivElement>;
 
   constructor(private container: ElementRef, private zone: NgZone) { }
 

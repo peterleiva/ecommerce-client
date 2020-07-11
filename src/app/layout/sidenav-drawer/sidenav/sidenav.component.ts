@@ -25,16 +25,16 @@ export class SidenavComponent implements AfterViewInit {
 
   constructor(private categoryService: CategoryNavigatorService) { }
 
-  ngAfterViewInit() {
-    this._items.changes.subscribe(_ => this.openAnimation())
-  }
-
   get nav(): HTMLElement {
-    return this._nav.nativeElement
+    return this._nav.nativeElement;
   }
 
   get items(): HTMLElement[] {
     return this._items.toArray().map(item => item.nativeElement)
+  }
+
+  ngAfterViewInit() {
+    this._items.changes.subscribe(_ => this.openAnimation());
   }
 
   /**
@@ -51,7 +51,7 @@ export class SidenavComponent implements AfterViewInit {
    * Close animation is wrapped around a promise to change detector catch it
    */
   private async closeAnimation(): Promise<TimelineMax> {
-    this.timeline = new TimelineMax()
+    this.timeline = new TimelineMax();
 
     this.timeline
       .set(this.nav, {
@@ -60,9 +60,9 @@ export class SidenavComponent implements AfterViewInit {
         transformStyle: 'preserve-3d'
       })
       .add('close')
-      .to(this.nav, .2, { rotateX: 90 })
+      .to(this.nav, .2, { rotateX: 90 });
 
-    return this.timeline.then()
+    return this.timeline.then();
   }
 
   private openAnimation() {
@@ -74,6 +74,6 @@ export class SidenavComponent implements AfterViewInit {
         x: 0,
         opacity: 1,
         stagger: { amount: .25 }
-      })
+      });
   }
 }
