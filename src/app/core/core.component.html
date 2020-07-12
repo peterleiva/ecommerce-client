@@ -8,7 +8,7 @@
                   labelPosition="right"
                   (toggleChange)="showSidebar = $event.checked"
                   storeToggleButton>
-        <store-hamburguer-button></store-hamburguer-button>
+        <store-hamburguer-button (toggleChange)="showSidebar = $event.checked"></store-hamburguer-button>
       </store-icon>
     </store-header-container>
   </store-header>

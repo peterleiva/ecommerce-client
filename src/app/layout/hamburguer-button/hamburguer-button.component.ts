@@ -7,20 +7,18 @@ import {
 import { TweenLite, Bounce } from 'gsap';
 import { Subscription } from 'rxjs';
 
-import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
+import { Togglable } from 'src/app/shared/togglable/togglable';
 
 @Component({
   selector: 'store-hamburguer-button',
   templateUrl: './hamburguer-button.component.html',
   styleUrls: ['./hamburguer-button.component.scss']
 })
-export class HamburguerButtonComponent extends ToggleButtonDirective
-  implements AfterViewInit, OnDestroy {
+export class HamburguerButtonComponent extends Togglable {
 
   static TRANSITION_DURATION = .25;
 
   @ViewChild('midLine') private _middleLine: ElementRef<SVGLineElement>;
-  private toggleSubscription: Subscription;
   @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
 
   private get topLine(): SVGLineElement {
@@ -31,32 +29,20 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
     return this._middleLine.nativeElement;
   }
 
-  /**
-   * Define the open/close algorithm to the button according to current
-   *  togglable state
-   */
-  ngAfterViewInit() {
-    this.toggleSubscription = this.toggleChange.subscribe(
-       async () => {
-         this.checked ? this.open() : this.close();
-       }
-    );
+  check() {
+    super.check();
+    this.open();
   }
 
-  open() {
-    super.open();
-    this.openAnimation();
-  }
-
-  close() {
-    super.close();
-    this.closeAnimation();
+  uncheck() {
+    super.uncheck();
+    this.close();
   }
 
   /**
    * Animate to two line crossed using absolute position - open state
    */
-  private openAnimation(): void {
+  private open(): void {
     TweenLite.to(this.topLine, HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 60,
@@ -83,7 +69,7 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
    * Animate to three stacked line using absolute position - close (default)
    *  state
    */
-  private closeAnimation(): void {
+  private close(): void {
     TweenLite.to(this.topLine, HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 40,
@@ -106,7 +92,7 @@ export class HamburguerButtonComponent extends ToggleButtonDirective
     });
   }
 
-  ngOnDestroy(): void {
-    this.toggleSubscription.unsubscribe();
+  toggle() {
+    this.checked ? this.open() : this.close();
   }
 }

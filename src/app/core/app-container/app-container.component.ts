@@ -33,7 +33,8 @@ export class AppContainerComponent
   static DRAG_ANIMATION_DURATION = .3;
   static SIDEBAR_SNAP_AXIS = 278;
 
-  @ContentChild(ToggleButtonDirective) private button: ToggleButtonDirective;
+  @ContentChild(HamburguerButtonComponent)
+  private button: HamburguerButtonComponent;
   private buttonSubscription: Subscription;
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;
@@ -108,7 +109,7 @@ export class AppContainerComponent
   }
 
   private async openDrawer(): Promise<TweenLite> {
-    this.button.open();
+    this.button.check();
 
     return (
       TweenLite
@@ -122,7 +123,7 @@ export class AppContainerComponent
   }
 
   private async closeDrawer(): Promise<TweenLite> {
-    this.button.close();
+    this.button.uncheck();
 
     return (
       TweenLite

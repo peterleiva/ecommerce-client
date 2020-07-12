@@ -1,15 +1,24 @@
 import {
   Output,
   EventEmitter,
-  Input,
-  OnInit
+  Input
 } from '@angular/core';
 
-export abstract class Togglable implements OnInit {
+export abstract class Togglable {
   @Input() checked: boolean;
-  @Output() toggleChange: EventEmitter<Togglable> = new EventEmitter();
+  @Output() toggleChange: EventEmitter<Togglable>;
 
-  ngOnInit() {
+  constructor() {
+    this.toggleChange = new EventEmitter();
+  }
+
+  check() {
+    this.checked = true;
+    this.toggleChange.emit(this);
+  }
+
+  uncheck() {
+    this.checked = false;
     this.toggleChange.emit(this);
   }
 

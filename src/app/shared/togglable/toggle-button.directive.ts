@@ -1,17 +1,18 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, HostBinding } from '@angular/core';
 import { Togglable } from './togglable';
 
 @Directive({
   selector: '[storeToggleButton]'
 })
 export class ToggleButtonDirective extends Togglable {
+  @HostBinding('class.is-clickable') clicklable = true;
 
   open() {
-    this.checked = true;
+    this.check();
   }
 
   close() {
-    this.checked = false;
+    this.uncheck();
   }
 
   @HostListener('click') toggle() {
