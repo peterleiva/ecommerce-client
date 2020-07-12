@@ -36,6 +36,7 @@ import { TogglableModule } from './togglable/togglable.module';
     FontAwesomeModule,
     CollapsibleDirective,
     JsonApiModule,
+    IconComponent,
     PaginateComponent,
     PageEntriesInfoComponent,
     OverlayComponent,

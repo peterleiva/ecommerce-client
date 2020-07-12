@@ -1,0 +1,37 @@
+@use 'utilities' as *;
+
+$label-space: .5;
+
+:host {
+  display: inline-block;
+
+  > .icon {
+    display: flex;
+    align-items: center;
+
+    &.top, &.bottom {
+      .label { @include rhythm-margin($label-space 0) }
+    }
+    
+    &.left, &.right {
+      .label { @include rhythm-margin(0 $label-space) }
+    }
+
+    &.top {
+      flex-direction: column-reverse;
+    }
+    
+    &.right {
+      flex-direction: row;
+    }
+    
+    &.bottom {
+      flex-direction: column;
+    }
+  
+    &.left {
+      flex-direction: row-reverse;
+    }
+  }
+  
+}

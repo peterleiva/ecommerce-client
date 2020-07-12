@@ -4,4 +4,10 @@ import { Component } from '@angular/core';
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.scss']
 })
-export class CoreComponent { }
+export class CoreComponent {
+  showSidebar = false;
+
+  get menuLabel(): string {
+    return this.showSidebar ? 'Fechar' : 'Menu';
+  }
+}
