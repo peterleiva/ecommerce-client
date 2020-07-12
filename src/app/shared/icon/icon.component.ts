@@ -7,6 +7,7 @@ export enum IconPosition {
   LEFT = 'left'
 }
 
+// TODO implementar sizing
 @Component({
   selector: 'store-icon',
   templateUrl: './icon.component.html',
