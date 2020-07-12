@@ -3,7 +3,8 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
-  AfterViewInit } from '@angular/core';
+  AfterViewInit, 
+  Input} from '@angular/core';
 import { TweenLite, Bounce } from 'gsap';
 import { Subscription } from 'rxjs';
 
@@ -29,20 +30,15 @@ export class HamburguerButtonComponent extends Togglable {
     return this._middleLine.nativeElement;
   }
 
-  check() {
-    super.check();
-    this.open();
-  }
-
-  uncheck() {
-    super.uncheck();
-    this.close();
+  @Input() set open(value: boolean) {
+    super.checked = value;
+    this.toggle();
   }
 
   /**
    * Animate to two line crossed using absolute position - open state
    */
-  private open(): void {
+  private openAnimation(): void {
     TweenLite.to(this.topLine, HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 60,
@@ -69,7 +65,7 @@ export class HamburguerButtonComponent extends Togglable {
    * Animate to three stacked line using absolute position - close (default)
    *  state
    */
-  private close(): void {
+  private closeAnimation(): void {
     TweenLite.to(this.topLine, HamburguerButtonComponent.TRANSITION_DURATION, {
       attr: {
         x1: 40,
@@ -93,6 +89,6 @@ export class HamburguerButtonComponent extends Togglable {
   }
 
   toggle() {
-    this.checked ? this.open() : this.close();
+    this.checked ? this.openAnimation() : this.closeAnimation();
   }
 }

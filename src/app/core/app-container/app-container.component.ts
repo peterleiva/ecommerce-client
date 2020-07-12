@@ -14,6 +14,7 @@ import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
 import { Subscription } from 'rxjs';
 import { HamburguerButtonComponent } from 'src/app/layout/hamburguer-button/hamburguer-button.component';
+import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
 
 gsap.registerPlugin(Draggable);
 
@@ -29,8 +30,7 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
   static DRAG_ANIMATION_DURATION = .3;
   static SIDEBAR_SNAP_AXIS = 278;
 
-  @ContentChild(HamburguerButtonComponent)
-  private button: HamburguerButtonComponent;
+  @ContentChild(ToggleButtonDirective) private button: ToggleButtonDirective;
   private buttonSubscription: Subscription;
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;

@@ -6,10 +6,9 @@
     <store-header-container>
       <store-icon [label]="menuLabel"
                   labelPosition="right"
-                  [checked]="showSidebar"
                   (toggleChange)="showSidebar = $event.checked"
                   storeToggleButton>
-        <store-hamburguer-button (toggleChange)="showSidebar = $event.checked">
+        <store-hamburguer-button [open]="showSidebar">
         </store-hamburguer-button>
       </store-icon>
     </store-header-container>
