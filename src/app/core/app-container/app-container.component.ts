@@ -4,9 +4,7 @@ import { Component,
   HostBinding,
   Input,
   ViewChild,
-  ViewContainerRef,
   AfterViewInit,
-  AfterContentInit,
   OnDestroy,
   HostListener,
   Output,
@@ -16,7 +14,6 @@ import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
 import { Subscription } from 'rxjs';
 import { HamburguerButtonComponent } from 'src/app/layout/hamburguer-button/hamburguer-button.component';
-import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
 
 gsap.registerPlugin(Draggable);
 
@@ -25,11 +22,10 @@ gsap.registerPlugin(Draggable);
 
 @Component({
   selector: 'store-app-container',
-  templateUrl: './app-container.component.html',
+  template: `<ng-content></ng-content>`,
   styleUrls: ['./app-container.component.scss']
 })
-export class AppContainerComponent
-  implements AfterViewInit, AfterContentInit, OnDestroy {
+export class AppContainerComponent implements AfterViewInit, OnDestroy {
   static DRAG_ANIMATION_DURATION = .3;
   static SIDEBAR_SNAP_AXIS = 278;
 
@@ -39,7 +35,7 @@ export class AppContainerComponent
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;
   @Output('open') open$ = new EventEmitter();
-  @ViewChild('trigger') private _trigger: ElementRef<HTMLDivElement>;
+  @Input() draggable: ElementRef<HTMLElement>;
 
   constructor(private container: ElementRef, private zone: NgZone) { }
 
@@ -58,13 +54,6 @@ export class AppContainerComponent
     });
   }
 
-  ngAfterContentInit(): void {
-  }
-
-  private get drawerTrigger(): HTMLDivElement {
-    return this._trigger.nativeElement;
-  }
-
   private get app(): HTMLDivElement {
     return this.container.nativeElement;
   }
@@ -72,7 +61,7 @@ export class AppContainerComponent
   ngAfterViewInit() {
     Draggable.create(this.app, {
       edgeResistance: 0,
-      trigger: this.drawerTrigger,
+      trigger: this.draggable,
       type: 'x',
       inertia: true,
       onDragStart: () => this.onDragStart(),

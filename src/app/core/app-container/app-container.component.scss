@@ -58,15 +58,6 @@ $app-border-radius: rem(10);
 }
 
 :host {
-  .trigger {
-    @include z(drawer);
-    position: absolute;
-    height: 100vh;
-    width: $touchable-area;
-    left: 0;
-    top: 0;
-  }
-
   &.opening, &.open {
     border-radius: $app-border-radius;
     box-shadow: shadow-replicas();
@@ -79,10 +70,5 @@ $app-border-radius: rem(10);
     .trigger {
       border-radius: $app-border-radius 0 0 $app-border-radius;
     }
-
-    app-header {
-      border-radius: $app-border-radius $app-border-radius 0 0;
-    }
   }
-
 }

@@ -6,7 +6,6 @@ $sidenav-background: color-gradient('background-1');
 :host {
   @include full-content;
   position: relative;
-
   #app {
     @include full-content;
     position: absolute;
@@ -23,5 +22,13 @@ $sidenav-background: color-gradient('background-1');
     overflow-x: hidden;
     overflow-y: scroll;
     height: 100vh;
+  }
+
+  .trigger {
+    @include z(drawer);
+    position: absolute;
+    height: 100vh;
+    width: $touchable-area;
+    left: 0;
   }
 }

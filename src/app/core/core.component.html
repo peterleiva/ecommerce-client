@@ -6,13 +6,16 @@
     <store-header-container>
       <store-icon [label]="menuLabel"
                   labelPosition="right"
+                  [checked]="showSidebar"
                   (toggleChange)="showSidebar = $event.checked"
                   storeToggleButton>
-        <store-hamburguer-button (toggleChange)="showSidebar = $event.checked"></store-hamburguer-button>
+        <store-hamburguer-button (toggleChange)="showSidebar = $event.checked">
+        </store-hamburguer-button>
       </store-icon>
     </store-header-container>
   </store-header>
 
+  <div class="trigger" #draggable></div>
   <main>
     <router-outlet></router-outlet>
   </main>
