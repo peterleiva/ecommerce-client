@@ -10,7 +10,6 @@ import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.componen
 import { HamburguerButtonComponent } from './hamburguer-button/hamburguer-button.component';
 import { SidenavComponent } from './sidenav-drawer/sidenav/sidenav.component';
 import { SidenavItemComponent } from './sidenav-drawer/sidenav/sidenav-item/sidenav-item.component';
-import { HeaderItemDirective } from './header/header-item/header-item.directive';
 import { HeaderContainerComponent } from './header/header-container/header-container.component';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { HeaderContainerComponent } from './header/header-container/header-conta
     HamburguerButtonComponent,
     SidenavComponent,
     SidenavItemComponent,
-    HeaderItemDirective,
     HeaderContainerComponent
   ],
   imports: [
@@ -34,7 +32,6 @@ import { HeaderContainerComponent } from './header/header-container/header-conta
   ],
   exports: [
     HeaderComponent,
-    HeaderItemDirective,
     HeaderContainerComponent,
     SidenavDrawerComponent,
     HamburguerButtonComponent
