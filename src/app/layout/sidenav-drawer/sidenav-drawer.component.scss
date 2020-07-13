@@ -3,7 +3,8 @@
 .sidenav {
   position: relative;
   @include rhythm-padding(1 0);
-  width: rem(breakpoints('chihuahua') - $touchable-area*2); // $touchable-area * some app shadow
+  // $touchable-area * some app shadow
+  width: rem(breakpoints('chihuahua') - $touchable-area*2); 
 
   h1 {
     @include rhythm-margin(0 1);
@@ -27,18 +28,12 @@
     position: absolute;
     top: rhythm-baseline-scale(4);
     width: 100%;
-    transform: translate(-100%);
 
     > app-sidenav {
       position: absolute;
       left: 0;
       max-height: 70vh;
       overflow-y: scroll;
-
-      &.sidenav-previous {
-        transform: translateX(-100%);
-        @include opacity(hidden);
-      }
     }
   }
 }

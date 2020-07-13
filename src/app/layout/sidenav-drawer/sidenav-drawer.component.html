@@ -1,22 +1,19 @@
 <aside class="sidenav">
   <ng-container *ngIf="categories$ | async as categories; else loading">
     <h1 class="heading-5 text-bold">
-      <a href="javascript:void(0)" (click)="close()">
+      <a href="javascript:void(0)" (click)="close()" [@slideDown]="state">
 
         <ng-container *ngIf="navigator$ | async as category; else title">
-          <fa-icon [icon]="backButton" class="back-button text-sm">
-          </fa-icon>
+          <fa-icon [icon]="backButton" class="back-button text-sm"></fa-icon>
           {{ category.name }}
         </ng-container>
 
       </a>
     </h1>
 
-    <div class="container" #sidenav>
-      <app-sidenav [categories]="categories">
-      </app-sidenav>
+    <div class="container" [@slideRight]="state">
+      <app-sidenav [categories]="categories"></app-sidenav>
     </div>
-
   </ng-container>
 </aside>
 

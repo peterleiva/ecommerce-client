@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { gsap, TweenLite, Power1, Back } from 'gsap';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -13,17 +14,30 @@ import { Category } from 'src/app/core/models/category.model';
     './sidenav-drawer.component.scss',
     './sidenav/sidenav-loading.component.scss'
   ],
-  providers: [CategoryNavigatorService]
+  providers: [CategoryNavigatorService],
+  animations: [
+    trigger('slideRight', [
+      state('show', style({ transform: 'translateX(0)' })),
+      state('hide', style({ transform: 'translateX(-100%)' })),
+
+      transition('hide => show', [
+        animate('300ms 250ms cubic-bezier(.01, .51, .18, 1.31)')
+      ])
+    ]),
+
+    trigger('slideDown', [
+      state('show', style({ transform: 'translateY(0)' })),
+      state('hide', style({ transform: 'translateY(-200%)' })),
+
+      transition('hide => show', [
+        animate('150ms 100ms cubic-bezier(.01, .051, .18, 1.31)')
+      ])
+    ])
+  ]
 })
 export class SidenavDrawerComponent implements AfterViewInit {
   backButton = faChevronLeft;
-  private _show: boolean;
-  @ViewChild('sidenav') _sidenav: ElementRef<HTMLElement>;
-
-  @Input() set show(value: boolean) {
-    this._show = value;
-    this._show ? this.showUp() : this.hide();
-  }
+  @Input() show: boolean;
 
   constructor(private navigatorService: CategoryNavigatorService) { }
 
@@ -35,28 +49,12 @@ export class SidenavDrawerComponent implements AfterViewInit {
     return this.navigatorService.navigate$;
   }
 
-  get sidenav(): HTMLElement {
-    return this._sidenav.nativeElement;
+  get state(): string {
+    return this.show ? 'show' : 'hide';
   }
 
   close(): void {
     this.navigatorService.close();
-  }
-
-  async showUp(): Promise<TweenLite> {
-    await this.hide();
-
-    return (
-      TweenLite.to(this.sidenav, .3, {
-        x: 0,
-        ease: Back.easeOut,
-        delay: .15
-      })
-    );
-  }
-
-  async hide(): Promise<TweenLite> {
-    return gsap.set(this.sidenav, {x: '-100%'});
   }
 
   ngAfterViewInit() {

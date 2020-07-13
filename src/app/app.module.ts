@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import localePt from '@angular/common/locales/pt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NgModule, ErrorHandler } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 import Bugsnag from '@bugsnag/js';
 import { BugsnagErrorHandler } from '@bugsnag/plugin-angular';
-import { registerLocaleData } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -23,6 +24,7 @@ export function errorHandlerFactory() { return new BugsnagErrorHandler(); }
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule,
     CoreModule
   ],
