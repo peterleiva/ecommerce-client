@@ -1,12 +1,15 @@
+import TreeTraversal from './tree-traversal.interface';
+
 /**
- * A generic tree implementation with children and parent
+ * A generic tree implementation with children and a parent
  *
  * @version 0.1.0
  * @todo iterable - breadth, ...
  * @todo arraymap function
  * @todo map function
+ * @todo verificar ciclos
  */
-export class Tree<T> {
+export class Tree<T> implements TreeTraversal<T> {
   private _children: Array<Tree<T>>;
   private _parent: Array<Tree<T>>;
 
@@ -23,11 +26,58 @@ export class Tree<T> {
     this._data = value;
   }
 
-  getChildren(): Tree<T>[] {
+  /**
+   * Iterator in preorder manner
+   */
+  *preorder() {
     throw new Error('Not implemented');
   }
 
-  attachChild(data: T): Tree<T> {
+  /**
+   * Iterator in posorder manner
+   */
+  *posorder() {
+    throw new Error('Not implemented');
+  }
+
+  /**
+   * Iterator in inorder manner
+   */
+  *inorder() {
+    throw new Error('Not implemented');
+  }
+
+  /**
+   * Delegates traversal to preorder as a default iterator for trees
+   */
+  *[Symbol.iterator]() {
+    yield *this.preorder();
+  }
+
+  depth(): number {
+    throw new Error('Not implemented');
+  }
+
+  height(): number {
+    throw new Error('Not implemented');
+  }
+
+  /**
+   * All root node have a parent point to itself
+   */
+  isRoot(): boolean {
+    return this === this.parent;
+  }
+
+  isLeaf(): boolean {
+    throw new Error('Not implemented');
+  }
+
+  hasChildren(): boolean {
+    throw new Error('Not implemented');
+  }
+
+  isDisjuction(tree: Tree<T>): boolean {
     throw new Error('Not implemented');
   }
 
@@ -35,7 +85,19 @@ export class Tree<T> {
     throw new Error('Not implemented');
   }
 
+  get children(): Tree<T>[] {
+    throw new Error('Not implemented');
+  }
+
   get parent(): Tree<T> {
+    throw new Error('Not implemented');
+  }
+
+  get siblings(): Tree<T> {
+    throw new Error('Not implemented');
+  }
+
+  get root(): Tree<T> {
     throw new Error('Not implemented');
   }
 
@@ -43,11 +105,11 @@ export class Tree<T> {
     throw new Error('Not implemented');
   }
 
-  deattachChild(child: Tree<T>): Tree<T> {
+  addChild(data: T): Tree<T> {
     throw new Error('Not implemented');
   }
 
-  rightSiblings(): Tree<T> {
+  removeChild(child: Tree<T>): Tree<T> {
     throw new Error('Not implemented');
   }
 
