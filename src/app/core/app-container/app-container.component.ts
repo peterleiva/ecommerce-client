@@ -3,17 +3,13 @@ import { Component,
   ElementRef,
   HostBinding,
   Input,
-  ViewChild,
   AfterViewInit,
   OnDestroy,
   HostListener,
-  Output,
-  EventEmitter,
   NgZone} from '@angular/core';
 import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
 import { Subscription } from 'rxjs';
-import { HamburguerButtonComponent } from 'src/app/layout/hamburguer-button/hamburguer-button.component';
 import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
 
 gsap.registerPlugin(Draggable);
@@ -34,7 +30,7 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
   private buttonSubscription: Subscription;
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;
-  @Input() draggable: ElementRef<HTMLElement>;
+  @Input() draggable: HTMLElement;
 
   constructor(private container: ElementRef, private zone: NgZone) { }
 
@@ -62,7 +58,6 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
       trigger: this.draggable,
       type: 'x',
       inertia: true,
-      clickableTest: (el) => console.log(el),
       onDragStart: () => this.onDragStart(),
       onDragEnd: () => this.onDragEnd()
     });

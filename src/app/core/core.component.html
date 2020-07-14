@@ -13,7 +13,7 @@
     </store-header-container>
   </store-header>
 
-  <div class="trigger" #draggable></div>
+  <div class="trigger" (swiperight)="showSidebar = true" #draggable></div>
   <main>
     <router-outlet></router-outlet>
   </main>
