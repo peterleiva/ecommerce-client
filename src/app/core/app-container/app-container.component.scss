@@ -24,7 +24,7 @@ $app-shadow: (
   color: color-gray('gray-2')
 );
 
-$app-border-radius: rem(10);
+$app-border-radius: rem(14);
 
 // creates replicas and shadow
 @function shadow-replicas($count: $replicas-count) {
@@ -58,6 +58,8 @@ $app-border-radius: rem(10);
 }
 
 :host {
+  background: var(--light);
+
   &.opening, &.open {
     border-radius: $app-border-radius;
     box-shadow: shadow-replicas();

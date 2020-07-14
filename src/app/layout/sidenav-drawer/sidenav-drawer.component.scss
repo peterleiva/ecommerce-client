@@ -1,5 +1,14 @@
 @use 'utilities' as *;
 
+:host {
+  --gradient-background-1: radial-gradient(ellipse 130vw 80vh at 103vw 50vh,
+    hsl(204, 55%, 83%) 1%, hsl(175, 56%, 56%) 28%, 
+    hsl(145, 56%, 56%) 39%, hsl(145, 56%, 44%) 81%, 
+    hsl(205, 12%, 42%) 100%);
+
+  background: var(--gradient-background-1);
+}
+
 .sidenav {
   position: relative;
   @include rhythm-padding(1 0);

@@ -1,21 +1,12 @@
 @use 'utilities' as *;
 
-$app-background: color-pick('background-1');
-$sidenav-background: color-gradient('background-1');
-
 :host {
   @include full-content;
   position: relative;
-  #app {
+
+  #app, #sidenav {
     @include full-content;
     position: absolute;
-    background: var(--color-background-1);
-  }
-  
-  #sidenav {
-    @include full-content;
-    position: absolute;
-    background: var(--gradient-background-1);
   }
 
   main {
