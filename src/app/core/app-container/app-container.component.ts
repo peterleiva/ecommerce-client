@@ -34,7 +34,6 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
   private buttonSubscription: Subscription;
   @HostBinding('class.open') private _open: boolean;
   @HostBinding('class.opening') private opening = false;
-  @Output('open') open$ = new EventEmitter();
   @Input() draggable: ElementRef<HTMLElement>;
 
   constructor(private container: ElementRef, private zone: NgZone) { }
@@ -46,7 +45,6 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
         this.opening = true;
         await this.openDrawer();
         this.opening = false;
-        this.open$.emit();
       } else {
         await this.closeDrawer();
         this._open = value;
@@ -64,6 +62,7 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
       trigger: this.draggable,
       type: 'x',
       inertia: true,
+      clickableTest: (el) => console.log(el),
       onDragStart: () => this.onDragStart(),
       onDragEnd: () => this.onDragEnd()
     });
