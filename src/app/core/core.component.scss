@@ -1,11 +1,11 @@
 @use 'utilities' as *;
 
 :host {
-  @include full-content;
+  @include full-viewport;
   position: relative;
 
   #app, #sidenav {
-    @include full-content;
+    @include full-viewport;
     position: absolute;
   }
 

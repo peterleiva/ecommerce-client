@@ -1,6 +1,9 @@
 <store-sidenav-drawer id="sidenav" [show]="showSidebar"></store-sidenav-drawer>
 
-<store-app-container id="app" [open]="showSidebar" [draggable]="draggable">
+<store-app-container id="app"
+                     [open]="showSidebar"
+                     (swipeleft)="closeSidenav()"
+                     [draggable]="draggable">
   <store-header>
     <store-header-container>
       <store-icon [label]="menuLabel"
@@ -13,8 +16,8 @@
     </store-header-container>
   </store-header>
 
-  <div class="trigger" (swiperight)="showSidebar = true" #draggable></div>
-  <main>
+  <main (swiperight)="openSidenav()">
+    <div class="trigger" #draggable></div>
     <router-outlet></router-outlet>
   </main>
 </store-app-container>

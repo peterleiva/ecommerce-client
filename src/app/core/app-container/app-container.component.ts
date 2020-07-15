@@ -1,4 +1,5 @@
-import { Component,
+import {
+  Component,
   ContentChild,
   ElementRef,
   HostBinding,
@@ -23,7 +24,7 @@ gsap.registerPlugin(Draggable);
   styleUrls: ['./app-container.component.scss']
 })
 export class AppContainerComponent implements AfterViewInit, OnDestroy {
-  static DRAG_ANIMATION_DURATION = .3;
+  static DRAG_ANIMATION_DURATION = .25;
   static SIDEBAR_SNAP_AXIS = 278;
 
   @ContentChild(ToggleButtonDirective) private button: ToggleButtonDirective;
