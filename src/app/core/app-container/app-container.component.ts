@@ -16,7 +16,7 @@ import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.di
 gsap.registerPlugin(Draggable);
 
 
-// FIXME: Mudar posição de snap. Em telas pequenas jogar forte para um lado e ficar preso
+// FIXME: SNAP. Em telas pequenas jogar forte para um lado e ficar preso
 
 @Component({
   selector: 'store-app-container',

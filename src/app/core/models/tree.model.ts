@@ -10,16 +10,16 @@ import TreeTraversal from './tree-traversal.interface';
  * @todo verificar ciclos
  */
 export class Tree<T> implements TreeTraversal<T> {
-  private _children: Array<Tree<T>>;
-  private _parent: Array<Tree<T>>;
+  private _parent: Tree<T>;
+  private son: Tree<T>;
+  private next: Tree<T>;
 
   constructor(private _data?: T) {
-    this._parent = null;
-    this._children = [];
+    this._parent = this.son = this.next = null;
   }
 
   get data(): T {
-    return this.data;
+    return this._data;
   }
 
   set data(value: T) {
@@ -48,6 +48,13 @@ export class Tree<T> implements TreeTraversal<T> {
   }
 
   /**
+   * 
+   */
+  *reverseInorder() {
+    throw new Error('Not implemented');
+  }
+
+  /**
    * Delegates traversal to preorder as a default iterator for trees
    */
   *[Symbol.iterator]() {
@@ -59,6 +66,14 @@ export class Tree<T> implements TreeTraversal<T> {
   }
 
   height(): number {
+    throw new Error('Not implemented');
+  }
+
+  levelOrder(): number {
+    throw new Error('Not implemented');
+  }
+
+  sort(): void {
     throw new Error('Not implemented');
   }
 
@@ -85,15 +100,30 @@ export class Tree<T> implements TreeTraversal<T> {
     throw new Error('Not implemented');
   }
 
+  /**
+   * Returns the children from the tree. Which means, all the same level
+   */
   get children(): Tree<T>[] {
-    throw new Error('Not implemented');
+    if (!this.son) {
+      return [];
+    }
+
+    const nodes: Tree<T>[] = [];
+    let node = this.son;
+
+    while (node) {
+      nodes.push(node);
+      node = node.next;
+    }
+
+    return nodes;
   }
 
   get parent(): Tree<T> {
     throw new Error('Not implemented');
   }
 
-  get siblings(): Tree<T> {
+  get nextSiblings(): Tree<T>[] {
     throw new Error('Not implemented');
   }
 
@@ -105,8 +135,43 @@ export class Tree<T> implements TreeTraversal<T> {
     throw new Error('Not implemented');
   }
 
-  addChild(data: T): Tree<T> {
+  /**
+   *  join or concat the name?!
+   * @param tree Tree<T>
+   */
+  join(tree: Tree<T>): Tree<T> {
     throw new Error('Not implemented');
+  }
+
+  /**
+   * Add a leaf child to end of children' list
+   * The last node represents the youngest son. So, the new created node is
+   * append to that list with a apropriated parent
+   *
+   * @param data T
+   */
+  appendChild(data: T): Tree<T> {
+    const tree = new Tree<T>(data);
+    tree._parent = this;
+
+    // track the previous tree traversal node
+    let prevNode = null;
+    // track the current tree traversal node
+    let node = this.son;
+
+    while (node) {
+      prevNode = node;
+      node = node.next;
+    }
+
+    // prevNode is null only if there's no child for this node
+    if (prevNode === null) {
+      this.son = tree;
+    } else {
+      prevNode.next = tree;
+    }
+
+    return tree;
   }
 
   removeChild(child: Tree<T>): Tree<T> {
