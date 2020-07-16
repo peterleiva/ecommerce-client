@@ -1,7 +1,11 @@
 import TreeTraversal from './tree-traversal.interface';
 
 /**
- * A generic tree implementation with children and a parent
+ * A generic tree ordered container implementation
+ * The tree contains a pointer to parent, oldest son and a next which represents
+ * the next youngest tree child. There's some arithmetic operations, also
+ * some traversal one. The tree is assumed to be ordered by the child position
+ * according to next
  *
  * @version 0.1.0
  * @todo iterable - breadth, ...
