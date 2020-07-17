@@ -19,7 +19,8 @@ export class Tree<T> implements TreeTraversal<T> {
   private next: Tree<T>;
 
   constructor(private _data?: T) {
-    this._parent = this.son = this.next = null;
+    this.son = this.next = null;
+    this._parent = this;
   }
 
   get data(): T {
@@ -88,12 +89,19 @@ export class Tree<T> implements TreeTraversal<T> {
     return this === this.parent;
   }
 
+  /**
+   * A node is a leaf only if it has no children
+   */
   isLeaf(): boolean {
-    throw new Error('Not implemented');
+    return !this.hasChildren();
   }
 
+  /**
+   * Verifies if there's any child node
+   * A tree with no child have a null son attribute
+   */
   hasChildren(): boolean {
-    throw new Error('Not implemented');
+    return this.son !== null;
   }
 
   isDisjuction(tree: Tree<T>): boolean {
@@ -108,7 +116,7 @@ export class Tree<T> implements TreeTraversal<T> {
    * Returns the children from the tree. Which means, all the same level
    */
   get children(): Tree<T>[] {
-    if (!this.son) {
+    if (!this.hasChildren()) {
       return [];
     }
 
