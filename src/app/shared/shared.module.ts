@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { JsonApiModule } from 'angular2-jsonapi';
 
 import { CollapsibleDirective } from './directives/collapsible.directive';
@@ -13,6 +13,7 @@ import { TabSectionDirective } from './tab/tab-section/tab-section.directive';
 import { TabContainerComponent } from './tab/tab-container/tab-container.component';
 import { TabTriggerDirective } from './tab/tab-trigger.directive';
 import { TogglableModule } from './togglable/togglable.module';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -46,4 +47,8 @@ import { TogglableModule } from './togglable/togglable.module';
     TogglableModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas);
+  }
+}
