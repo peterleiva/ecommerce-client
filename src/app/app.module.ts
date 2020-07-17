@@ -29,7 +29,7 @@ export function errorHandlerFactory() { return new BugsnagErrorHandler(); }
     CoreModule
   ],
   // Pass the BugsnagErrorHandler class along to the providers for your module
-  providers: [{provide: ErrorHandler, useClass: AirbrakeErrorHandler}],
+  providers: [{ provide: ErrorHandler, useFactory: errorHandlerFactory }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
