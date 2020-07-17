@@ -13,12 +13,12 @@ import TreeTraversal from './tree-traversal.interface';
  * @todo map function
  * @todo verificar ciclos
  */
-export class Tree<T> implements TreeTraversal<T> {
+export class Tree<T> {
   private _parent: Tree<T>;
   private son: Tree<T>;
   private next: Tree<T>;
 
-  constructor(private _data?: T) {
+  constructor(private _data: T = null) {
     this.son = this.next = null;
     this._parent = this;
   }
@@ -34,51 +34,51 @@ export class Tree<T> implements TreeTraversal<T> {
   /**
    * Iterator in preorder manner
    */
-  *preorder() {
+  // private *preorder() {
+  //   throw new Error('Not implemented');
+  // }
+
+  // /**
+  //  * Iterator in posorder manner
+  //  */
+  // private *posorder() {
+  //   throw new Error('Not implemented');
+  // }
+
+  // /**
+  //  * Iterator in inorder manner
+  //  */
+  // private *inorder() {
+  //   throw new Error('Not implemented');
+  // }
+
+  // /**
+  //  * 
+  //  */
+  // private *reverseInorder() {
+  //   throw new Error('Not implemented');
+  // }
+
+  // /**
+  //  * Delegates traversal to preorder as a default iterator for trees
+  //  */
+  // private *[Symbol.iterator]() {
+  //   yield *this.preorder();
+  // }
+
+  private depth(): number {
     throw new Error('Not implemented');
   }
 
-  /**
-   * Iterator in posorder manner
-   */
-  *posorder() {
+  private height(): number {
     throw new Error('Not implemented');
   }
 
-  /**
-   * Iterator in inorder manner
-   */
-  *inorder() {
+  private levelOrder(): number {
     throw new Error('Not implemented');
   }
 
-  /**
-   * 
-   */
-  *reverseInorder() {
-    throw new Error('Not implemented');
-  }
-
-  /**
-   * Delegates traversal to preorder as a default iterator for trees
-   */
-  *[Symbol.iterator]() {
-    yield *this.preorder();
-  }
-
-  depth(): number {
-    throw new Error('Not implemented');
-  }
-
-  height(): number {
-    throw new Error('Not implemented');
-  }
-
-  levelOrder(): number {
-    throw new Error('Not implemented');
-  }
-
-  sort(): void {
+  private sort(): void {
     throw new Error('Not implemented');
   }
 
@@ -104,11 +104,11 @@ export class Tree<T> implements TreeTraversal<T> {
     return this.son !== null;
   }
 
-  isDisjuction(tree: Tree<T>): boolean {
+  private isDisjuction(tree: Tree<T>): boolean {
     throw new Error('Not implemented');
   }
 
-  get ancestors(): Tree<T> {
+  private get ancestors(): Tree<T> {
     throw new Error('Not implemented');
   }
 
@@ -131,19 +131,22 @@ export class Tree<T> implements TreeTraversal<T> {
     return nodes;
   }
 
+  /**
+   * Gets the tree parent node for a subtree and returns itself for rooted tree
+   */
   get parent(): Tree<T> {
+    return this._parent;
+  }
+
+  private get nextSiblings(): Tree<T>[] {
     throw new Error('Not implemented');
   }
 
-  get nextSiblings(): Tree<T>[] {
+  private get root(): Tree<T> {
     throw new Error('Not implemented');
   }
 
-  get root(): Tree<T> {
-    throw new Error('Not implemented');
-  }
-
-  subtree(): Tree<T>[] {
+  private subtree(): Tree<T>[] {
     throw new Error('Not implemented');
   }
 
@@ -151,7 +154,7 @@ export class Tree<T> implements TreeTraversal<T> {
    *  join or concat the name?!
    * @param tree Tree<T>
    */
-  join(tree: Tree<T>): Tree<T> {
+  private join(tree: Tree<T>): Tree<T> {
     throw new Error('Not implemented');
   }
 
@@ -186,11 +189,11 @@ export class Tree<T> implements TreeTraversal<T> {
     return tree;
   }
 
-  removeChild(child: Tree<T>): Tree<T> {
+  private removeChild(child: Tree<T>): Tree<T> {
     throw new Error('Not implemented');
   }
 
-  map(): Tree<T>[] {
+  private map(): Tree<T>[] {
     throw new Error('Not implemented');
   }
 }
