@@ -8,14 +8,13 @@ import {
   ElementRef,
   Input,
   QueryList,
-  ViewChildren,
-  OnInit
+  ViewChildren
 } from '@angular/core';
 
 import { TimelineMax } from 'gsap';
 import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
 import NavigationItem from '../../../models/navigation-item.model';
-import { SidenavNavigatorService } from '../sidenav-navigator.service';
+import { SidenavNavigatorService } from '../../services/sidenav-navigator.service';
 
 /**
  * Side navegation list component
