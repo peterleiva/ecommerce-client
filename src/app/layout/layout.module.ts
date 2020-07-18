@@ -3,14 +3,15 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { BarModule } from './bar/bar.module';
+import { HamburguerButtonComponent } from './hamburguer-button/hamburguer-button.component';
+import { HeaderContainerComponent } from './header/header-container/header-container.component';
 import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './header/navbar/navbar.component';
 import { HeaderNavbarService } from './services/header-navbar.service';
+import { SidenavService } from './services/sidenav.service';
 import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
-import { HamburguerButtonComponent } from './hamburguer-button/hamburguer-button.component';
-import { SidenavComponent } from './sidenav-drawer/sidenav/sidenav.component';
-import { SidenavItemComponent } from './sidenav-drawer/sidenav/sidenav-item/sidenav-item.component';
-import { HeaderContainerComponent } from './header/header-container/header-container.component';
+import { SidenavItemComponent } from './sidenav-drawer/sidenav-list/sidenav-item/sidenav-item.component';
+import { SidenavListComponent } from './sidenav-drawer/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { HeaderContainerComponent } from './header/header-container/header-conta
     NavbarComponent,
     SidenavDrawerComponent,
     HamburguerButtonComponent,
-    SidenavComponent,
+    SidenavListComponent,
     SidenavItemComponent,
     HeaderContainerComponent
   ],
@@ -28,7 +29,8 @@ import { HeaderContainerComponent } from './header/header-container/header-conta
     BarModule
   ],
   providers: [
-    HeaderNavbarService
+    HeaderNavbarService,
+    SidenavService
   ],
   exports: [
     HeaderComponent,

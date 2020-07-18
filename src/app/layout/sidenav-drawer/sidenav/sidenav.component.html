@@ -1,9 +1,0 @@
-<nav #nav>
-  <ul>
-    <li *ngFor="let category of categories" #items>
-      <app-sidenav-item [category]="category"
-                        (click)="open(category)">
-      </app-sidenav-item>
-    </li>
-  </ul>
-</nav>

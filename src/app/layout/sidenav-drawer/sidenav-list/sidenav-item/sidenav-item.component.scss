@@ -1,0 +1,44 @@
+@use 'utilities' as *;
+
+$active-color: color-variant('accent-1', 'darker');
+$active-shadow: rem(5) rem(5) rem(6) rem(1) color-variant('accent-1', 'darker',
+                                                          'shadow');
+
+a {
+
+  display: flex;
+  height: rem($touchable-area);
+  align-items: center;
+  color: var(--light);
+  @include rhythm-padding(.5 1);
+  border-radius: rem(7);
+  transition: all 350ms;
+
+  > .icon {
+    width: rhythm-baseline-scale(1);
+  }
+
+  > .text-container {
+    @include rhythm-padding-side('left', .5);
+    flex: 1 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > .text {
+      flex: 1 0;
+    }
+  }
+
+  &.active {
+    background-color: $active-color;
+    box-shadow: $active-shadow;
+  }
+
+  @media(hover: hover) {
+    &:hover {
+      background-color: $active-color;
+      box-shadow: $active-shadow;
+    }
+  }
+}

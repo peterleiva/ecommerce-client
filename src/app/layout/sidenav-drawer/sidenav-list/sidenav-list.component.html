@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let navItem of navList" #items>
+    <store-sidenav-item [navItem]="navItem" (click)="navigate(navItem)">
+    </store-sidenav-item>
+  </li>
+</ul>
