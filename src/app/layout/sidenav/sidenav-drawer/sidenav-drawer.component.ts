@@ -15,7 +15,7 @@ import { Power1, TweenLite } from 'gsap';
 import { Observable } from 'rxjs';
 
 import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
-import NavigationItem from '../models/navigation-item.model';
+import NavigationItem from '../../models/navigation-item.model';
 import { SidenavNavigatorService } from './sidenav-navigator.service';
 
 /**

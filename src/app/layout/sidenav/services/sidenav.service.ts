@@ -5,8 +5,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Tree } from '../../shared/data-structure/tree/tree.model';
-import NavigationItem from '../models/navigation-item.model';
+import { Tree } from '../../../shared/data-structure/tree/tree.model';
+import NavigationItem from '../../models/navigation-item.model';
 
 /**
  * This service packs a side navigation tree data
@@ -23,6 +23,7 @@ export class SidenavService {
 
   constructor() {
     this.root = new Tree();
+    const dept = new NavigationItem('flores', null);
 
     const home = new NavigationItem('página inicial', '/', null, 'home');
     const explore = new NavigationItem('explorar', '/produtos', 'Departamentos',
@@ -33,7 +34,7 @@ export class SidenavService {
                                        'comment');
 
     this.root.appendChild(home);
-    this.root.appendChild(explore);
+    this.root.appendChild(explore).appendChild(dept);
     this.root.appendChild(orders);
     this.root.appendChild(contact);
 

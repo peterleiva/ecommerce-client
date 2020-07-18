@@ -3,11 +3,12 @@
  * @packageDocumentation
  */
 import { Injectable } from '@angular/core';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { Observable, Subject, ReplaySubject, concat } from 'rxjs';
 
-import { Tree } from '../../shared/data-structure/tree/tree.model';
-import NavigationItem from '../models/navigation-item.model';
+import { Tree } from '../../../shared/data-structure/tree/tree.model';
+import NavigationItem from '../../models/navigation-item.model';
 import { SidenavService } from '../services/sidenav.service';
+import { publishLast, last, map, tap } from 'rxjs/operators';
 
 /**
  * SidenavNavigatorService tracks the current navigation starting from rooted
@@ -21,14 +22,15 @@ import { SidenavService } from '../services/sidenav.service';
 @Injectable()
 export class SidenavNavigatorService {
   private navSelected: Tree<NavigationItem>;
-  private _select$: ReplaySubject<Tree<NavigationItem>>;
+  private _select$: Subject<Tree<NavigationItem>>;
 
   constructor(private sidenavService: SidenavService) {
-    this._select$ = new ReplaySubject();
+    this._select$ = new Subject();
 
     // set current nav from sidenav service
     this.sidenavService
         .sidenav$.subscribe(sidenav => this.navigate(sidenav));
+
   }
 
   /**
@@ -37,7 +39,10 @@ export class SidenavNavigatorService {
    * @returns current sidenav stream
    */
   get select$(): Observable<Tree<NavigationItem>> {
-    return this._select$.asObservable();
+    return concat(
+      this.sidenavService.sidenav$.pipe(last()),
+      this._select$,
+    ).pipe(tap(console.log));
   }
 
   /**

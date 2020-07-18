@@ -38,3 +38,7 @@ $nav-width: rem(breakpoints('chihuahua') - $touchable-area * 2);
     transform: translateX(calc(-100% - #{rhythm-baseline-scale(1)}));
   }
 }
+
+.loading-container {
+  @include rhythm-margin(2.5 .5);
+}

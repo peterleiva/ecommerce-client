@@ -14,7 +14,7 @@ import {
 
 import { TimelineMax } from 'gsap';
 import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
-import NavigationItem from '../../models/navigation-item.model';
+import NavigationItem from '../../../models/navigation-item.model';
 import { SidenavNavigatorService } from '../sidenav-navigator.service';
 
 /**
@@ -35,7 +35,6 @@ export class SidenavListComponent implements AfterViewInit {
 
   constructor(private container: ElementRef,
               private navNavigator: SidenavNavigatorService) { }
-
   /**
    * Gets the sidenav list component element for gsap
    */
@@ -48,6 +47,10 @@ export class SidenavListComponent implements AfterViewInit {
    */
   get items(): HTMLElement[] {
     return this._items.toArray().map(item => item.nativeElement);
+  }
+
+  ngOnChanges() {
+    console.log('changed sidenavlist component');
   }
 
   ngAfterViewInit() {

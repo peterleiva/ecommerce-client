@@ -8,19 +8,13 @@ import { HeaderContainerComponent } from './header/header-container/header-conta
 import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './header/navbar/navbar.component';
 import { HeaderNavbarService } from './services/header-navbar.service';
-import { SidenavService } from './services/sidenav.service';
-import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
-import { SidenavItemComponent } from './sidenav-drawer/sidenav-list/sidenav-item/sidenav-item.component';
-import { SidenavListComponent } from './sidenav-drawer/sidenav-list/sidenav-list.component';
+import { SidenavModule } from './sidenav/sidenav.module';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     NavbarComponent,
-    SidenavDrawerComponent,
     HamburguerButtonComponent,
-    SidenavListComponent,
-    SidenavItemComponent,
     HeaderContainerComponent
   ],
   imports: [
@@ -29,14 +23,13 @@ import { SidenavListComponent } from './sidenav-drawer/sidenav-list/sidenav-list
     BarModule
   ],
   providers: [
-    HeaderNavbarService,
-    SidenavService
+    HeaderNavbarService
   ],
   exports: [
     HeaderComponent,
     HeaderContainerComponent,
-    SidenavDrawerComponent,
-    HamburguerButtonComponent
+    HamburguerButtonComponent,
+    SidenavModule
   ]
 })
 export class LayoutModule { }
