@@ -1,20 +1,43 @@
-import { Component, AfterViewInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+/**
+ * This file has a side navigation drawer component
+ * @packageDocumentation
+ */
+
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Power1, TweenLite } from 'gsap';
 import { Observable } from 'rxjs';
-import { gsap, TweenLite, Power1, Back } from 'gsap';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import { CategoryNavigatorService } from './category-navigator.service';
-import { Category } from 'src/app/core/models/category.model';
+import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
+import NavigationItem from '../models/navigation-item.model';
+import { SidenavNavigatorService } from './sidenav-navigator.service';
 
+/**
+ * Side navigation drawer component represents a nav container with many other
+ * components including a sidenav
+ *
+ * Sidenav drawer is a container between sidenav list component and others
+ * items, keeping track of navigability with navigator service. It also
+ * mantain two animatable visilibity state, so it knows when it is visible or
+ * not. The navigator interface can navigate through the parent if there's one
+ * for the drawer and the sidenav list can navigate between its children.
+ * Side navigation drawer just keep is a common place to keep the current
+ * selected sidenav tree item
+ */
 @Component({
   selector: 'store-sidenav-drawer',
   templateUrl: './sidenav-drawer.component.html',
   styleUrls: [
     './sidenav-drawer.component.scss',
-    './sidenav/sidenav-loading.component.scss'
+    './sidenav-list/sidenav-loading.component.scss'
   ],
-  providers: [CategoryNavigatorService],
+  providers: [SidenavNavigatorService],
   animations: [
     trigger('slideRight', [
       state('show', style({ transform: 'translateX(0)' })),
@@ -35,26 +58,43 @@ import { Category } from 'src/app/core/models/category.model';
     ])
   ]
 })
-export class SidenavDrawerComponent implements AfterViewInit {
-  backButton = faChevronLeft;
+export class SidenavDrawerComponent implements AfterViewInit, OnInit {
   @Input() show: boolean;
+  sidenav$: Observable<Tree<NavigationItem>>;
 
-  constructor(private navigatorService: CategoryNavigatorService) { }
+  constructor(private sidenavNavigator: SidenavNavigatorService) { }
 
-  get categories$(): Observable<Category[]> {
-    return this.navigatorService.categories$;
-  }
-
-  get navigator$(): Observable<Category> {
-    return this.navigatorService.navigate$;
-  }
-
+  /**
+   * Gets the current sidenav animation state
+   *
+   * The state can be show or hide it represents the actual component visibility
+   * those values is evaluated for animation logic
+   */
   get state(): string {
     return this.show ? 'show' : 'hide';
   }
 
-  close(): void {
-    this.navigatorService.close();
+  /**
+   * Gets the sidenav tree model with all sidenav items
+   */
+  ngOnInit() {
+    this.sidenav$ = this.sidenavNavigator.select$;
+  }
+
+  /**
+   * Gets the section (level) name for navigation tree item
+   *
+   * @param navItem a navigation item tree
+   */
+  levelName(navItem: Tree<NavigationItem>): string {
+    return navItem.data?.levelName ?? '';
+  }
+
+  /**
+   * Navigate to the selected sidenav parent using sidenav service
+   */
+  navigateLevelUp(): void {
+    this.sidenavNavigator.parent();
   }
 
   ngAfterViewInit() {

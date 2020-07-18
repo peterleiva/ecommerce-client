@@ -1,20 +1,15 @@
-<aside class="sidenav">
-  <ng-container *ngIf="categories$ | async as categories; else loading">
-    <h1 class="heading-5 text-bold">
-      <a href="javascript:void(0)" (click)="close()" [@slideDown]="state">
-
-        <ng-container *ngIf="navigator$ | async as category; else title">
-          <fa-icon [icon]="backButton" class="back-button text-sm"></fa-icon>
-          {{ category.name }}
-        </ng-container>
-
-      </a>
-    </h1>
-
-    <div class="container" [@slideRight]="state">
-      <app-sidenav [categories]="categories"></app-sidenav>
-    </div>
-  </ng-container>
+<aside class="sidenav" *ngIf="sidenav$ | async as nav; else loading">
+  <h1 class="heading-5 nav-section">
+    <a href="javascript:void(0)" (click)="navigateLevelUp()"
+       [@slideDown]="state">
+      <fa-icon [icon]="['fas', 'chevron-left']" *ngIf="!nav.isRoot()"></fa-icon>
+      <b class="title">{{ levelName(nav) | titlecase }}</b>
+    </a>
+  </h1>
+  <div [@slideRight]="state" class="nav-container">
+    <store-sidenav-list [navList]="nav.children">
+    </store-sidenav-list>
+  </div>
 </aside>
 
 <ng-template #loading>
@@ -28,8 +23,4 @@
       <li class="loading"></li>
     </ul>
   </section>
-</ng-template>
-
-<ng-template #title>
-  Departamentos
 </ng-template>

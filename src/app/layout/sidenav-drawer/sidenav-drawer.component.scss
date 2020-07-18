@@ -10,39 +10,27 @@
 }
 
 .sidenav {
-  position: relative;
   @include rhythm-padding(1 0);
+  height: 100vh;
+  overflow-y: scroll;
   // $touchable-area * some app shadow
-  width: rem(breakpoints('chihuahua') - $touchable-area*2); 
+  width: rem(breakpoints('chihuahua') - $touchable-area * 2); 
 
-  h1 {
-    @include rhythm-margin(0 1);
+  .nav-section {
+    @include rhythm-margin(2 1);
     color: color-variant('accent-1', 'darker');
-
-     .back-button {
-      @include rhythm-margin-side('right', 1);
-    }
 
     a {
       display: flex;
       align-items: center;
     }
-  }
 
-  .subcategories app-sidenav:not(.active) {
-    display: none;
-  }
-
-  .container {
-    position: absolute;
-    top: rhythm-baseline-scale(4);
-    width: 100%;
-
-    > app-sidenav {
-      position: absolute;
-      left: 0;
-      max-height: 70vh;
-      overflow-y: scroll;
+    .title {
+      @include rhythm-margin-side('left', 1);
     }
+  }
+
+  .nav-container {
+    @include rhythm-margin(2.5 .5);
   }
 }
