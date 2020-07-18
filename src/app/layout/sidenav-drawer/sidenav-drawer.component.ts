@@ -88,15 +88,13 @@ export class SidenavDrawerComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    TweenLite.from('.loading', 2, {
-      scaleX: .65,
-      opacity: 1,
-      transformOrigin: 'left',
+    TweenLite.to('.loading', 2, {
+      opacity: .8,
       ease: Power1.easeInOut,
       stagger: {
         repeat: -1,
         yoyo: true,
-        each: 1,
+        each: .7,
         from: 'random'
       }
     });

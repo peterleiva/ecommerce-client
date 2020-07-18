@@ -1,26 +1,27 @@
-<aside class="sidenav" *ngIf="sidenav$ | async as nav; else loading">
-  <h1 class="heading-5 nav-title">
-    <a href="javascript:void(0)" (click)="navigateLevelUp()"
-       [@slideDown]="show">
-      <fa-icon [icon]="['fas', 'chevron-left']" *ngIf="!nav.isRoot()"></fa-icon>
-      <b class="title">{{ levelName(nav) | titlecase }}</b>
-    </a>
-  </h1>
-  <div class="nav-list-container" [@slideRight]="show">
-    <store-sidenav-list [navList]="nav.children">
-    </store-sidenav-list>
-  </div>
+<aside class="sidenav">
+
+  <ng-container *ngIf="sidenav$ | async as nav; else loading">
+    <h1 class="heading-5 nav-title">
+      <a href="javascript:void(0)" (click)="navigateLevelUp()"
+         [@slideDown]="show">
+        <fa-icon [icon]="['fas', 'chevron-left']" *ngIf="!nav.isRoot()"></fa-icon>
+        <b class="title">{{ levelName(nav) | titlecase }}</b>
+      </a>
+    </h1>
+    <div class="nav-list-container" [@slideRight]="show">
+      <store-sidenav-list [navList]="nav.children">
+      </store-sidenav-list>
+    </div>    
+  </ng-container>
+
 </aside>
 
 <ng-template #loading>
-  <section class="loading-categories">
-    <h1 class="heading-4 text-bold">DEPARTAMENTOS</h1>
-    <ul>
-      <li class="loading"></li>
-      <li class="loading"></li>
-      <li class="loading"></li>
-      <li class="loading"></li>
-      <li class="loading"></li>
-    </ul>
-  </section>
+  <ul class="loading-container">
+    <li class="loading"></li>
+    <li class="loading"></li>
+    <li class="loading"></li>
+    <li class="loading"></li>
+    <li class="loading"></li>
+  </ul>
 </ng-template>
