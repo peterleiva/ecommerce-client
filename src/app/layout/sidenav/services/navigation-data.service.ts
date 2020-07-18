@@ -17,7 +17,7 @@ import NavigationItem from '../../models/navigation-item.model';
  * and also information or metainformation about the current level.
  */
 @Injectable()
-export class SidenavService {
+export class NavigationDataService {
   private root: Tree<NavigationItem>;
   private _sidenav$: BehaviorSubject<Tree<NavigationItem>>;
 
@@ -42,9 +42,16 @@ export class SidenavService {
   }
 
   /**
+   * Gets the navigation tree data
+   */
+  get nav(): Tree<NavigationItem> {
+    return this.root;
+  }
+
+  /**
    * Gets a observable containing a rooted tree which represents the sidenav
    */
-  get sidenav$(): Observable<Tree<NavigationItem>> {
+  get nav$(): Observable<Tree<NavigationItem>> {
     return this._sidenav$.asObservable();
   }
 }

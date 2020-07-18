@@ -5,7 +5,7 @@ import { SidenavTriggerDirective } from './sidenav-trigger/sidenav-trigger.direc
 import { SidenavDrawerComponent } from './sidenav-drawer/sidenav-drawer.component';
 import { SidenavListComponent } from './sidenav-drawer/sidenav-list/sidenav-list.component';
 import { SidenavItemComponent } from './sidenav-drawer/sidenav-list/sidenav-item/sidenav-item.component';
-import { SidenavService } from './services/sidenav.service';
+import { NavigationDataService } from './services/navigation-data.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { SidenavService } from './services/sidenav.service';
     SharedModule
   ],
 
-  providers: [SidenavService],
+  providers: [NavigationDataService],
 
   exports: [
     SidenavTriggerDirective,

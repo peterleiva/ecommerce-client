@@ -35,10 +35,6 @@ $color: color-gray(gray-2);
         &:hover {
           transition: all 150ms;
           transform: rotate(.5turn);
-  
-          line#top-line {
-            stroke: color-pick('danger');
-          }
         }
       }
     }

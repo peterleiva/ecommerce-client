@@ -3,12 +3,11 @@
  * @packageDocumentation
  */
 import { Injectable } from '@angular/core';
-import { Observable, Subject, ReplaySubject, concat } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Tree } from '../../../shared/data-structure/tree/tree.model';
 import NavigationItem from '../../models/navigation-item.model';
-import { SidenavService } from '../services/sidenav.service';
-import { publishLast, last, map, tap } from 'rxjs/operators';
+import { NavigationDataService } from './navigation-data.service';
 
 /**
  * SidenavNavigatorService tracks the current navigation starting from rooted
@@ -22,15 +21,10 @@ import { publishLast, last, map, tap } from 'rxjs/operators';
 @Injectable()
 export class SidenavNavigatorService {
   private navSelected: Tree<NavigationItem>;
-  private _select$: Subject<Tree<NavigationItem>>;
+  private _selected$: BehaviorSubject<Tree<NavigationItem>>;
 
-  constructor(private sidenavService: SidenavService) {
-    this._select$ = new Subject();
-
-    // set current nav from sidenav service
-    this.sidenavService
-        .sidenav$.subscribe(sidenav => this.navigate(sidenav));
-
+  constructor(private dataService: NavigationDataService) {
+    this._selected$ = new BehaviorSubject(this.dataService.nav);
   }
 
   /**
@@ -39,10 +33,7 @@ export class SidenavNavigatorService {
    * @returns current sidenav stream
    */
   get select$(): Observable<Tree<NavigationItem>> {
-    return concat(
-      this.sidenavService.sidenav$.pipe(last()),
-      this._select$,
-    ).pipe(tap(console.log));
+    return this._selected$.asObservable();
   }
 
   /**
@@ -56,7 +47,7 @@ export class SidenavNavigatorService {
   parent(): SidenavNavigatorService {
     if (!this.navSelected.isRoot()) {
       const parent = this.navSelected.parent;
-      this._select$.next(parent);
+      this._selected$.next(parent);
       this.navSelected = parent;
     }
 
@@ -76,7 +67,7 @@ export class SidenavNavigatorService {
   navigate(tree: Tree<NavigationItem>): SidenavNavigatorService {
     if (tree.hasChildren()) {
       this.navSelected = tree;
-      this._select$.next(this.navSelected);
+      this._selected$.next(this.navSelected);
     }
 
     return this;
