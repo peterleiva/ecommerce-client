@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 
 import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
 import NavigationItem from '../../models/navigation-item.model';
-import { SidenavNavigatorService } from './sidenav-navigator.service';
+import { SidenavNavigatorService } from '../services/sidenav-navigator.service';
 
 /**
  * Side navigation drawer component represents a nav container with many other

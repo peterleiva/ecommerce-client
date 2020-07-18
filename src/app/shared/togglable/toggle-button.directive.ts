@@ -17,6 +17,6 @@ export class ToggleButtonDirective extends Togglable {
 
   @HostListener('click') toggle() {
     this.checked = !this.checked;
-    this.toggleChange.emit(this);
+    this.toggled.emit(this);
   }
 }

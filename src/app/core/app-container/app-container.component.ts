@@ -10,8 +10,9 @@ import {
   NgZone} from '@angular/core';
 import { gsap, TweenLite, Back, Bounce } from 'gsap';
 import { Draggable } from 'gsap/draggable';
-import { Subscription } from 'rxjs';
-import { ToggleButtonDirective } from 'src/app/shared/togglable/toggle-button.directive';
+
+import Menu from 'src/app/layout/sidenav/menu.interface';
+import { SidenavTriggerDirective } from 'src/app/layout/sidenav/sidenav-trigger/sidenav-trigger.directive';
 
 gsap.registerPlugin(Draggable);
 
@@ -21,36 +22,49 @@ gsap.registerPlugin(Draggable);
 @Component({
   selector: 'store-app-container',
   template: `<ng-content></ng-content>`,
-  styleUrls: ['./app-container.component.scss']
+  styleUrls: ['./app-container.component.scss'],
+  exportAs: 'storeMenu'
 })
-export class AppContainerComponent implements AfterViewInit, OnDestroy {
+export class AppContainerComponent implements AfterViewInit, Menu {
   static DRAG_ANIMATION_DURATION = .25;
   static SIDEBAR_SNAP_AXIS = 278;
 
-  @ContentChild(ToggleButtonDirective) private button: ToggleButtonDirective;
-  private buttonSubscription: Subscription;
-  @HostBinding('class.open') private _open: boolean;
+  @HostBinding('class.open') @Input() opened: boolean;
   @HostBinding('class.opening') private opening = false;
   @Input() draggable: HTMLElement;
+  @ContentChild(SidenavTriggerDirective) trigger: SidenavTriggerDirective;
 
   constructor(private container: ElementRef, private zone: NgZone) { }
 
-  @Input() set open(value: boolean) {
-    this.zone.run(async () => {
-      if (value) {
-        this._open = value;
-        this.opening = true;
-        await this.openDrawer();
-        this.opening = false;
-      } else {
-        await this.closeDrawer();
-        this._open = value;
-      }
-    });
-  }
-
   private get app(): HTMLDivElement {
     return this.container.nativeElement;
+  }
+
+  /**
+   *
+   */
+  open(): AppContainerComponent {
+    this.zone.run(async () => {
+      this.opening = true;
+      await this.openDrawer();
+      this.opening = false;
+
+      this.opened = true;
+    });
+
+    return this;
+  }
+
+  /**
+   *
+   */
+  close(): AppContainerComponent {
+    this.zone.run(async () => {
+      await this.closeDrawer();
+      this.opened = false;
+    });
+
+    return this;
   }
 
   ngAfterViewInit() {
@@ -62,11 +76,13 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
       onDragStart: () => this.onDragStart(),
       onDragEnd: () => this.onDragEnd()
     });
+
+    this.opened ? this.open() : this.close();
   }
 
-  @HostListener('click') private openContainer(): void {
-    if (!this.opening && this._open) {
-      this.open = false;
+  @HostListener('click') private closeContainer(): void {
+    if (!this.opening && this.opened) {
+      this.trigger.closeNav();
     }
   }
 
@@ -85,16 +101,14 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
     const closeDistance = this.app.getBoundingClientRect().left;
 
     if (closeDistance < AppContainerComponent.SIDEBAR_SNAP_AXIS) {
-      this.open = false;
+      this.trigger.closeNav();
     } else {
-      this.open = true;
+      this.trigger.openNav();
     }
     this.opening = false;
   }
 
   private async openDrawer(): Promise<TweenLite> {
-    this.button.check();
-
     return (
       TweenLite
         .to(this.app, AppContainerComponent.DRAG_ANIMATION_DURATION, {
@@ -107,8 +121,6 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
   }
 
   private async closeDrawer(): Promise<TweenLite> {
-    this.button.uncheck();
-
     return (
       TweenLite
         .to(this.app, AppContainerComponent.DRAG_ANIMATION_DURATION, {
@@ -118,9 +130,5 @@ export class AppContainerComponent implements AfterViewInit, OnDestroy {
           ease: Bounce.easeOut
         })
     );
-  }
-
-  ngOnDestroy() {
-    this.buttonSubscription.unsubscribe();
   }
 }
