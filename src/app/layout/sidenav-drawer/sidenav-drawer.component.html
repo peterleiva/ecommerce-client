@@ -1,12 +1,12 @@
 <aside class="sidenav" *ngIf="sidenav$ | async as nav; else loading">
-  <h1 class="heading-5 nav-section">
+  <h1 class="heading-5 nav-title">
     <a href="javascript:void(0)" (click)="navigateLevelUp()"
-       [@slideDown]="state">
+       [@slideDown]="show">
       <fa-icon [icon]="['fas', 'chevron-left']" *ngIf="!nav.isRoot()"></fa-icon>
       <b class="title">{{ levelName(nav) | titlecase }}</b>
     </a>
   </h1>
-  <div [@slideRight]="state" class="nav-container">
+  <div class="nav-list-container" [@slideRight]="show">
     <store-sidenav-list [navList]="nav.children">
     </store-sidenav-list>
   </div>

@@ -40,19 +40,19 @@ import { SidenavNavigatorService } from './sidenav-navigator.service';
   providers: [SidenavNavigatorService],
   animations: [
     trigger('slideRight', [
-      state('show', style({ transform: 'translateX(0)' })),
-      state('hide', style({ transform: 'translateX(-100%)' })),
+      state('1', style({ transform: 'translateX(0)' })),
+      state('0', style({ transform: '*' })),
 
-      transition('hide => show', [
+      transition('0 => 1', [
         animate('300ms 250ms cubic-bezier(.01, .51, .18, 1.31)')
       ])
     ]),
 
     trigger('slideDown', [
-      state('show', style({ transform: 'translateY(0)' })),
-      state('hide', style({ transform: 'translateY(-200%)' })),
+      state('1', style({ transform: 'translateY(0)', opacity: '1' })),
+      state('0', style({ transform: 'translateY(-100%)', opacity: '0' })),
 
-      transition('hide => show', [
+      transition('0 => 1', [
         animate('150ms 100ms cubic-bezier(.01, .051, .18, 1.31)')
       ])
     ])
@@ -63,16 +63,6 @@ export class SidenavDrawerComponent implements AfterViewInit, OnInit {
   sidenav$: Observable<Tree<NavigationItem>>;
 
   constructor(private sidenavNavigator: SidenavNavigatorService) { }
-
-  /**
-   * Gets the current sidenav animation state
-   *
-   * The state can be show or hide it represents the actual component visibility
-   * those values is evaluated for animation logic
-   */
-  get state(): string {
-    return this.show ? 'show' : 'hide';
-  }
 
   /**
    * Gets the sidenav tree model with all sidenav items

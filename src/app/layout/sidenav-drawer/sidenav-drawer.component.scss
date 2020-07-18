@@ -1,5 +1,8 @@
 @use 'utilities' as *;
 
+// $touchable-area * some app shadow
+$nav-width: rem(breakpoints('chihuahua') - $touchable-area * 2);
+
 :host {
   --gradient-background-1: radial-gradient(ellipse 130vw 80vh at 103vw 50vh,
     hsl(204, 55%, 83%) 1%, hsl(175, 56%, 56%) 28%, 
@@ -13,10 +16,9 @@
   @include rhythm-padding(1 0);
   height: 100vh;
   overflow-y: scroll;
-  // $touchable-area * some app shadow
-  width: rem(breakpoints('chihuahua') - $touchable-area * 2); 
+  width: $nav-width; 
 
-  .nav-section {
+  .nav-title {
     @include rhythm-margin(2 1);
     color: color-variant('accent-1', 'darker');
 
@@ -30,7 +32,9 @@
     }
   }
 
-  .nav-container {
+  .nav-list-container {
     @include rhythm-margin(2.5 .5);
+    // Calc uses margin (2x) declared above to hide by default nav-list
+    transform: translateX(calc(-100% - #{rhythm-baseline-scale(1)}));
   }
 }
