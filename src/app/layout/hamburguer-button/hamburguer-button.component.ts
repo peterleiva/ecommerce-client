@@ -3,10 +3,9 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
-  AfterViewInit, 
+  AfterViewInit,
   Input} from '@angular/core';
 import { TweenLite, Bounce } from 'gsap';
-import { Subscription } from 'rxjs';
 
 import { Togglable } from 'src/app/shared/togglable/togglable';
 
@@ -23,11 +22,11 @@ export class HamburguerButtonComponent extends Togglable {
   @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
 
   private get topLine(): SVGLineElement {
-    return this._topLine.nativeElement;
+    return this._topLine?.nativeElement;
   }
 
   private get middleLine(): SVGLineElement {
-    return this._middleLine.nativeElement;
+    return this._middleLine?.nativeElement;
   }
 
   @Input() set open(value: boolean) {
