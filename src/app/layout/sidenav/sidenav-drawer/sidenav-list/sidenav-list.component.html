@@ -1,6 +1,7 @@
-<ul>
-  <li *ngFor="let navItem of navList" #items>
-    <store-sidenav-item [navItem]="navItem" (click)="navigate(navItem)">
-    </store-sidenav-item>
-  </li>
-</ul>
+<nav @navigate>
+  <store-sidenav-item *ngFor="let navItem of navList"
+                      @slideRight
+                      [navItem]="navItem"
+                      (tap)="navigate(navItem)">
+  </store-sidenav-item>
+</nav>

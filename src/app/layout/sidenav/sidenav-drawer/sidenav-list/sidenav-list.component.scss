@@ -2,9 +2,15 @@
 
 :host {
   position: absolute;
-  left: clamp(rem(4), 2vw, rhythm-baseline-scale(2))
+  left: clamp(rem(4), 2vw, rhythm-baseline-scale(2));
+
+  nav {
+    display: flex;
+    flex-direction: column;
+
+    store-sidenav-item {
+      @include rhythm-margin-side('bottom', 1);
+    }
+  }
 }
 
-li {
-  @include rhythm-margin-side('bottom', 1);
-}
