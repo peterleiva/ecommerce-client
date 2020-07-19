@@ -1,6 +1,7 @@
-@use 'utilities' as *;
 @use 'sass:list';
 @use 'sass:map';
+@use 'utilities' as *;
+@use 'base/animations' as *;
 
 $app-background: color-pick('background-1');
 $sidenav-background: color-gradient('background-1');
@@ -59,18 +60,19 @@ $app-border-radius: rem(14);
 
 :host {
   background: var(--light);
-
+  transform-origin: left;
+  transition: all 0s 170ms, transform 170ms ease-in;
+  transform: translateX(0) scale(1);
+  
   &.opening, &.open {
     border-radius: $app-border-radius;
+    border-radius: $app-border-radius 0 0 $app-border-radius;
     box-shadow: shadow-replicas();
+    transition: all 250ms #{map.get($easings, 'back-ease-out')};
+    transform: scale(.84);
   }
-
+  
   &.open {
-    transform: translateX(40vw);
-    transform-origin: left;
-
-    .trigger {
-      border-radius: $app-border-radius 0 0 $app-border-radius;
-    }
+    transform: translateX(clamp(240px, 40vw, rhythm-baseline-scale(15))) scale(.84);
   }
 }

@@ -4,19 +4,24 @@
 $nav-width: rem(breakpoints('chihuahua') - $touchable-area * 2);
 
 :host {
-  --gradient-background-1: radial-gradient(ellipse 130vw 80vh at 103vw 50vh,
-    hsl(204, 55%, 83%) 1%, hsl(175, 56%, 56%) 28%, 
-    hsl(145, 56%, 56%) 39%, hsl(145, 56%, 44%) 81%, 
-    hsl(205, 12%, 42%) 100%);
+  --gradient-background-1: radial-gradient(
+    ellipse 
+    clamp(300px * 1.5, 90vw, 120vw) 70vh at
+    clamp(320px, 60vw, 110vw) 50vh,
+    hsl(204, 55%, 83%) 19%,
+    hsl(175, 56%, 56%) 20%,
+    hsl(145, 56%, 56%) 40%,
+    hsl(145, 56%, 44%) 80%,
+    hsl(205, 12%, 42%) 105%
+  );
 
   background: var(--gradient-background-1);
 }
 
 .sidenav {
-  @include rhythm-padding(1 0);
   height: 100vh;
   overflow-y: scroll;
-  width: $nav-width; 
+  margin: 6vh 0rem;
 
   .nav-title {
     @include rhythm-margin(2 1);

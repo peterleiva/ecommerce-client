@@ -1,5 +1,10 @@
 @use 'utilities' as *;
 
+:host {
+  position: absolute;
+  left: clamp(rem(4), 2vw, rhythm-baseline-scale(2))
+}
+
 li {
   @include rhythm-margin-side('bottom', 1);
 }
