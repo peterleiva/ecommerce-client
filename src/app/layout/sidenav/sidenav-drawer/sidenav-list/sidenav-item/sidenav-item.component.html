@@ -1,9 +1,13 @@
 <a [routerLink]="navItem.data.link" routerLinkActive="active" 
    [routerLinkActiveOptions]="{exact: true}">
-  <fa-icon [icon]="iconName" class="icon" size="lg"></fa-icon>
+
+  <fa-icon *ngIf="navItem.data.icon" [icon]="iconName" size="lg" class="icon">
+  </fa-icon>
+
   <span class="text-container">
     <b class="text">{{ navItem.data.name | titlecase }}</b>
-    <fa-icon [icon]="['fas', 'chevron-right']" *ngIf="navItem.hasChildren()">
+
+    <fa-icon *ngIf="navItem.hasChildren()" [icon]="['fas', 'chevron-right']">
     </fa-icon>
   </span>
 </a>
