@@ -3,21 +3,21 @@
 
 <store-app-container id="app"
                      (swipeleft)="closeSidenav()"
-                     [draggable]="draggable" #menu="storeMenu">
+                     [trigger]="trigger"
+                     #menu="storeMenu">
   <store-header>
     <store-header-container>
-      <store-icon [label]="menuLabel"
-                  labelPosition="right"
+      <store-icon [label]="menuLabel" labelPosition="right" 
                   (toggled)="showSidenav = $event.checked"
-                  [storeSidenavTrigger]="menu">
-        <store-hamburguer-button [open]="showSidenav">
+                  [storeSidenavTrigger]="menu" #trigger="storeNavTrigger">
+        <store-hamburguer-button>
         </store-hamburguer-button>
       </store-icon>
     </store-header-container>
   </store-header>
 
   <main (swiperight)="openSidenav()">
-    <div class="trigger" #draggable></div>
+    <!-- <div class="trigger" #draggable></div> -->
     <router-outlet></router-outlet>
   </main>
 </store-app-container>
