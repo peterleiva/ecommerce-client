@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 import { SidenavTriggerDirective } from '../layout/sidenav/sidenav-trigger/sidenav-trigger.directive';
 
 @Component({
   templateUrl: './core.component.html',
-  styleUrls: ['./core.component.scss']
+  styleUrls: ['./core.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreComponent {
   @ViewChild(SidenavTriggerDirective) navTrigger: SidenavTriggerDirective;

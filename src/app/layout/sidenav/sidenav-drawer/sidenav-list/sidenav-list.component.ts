@@ -35,7 +35,11 @@ import { trigger, style, transition, query, stagger, animate, animateChild, stat
         animate('200ms', style({opacity: 1, transform: 'translateX(0)'}))
       ])
     ]),
-    // trigger('navigate', [])
+    trigger('navigate', [
+      transition('* <=> *', [
+        query(':enter', animateChild())
+      ])
+    ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

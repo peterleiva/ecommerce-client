@@ -10,7 +10,7 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Power1, TweenLite } from 'gsap';
 import { Observable } from 'rxjs';
 
@@ -38,6 +38,7 @@ import { SidenavNavigatorService } from '../services/sidenav-navigator.service';
     './sidenav-list/sidenav-loading.component.scss'
   ],
   providers: [SidenavNavigatorService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideRight', [
       state('1', style({ transform: 'translateX(0)' })),
