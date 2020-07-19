@@ -31,11 +31,7 @@ export class SidenavItemComponent {
    * component argument if there's a icon data to navItem. Instead it returns
    * a empty string
    */
-  get iconName(): string[] | '' {
-    if (this.navItem.data.icon) {
-      return ['fas', this.navItem.data.icon];
-    } else {
-      return '';
-    }
+  get iconName(): string[] {
+    return this.navItem.data.icon && ['fas', this.navItem.data.icon];
   }
 }
