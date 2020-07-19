@@ -19,14 +19,15 @@ import NavigationItem from '../../models/navigation-item.model';
 @Injectable()
 export class NavigationDataService {
   private root: Tree<NavigationItem>;
-  private _sidenav$: BehaviorSubject<Tree<NavigationItem>>;
+  private sidenav$: BehaviorSubject<Tree<NavigationItem>>;
 
   constructor() {
     this.root = new Tree();
-    const dept = new NavigationItem('flores', null);
+    const dept = new NavigationItem('flores', '/flores');
+    const ex = new NavigationItem('example', '/example', null, 'search');
 
     const home = new NavigationItem('página inicial', '/', null, 'home');
-    const explore = new NavigationItem('explorar', '/produtos', 'Departamentos',
+    const explore = new NavigationItem('explorar', '/explorar', 'Departamentos',
                                        'search');
     const orders = new NavigationItem('meus pedidos', '/pedidos', null,
                                       'receipt');
@@ -34,11 +35,13 @@ export class NavigationDataService {
                                        'comment');
 
     this.root.appendChild(home);
-    this.root.appendChild(explore).appendChild(dept);
+    const exploreNode = this.root.appendChild(explore);
+    exploreNode.appendChild(dept);
+    exploreNode.appendChild(ex);
     this.root.appendChild(orders);
     this.root.appendChild(contact);
 
-    this._sidenav$ = new BehaviorSubject(this.root);
+    this.sidenav$ = new BehaviorSubject(this.root);
   }
 
   /**
@@ -52,6 +55,6 @@ export class NavigationDataService {
    * Gets a observable containing a rooted tree which represents the sidenav
    */
   get nav$(): Observable<Tree<NavigationItem>> {
-    return this._sidenav$.asObservable();
+    return this.sidenav$.asObservable();
   }
 }

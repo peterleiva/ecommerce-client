@@ -8,13 +8,15 @@ import {
   ElementRef,
   Input,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { TimelineMax } from 'gsap';
 import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
 import NavigationItem from '../../../models/navigation-item.model';
 import { SidenavNavigatorService } from '../../services/sidenav-navigator.service';
+import { trigger, style, transition, query, stagger, animate, animateChild, state } from '@angular/animations';
 
 /**
  * Side navegation list component
@@ -25,7 +27,17 @@ import { SidenavNavigatorService } from '../../services/sidenav-navigator.servic
 @Component({
   selector: 'store-sidenav-list',
   templateUrl: './sidenav-list.component.html',
-  styleUrls: ['./sidenav-list.component.scss']
+  styleUrls: ['./sidenav-list.component.scss'],
+  animations: [
+    trigger('slideRight', [
+      transition(':enter', [
+        style({transform: 'translateX(-150%)'}),
+        animate('200ms', style({opacity: 1, transform: 'translateX(0)'}))
+      ])
+    ]),
+    // trigger('navigate', [])
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidenavListComponent implements AfterViewInit {
   @Input() navList: Tree<NavigationItem>[];
@@ -45,29 +57,26 @@ export class SidenavListComponent implements AfterViewInit {
    * Gets the sidenav underlying elements for gsap
    */
   get items(): HTMLElement[] {
-    return this._items.toArray().map(item => item.nativeElement);
-  }
-
-  ngOnChanges() {
-    console.log('changed sidenavlist component');
+    // return this._items.toArray().map(item => item.nativeElement);
   }
 
   ngAfterViewInit() {
-    this._items.changes.subscribe(_ => this.openAnimation());
+    // this._items.changes.subscribe(_ => this.openAnimation());
+  }
+
+  ngOnInit() {
+    console.log('init sidenav list');
+  }
+
+  ngOnChanges(changes) {
+    console.log('sidenavlist changed', changes);
   }
 
   /**
    * Uses the navigator service to navigate into nav item
    */
   navigate(navItem: Tree<NavigationItem>) {
-
-    if (navItem.hasChildren()) {
-      (async () => {
-        await this.closeAnimation();
-      })();
-
-      this.navNavigator.navigate(navItem);
-    }
+    this.navNavigator.navigate(navItem);
   }
 
   /**
@@ -91,15 +100,17 @@ export class SidenavListComponent implements AfterViewInit {
   /**
    * Uses gsap to animation when the navigate event happens
    */
-  private openAnimation() {
-    this.timeline
-      .set(this.nav, { rotateX: 0 })
-      .set(this.items, { x: '-100%', opacity: 0 })
+  private async openAnimation(): Promise<TimelineMax> {
+    return (
+      this.timeline
+        .set(this.nav, { rotateX: 0 })
+        .set(this.items, { x: '-100%', opacity: 0 })
 
-      .to(this.items, .25, {
-        x: 0,
-        opacity: 1,
-        stagger: { amount: .25 }
-      });
+        .to(this.items, .25, {
+          x: 0,
+          opacity: 1,
+          stagger: { amount: .25 }
+        })
+    );
   }
 }

@@ -44,7 +44,7 @@ import { SidenavNavigatorService } from '../services/sidenav-navigator.service';
       state('0', style({ transform: '*' })),
 
       transition('0 => 1', [
-        animate('300ms 250ms cubic-bezier(.01, .51, .18, 1.31)')
+        animate('400ms 100ms cubic-bezier(0.34, 1.56, 0.64, 1)')
       ])
     ]),
 
@@ -53,7 +53,7 @@ import { SidenavNavigatorService } from '../services/sidenav-navigator.service';
       state('0', style({ transform: 'translateY(-100%)', opacity: '0' })),
 
       transition('0 => 1', [
-        animate('150ms 100ms cubic-bezier(.01, .051, .18, 1.31)')
+        animate('150ms 100ms cubic-bezier(0.34, 1.56, 0.64, 1)')
       ])
     ])
   ]
