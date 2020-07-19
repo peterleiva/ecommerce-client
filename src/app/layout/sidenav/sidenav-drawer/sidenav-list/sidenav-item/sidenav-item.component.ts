@@ -2,7 +2,7 @@
  * This file represents a single sidenav clickable item
  * @packageDocumentation
  */
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import NavigationItem from 'src/app/layout/models/navigation-item.model';
 import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
@@ -17,7 +17,8 @@ import { Tree } from 'src/app/shared/data-structure/tree/tree.model';
 @Component({
   selector: 'store-sidenav-item',
   templateUrl: './sidenav-item.component.html',
-  styleUrls: ['./sidenav-item.component.scss']
+  styleUrls: ['./sidenav-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidenavItemComponent {
   @Input() navItem: Tree<NavigationItem>;
