@@ -35,14 +35,14 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
   exports: [
     CommonModule,
     FontAwesomeModule,
-    CollapsibleDirective,
-    JsonApiModule,
+    // CollapsibleDirective,
+    // JsonApiModule,
     IconComponent,
-    PaginateComponent,
-    PageEntriesInfoComponent,
-    OverlayComponent,
-    TabSectionDirective,
-    TabContainerComponent,
+    // PaginateComponent,
+    // PageEntriesInfoComponent,
+    // OverlayComponent,
+    // TabSectionDirective,
+    // TabContainerComponent,
     TabTriggerDirective,
     TogglableModule
   ]
