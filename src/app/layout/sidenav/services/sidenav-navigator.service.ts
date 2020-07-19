@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, merge } from 'rxjs';
 
 import { Tree } from '../../../shared/data-structure/tree/tree.model';
 import NavigationItem from '../../models/navigation-item.model';
@@ -21,10 +21,10 @@ import { NavigationDataService } from './navigation-data.service';
 @Injectable()
 export class SidenavNavigatorService {
   private navSelected: Tree<NavigationItem>;
-  private _selected$: BehaviorSubject<Tree<NavigationItem>>;
+  private selected$: Subject<Tree<NavigationItem>>;
 
   constructor(private dataService: NavigationDataService) {
-    this._selected$ = new BehaviorSubject(this.dataService.nav);
+    this.selected$ = new Subject();
   }
 
   /**
@@ -33,7 +33,10 @@ export class SidenavNavigatorService {
    * @returns current sidenav stream
    */
   get select$(): Observable<Tree<NavigationItem>> {
-    return this._selected$.asObservable();
+    return merge(
+      this.dataService.nav$,
+      this.selected$
+    );
   }
 
   /**
@@ -47,7 +50,7 @@ export class SidenavNavigatorService {
   parent(): SidenavNavigatorService {
     if (!this.navSelected.isRoot()) {
       const parent = this.navSelected.parent;
-      this._selected$.next(parent);
+      this.selected$.next(parent);
       this.navSelected = parent;
     }
 
@@ -67,7 +70,7 @@ export class SidenavNavigatorService {
   navigate(tree: Tree<NavigationItem>): SidenavNavigatorService {
     if (tree.hasChildren()) {
       this.navSelected = tree;
-      this._selected$.next(this.navSelected);
+      this.selected$.next(this.navSelected);
     }
 
     return this;
