@@ -23,8 +23,6 @@ export class NavigationDataService {
 
   constructor() {
     this.root = new Tree();
-    const dept = new NavigationItem('flores', '/flores');
-    const ex = new NavigationItem('example', '/example', null, 'search');
 
     const home = new NavigationItem('página inicial', '/', null, 'home');
     const explore = new NavigationItem('explorar', '/explorar', 'Departamentos',
@@ -35,9 +33,7 @@ export class NavigationDataService {
                                        'comment');
 
     this.root.appendChild(home);
-    const exploreNode = this.root.appendChild(explore);
-    exploreNode.appendChild(dept);
-    exploreNode.appendChild(ex);
+    this.root.appendChild(explore);
     this.root.appendChild(orders);
     this.root.appendChild(contact);
 
