@@ -9,11 +9,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('../home/home.module').then(mod => mod.HomeModule),
+        loadChildren: () => import('../home/home.module')
+                              .then(mod => mod.HomeModule),
       },
       // {
       //   path: 'produtos',
-      //   loadChildren: () => import('../products/products.module').then(mod => mod.ProductsModule)
+      //   loadChildren: () => import('../products/products.module')
+                                // .then(mod => mod.ProductsModule)
       // }
     ]
   }
