@@ -1,15 +1,16 @@
 <store-sidenav-drawer id="sidenav" [show]="showSidenav">
 </store-sidenav-drawer>
 
-<store-app-container id="app"
+<store-app-container id="app" #menu="storeMenu"
                      (swipeleft)="closeSidenav()"
-                     [trigger]="trigger"
-                     #menu="storeMenu">
+                     (tap)="showSidenav && closeSidenav()">
   <store-header>
     <store-header-container>
-      <store-icon [label]="menuLabel" labelPosition="right" 
+      <store-icon labelPosition="right"
+                  [label]="menuLabel"
+                  [storeSidenavTrigger]="menu"
                   (toggled)="showSidenav = $event.checked"
-                  [storeSidenavTrigger]="menu" #trigger="storeNavTrigger">
+                  #trigger="storeNavTrigger">
         <store-hamburguer-button>
         </store-hamburguer-button>
       </store-icon>
@@ -17,7 +18,6 @@
   </store-header>
 
   <main (swiperight)="openSidenav()">
-    <!-- <div class="trigger" #draggable></div> -->
     <router-outlet></router-outlet>
   </main>
 </store-app-container>
