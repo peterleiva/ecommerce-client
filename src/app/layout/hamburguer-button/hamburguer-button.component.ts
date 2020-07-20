@@ -1,23 +1,33 @@
+/**
+ * This file describe a hamburguer icon
+ * @packageDocumentation
+ */
+
 import {
   Component,
-  OnDestroy,
   ViewChild,
   ElementRef,
-  AfterViewInit,
-  Input} from '@angular/core';
+  Input,
+  ChangeDetectionStrategy } from '@angular/core';
 import { TweenLite, Bounce } from 'gsap';
 
-import { Togglable } from 'src/app/shared/togglable/togglable';
-
+/**
+ * Hamburguer button component refers to hamburguer menu button
+ *
+ * The button has two state a inactive (normal) state and a active state. The
+ * active state means the hamburguer is present in counterpart the active state
+ * a close icon appears instead
+ */
 @Component({
   selector: 'store-hamburguer-button',
   templateUrl: './hamburguer-button.component.html',
-  styleUrls: ['./hamburguer-button.component.scss']
+  styleUrls: ['./hamburguer-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HamburguerButtonComponent extends Togglable {
-
+export class HamburguerButtonComponent {
   static TRANSITION_DURATION = .25;
 
+  private activated: boolean;
   @ViewChild('midLine') private _middleLine: ElementRef<SVGLineElement>;
   @ViewChild('cuttedLine') private _topLine: ElementRef<SVGLineElement>;
 
@@ -29,9 +39,15 @@ export class HamburguerButtonComponent extends Togglable {
     return this._middleLine?.nativeElement;
   }
 
-  @Input() set open(value: boolean) {
-    super.checked = value;
-    this.toggle();
+  /**
+   * Sets the active state for button
+   *
+   * The button has a activated state which means a close icon is showed in
+   * counterpart a hamburger icon appers is it is inactive
+   */
+  @Input() set active(value: boolean) {
+    this.activated = value;
+    this.activated ? this.openAnimation() : this.closeAnimation();
   }
 
   /**
@@ -85,9 +101,5 @@ export class HamburguerButtonComponent extends Togglable {
         },
         ease: Bounce.easeOut
     });
-  }
-
-  toggle() {
-    this.checked ? this.openAnimation() : this.closeAnimation();
   }
 }

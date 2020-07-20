@@ -11,7 +11,7 @@
                   [storeSidenavTrigger]="menu"
                   (toggled)="showSidenav = $event.checked"
                   #trigger="storeNavTrigger">
-        <store-hamburguer-button>
+        <store-hamburguer-button [active]="showSidenav">
         </store-hamburguer-button>
       </store-icon>
     </store-header-container>
