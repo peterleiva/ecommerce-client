@@ -67,3 +67,8 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * @see https://github.com/ghidoz/angular2-jsonapi#Introduction
  */
 import 'core-js/proposals/reflect-metadata';
+
+/**
+ * Import hammer.js for gesture recognition
+ */
+import 'hammerjs';

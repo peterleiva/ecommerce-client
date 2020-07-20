@@ -1,4 +1,3 @@
-import { HammerModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
@@ -7,8 +6,8 @@ import { LayoutModule } from '../layout/layout.module';
 import { ProductsModule } from '../products/products.module';
 import { CoreComponent } from './core.component';
 import { AppContainerComponent } from './app-container/app-container.component';
-
-import 'hammerjs';
+import { CommonModule } from '@angular/common';
+import { HammerModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -16,11 +15,12 @@ import 'hammerjs';
     AppContainerComponent
   ],
   imports: [
+    CommonModule,
+    HammerModule,
     SharedModule,
     CoreRoutingModule,
     LayoutModule,
-    ProductsModule,
-    HammerModule
+    ProductsModule
   ],
   exports: [],
   providers: []
