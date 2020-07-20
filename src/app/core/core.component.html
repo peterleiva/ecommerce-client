@@ -3,7 +3,7 @@
 
 <store-app-container id="app" #menu="storeMenu"
                      (swipeleft)="closeSidenav()"
-                     (tap)="showSidenav && closeSidenav()">
+                     (tap)="$event.tapCount === 2 && closeSidenav()">
   <store-header>
     <store-header-container>
       <store-icon labelPosition="right"
