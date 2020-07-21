@@ -37,7 +37,7 @@ a {
 
   @media(hover: hover) {
     &:hover {
-      background-color: $active-color;
+      background-color: var(--gray-1);
       box-shadow: $active-shadow;
     }
   }

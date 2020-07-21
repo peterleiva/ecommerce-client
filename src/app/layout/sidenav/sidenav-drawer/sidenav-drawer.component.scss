@@ -8,14 +8,17 @@ $nav-width: rem(breakpoints('chihuahua') - $touchable-area * 2);
     ellipse 
     clamp(300px * 1.5, 90vw, 120vw) 70vh at
     clamp(320px, 60vw, 110vw) 50vh,
-    hsl(204, 55%, 83%) 19%,
     hsl(175, 56%, 56%) 20%,
     hsl(145, 56%, 56%) 40%,
     hsl(145, 56%, 44%) 80%,
-    hsl(205, 12%, 42%) 105%
+    hsl(205, 12%, 42%) 100%
   );
 
-  background: var(--gradient-background-1);
+  background: url(#{$assets-path}/folha.svg) no-repeat, var(--gradient-background-1);
+  background-position: -240px 80%, 0 0;
+  background-size: 111vh, auto;
+  background-blend-mode: exclusion;
+
 }
 
 .sidenav {
