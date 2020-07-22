@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { JsonApiModule } from 'angular2-jsonapi';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import { CollapsibleDirective } from './directives/collapsible.directive';
 import { PageEntriesInfoComponent } from './pagination/page-entries-info/page-entries-info.component';
@@ -13,7 +13,7 @@ import { TabSectionDirective } from './tab/tab-section/tab-section.directive';
 import { TabContainerComponent } from './tab/tab-container/tab-container.component';
 import { TabTriggerDirective } from './tab/tab-trigger.directive';
 import { TogglableModule } from './togglable/togglable.module';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { DropMenuModule } from './drop-menu/drop-menu.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
     IconComponent,
     TabSectionDirective,
     TabContainerComponent,
-    TabTriggerDirective,
+    TabTriggerDirective
   ],
   imports: [
     RouterModule,
@@ -44,7 +44,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
     // TabSectionDirective,
     // TabContainerComponent,
     TabTriggerDirective,
-    TogglableModule
+    TogglableModule,
+    DropMenuModule
   ]
 })
 export class SharedModule {
